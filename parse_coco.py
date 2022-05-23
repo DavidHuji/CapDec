@@ -46,10 +46,10 @@ def main(clip_model_type: str):
         all_captions.append(d)
         if (i + 1) % 10000 == 0:
             with open(out_path, 'wb') as f:
-                pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'text_embedding': torch.cat(all_text_embeddings, dim=0)}, f)
+                pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'clip_embedding_text_dave': torch.cat(all_text_embeddings, dim=0)}, f)
 
     with open(out_path, 'wb') as f:
-        pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'text_embedding': torch.cat(all_text_embeddings, dim=0)}, f)
+        pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'clip_embedding_text_dave': torch.cat(all_text_embeddings, dim=0)}, f)
 
     print('Done')
     print("%0d embeddings saved " % len(all_embeddings))
