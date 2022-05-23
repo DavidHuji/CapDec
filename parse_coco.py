@@ -19,6 +19,7 @@ def main(clip_model_type: str):
     out_path = f"./data/coco/oscar_split_{clip_model_name}_train.pkl"
     if add_text_embedding:
         out_path = f"./data/coco/oscar_split_{clip_model_name}_train_with_text_embeddings.pkl"
+        print(f'Text embeddings will be added to the dataset')
     clip_model, preprocess = clip.load(clip_model_type, device=device, jit=False)
     with open('./data/coco/annotations/train_caption.json', 'r') as f:
         data = json.load(f)
