@@ -8,6 +8,10 @@ import os
 from tqdm import tqdm
 import argparse
 
+# dave conf
+# ~~~~~~~~~
+add_text_embedding = True
+
 
 def main(clip_model_type: str):
     device = torch.device('cuda:0')
@@ -19,6 +23,7 @@ def main(clip_model_type: str):
     print("%0d captions loaded from json " % len(data))
     all_embeddings = []
     all_captions = []
+    all_text_embeddings = []
     for i in tqdm(range(len(data))):
         d = data[i]
         img_id = d["image_id"]
@@ -29,15 +34,22 @@ def main(clip_model_type: str):
         image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
         with torch.no_grad():
             prefix = clip_model.encode_image(image).cpu()
+            if add_text_embedding:
+                caption = d["caption"]
+                caption_tokens = clip.tokenize(caption).to(device)
+                caption_embedding = clip_model.encode_text(caption_tokens).cpu()
+                caption_embedding /= torch.norm(caption_embedding, keepdim=True)
         d["clip_embedding"] = i
         all_embeddings.append(prefix)
+        if add_text_embedding:
+            all_text_embeddings.append(caption_embedding)
         all_captions.append(d)
         if (i + 1) % 10000 == 0:
             with open(out_path, 'wb') as f:
-                pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions}, f)
+                pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'text_embedding': torch.cat(all_text_embeddings, dim=0)}, f)
 
     with open(out_path, 'wb') as f:
-        pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions}, f)
+        pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'text_embedding': torch.cat(all_text_embeddings, dim=0)}, f)
 
     print('Done')
     print("%0d embeddings saved " % len(all_embeddings))
