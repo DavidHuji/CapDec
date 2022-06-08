@@ -23,6 +23,7 @@ from typing import Tuple, Optional, Union
 from parse_coco import add_text_embedding, train_with_noise_data_augmentation
 from PIL import Image
 import clip
+from gpt2_prefix_eval import generate_beam, generate2, imshow, get_prefix_tokens
 from gpt2_prefix_e2e import ClipCaptionE2E
 
 
