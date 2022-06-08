@@ -6,11 +6,12 @@ import pickle
 import json
 import os
 from tqdm import tqdm
-import argparse
+import argparse, math
 
 # dave conf
 # ~~~~~~~~~
 add_text_embedding = True
+train_with_noise_data_augmentation = True
 
 
 def main(clip_model_type: str):

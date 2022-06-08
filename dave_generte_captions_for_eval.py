@@ -1,3 +1,11 @@
+
+# args
+path_to_data_imgs_train = ''
+path_to_data_captions_train = ''
+
+path_to_data_imgs_val = ''
+path_to_data_captions_val = ''
+
 import torch
 import torch.nn as nn
 from torch.nn import functional as nnf
@@ -353,9 +361,6 @@ def main():
     parser.add_argument('--data', default='./data/coco/oscar_split_train.pkl')
     parser.add_argument('--out_dir', default='./checkpoints')
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
-    parser.add_argument('--noise_aug_variance', type=float, default=1/1000)
-    parser.add_argument('--epochs', type=int, default=10)
-    parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--prefix_length_clip', type=int, default=10)
     parser.add_argument('--bs', type=int, default=40)
