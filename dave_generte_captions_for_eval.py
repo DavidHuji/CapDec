@@ -6,6 +6,7 @@ path_to_data_captions_train = ''
 path_to_data_imgs_val = ''
 path_to_data_captions_val = ''
 
+from custom_types import *
 import torch
 import torch.nn as nn
 from torch.nn import functional as nnf
@@ -20,6 +21,10 @@ import argparse
 import json, math
 from typing import Tuple, Optional, Union
 from parse_coco import add_text_embedding, train_with_noise_data_augmentation
+from PIL import Image
+import clip
+from gpt2_prefix_e2e import ClipCaptionE2E
+
 
 device = torch.device('cuda:0')
 
@@ -308,7 +313,67 @@ def load_model(config_path: str, epoch_or_latest: Union[str, int] = '_latest'):
     return model, parser
 
 
-def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
+def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
+    device = CUDA(0)
+    model = model.to(device) #FIXME
+    model.eval() #FIXME
+    if args.is_rn:
+        clip_model, preprocess = clip.load("RN50x4", device=device, jit=False)
+        normalize = True
+        args.beam = True
+    else:
+        clip_model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
+        normalize = False
+    # preprocess = clip_transform_full()
+    #prefix_length = 10
+
+    images_root = "/home/dcor/datasets/COCO/val2014"
+    if not os.path.isdir(images_root):
+        images_root = "./data/coco/val2014"
+    embeddings = model.gpt.get_input_embeddings().weight.data
+    embeddings = nnf.normalize(embeddings, 2, 1)
+    for ii, d in enumerate(data):
+        #print(ii)
+        #if ii > 20:
+        #    break
+
+        img_id = d["image_id"]
+        filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
+        #print(filename)
+
+        image_raw = Image.open(filename).convert("RGB")
+        image = preprocess(image_raw).unsqueeze(0).to(device)
+        with torch.no_grad():
+            if type(model) is ClipCaptionE2E:
+                prefix_embed = model.forward_image(image)
+            else:
+                prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
+                if normalize:
+                    prefix = prefix / prefix.norm(2, -1)
+                prefix_embed = model.clip_project(prefix).reshape(1, args.prefix_length, -1)
+        if args.beam:
+            generated_text_prefix = generate_beam(model, tokenizer, embed=prefix_embed)[0]
+        else:
+            generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
+
+        print(img_id)
+        print(generated_text_prefix.lower())
+        print(d["caption"])
+        if DEBUG:
+            prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
+            imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
+
+        d["caption"] = generated_text_prefix.lower()
+
+    #sys.exit()
+    with open(out_path, 'w') as outfile:
+        json.dump(data, outfile)
+    print("JSON is dumped")
+
+    return 0
+
+
+def regular_train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
           lr: float = 2e-5, warmup_steps: int = 5000, output_dir: str = ".", output_prefix: str = ""):
 
     device = torch.device('cuda:0')
@@ -322,7 +387,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
 
     # save_config(args)
     for epoch in range(epochs):
-        print(f">>> Training epoch {epoch}")
+        print(f">>> calc predictions")
         sys.stdout.flush()
         progress = tqdm(total=len(train_dataloader), desc=output_prefix)
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
