@@ -313,16 +313,13 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
 
     device = torch.device('cuda:0')
     batch_size = args.bs
-    epochs = args.epochs
+    epochs = 1  # todo only single epoch for evaluation
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     model = model.to(device)
-    model.train()
-    optimizer = AdamW(model.parameters(), lr=lr)
+    model.eval()
     train_dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, drop_last=True)
-    scheduler = get_linear_schedule_with_warmup(
-        optimizer, num_warmup_steps=warmup_steps, num_training_steps=epochs * len(train_dataloader)
-    )
+
     # save_config(args)
     for epoch in range(epochs):
         print(f">>> Training epoch {epoch}")
@@ -331,15 +328,9 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
-
-            prefix = noise_augmentation(prefix, args.noise_aug_variance)
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
             loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
-            loss.backward()
-            optimizer.step()
-            scheduler.step()
-            optimizer.zero_grad()
             progress.set_postfix({"loss": loss.item()})
             progress.update()
             if (idx + 1) % 10000 == 0:
