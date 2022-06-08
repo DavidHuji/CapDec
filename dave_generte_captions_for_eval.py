@@ -440,7 +440,8 @@ def main():
                                   num_layers=args.num_layers, mapping_type=args.mapping_type)
         print("Train both prefix and GPT")
         sys.stdout.flush()
-    train(dataset, model, args, output_dir=args.out_dir, output_prefix=args.prefix)
+    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    train(dataset, model, tokenizer, args=args)
 
 
 if __name__ == '__main__':
