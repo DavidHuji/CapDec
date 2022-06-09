@@ -44,6 +44,9 @@ def clip_transform_full(n_px=224):
         transforms.Normalize((0.48145466, 0.4578275, 0.40821073), (0.26862954, 0.26130258, 0.27577711)),
     ])
 
+    
+import os.path
+
 
 def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     device = CUDA(0)
@@ -62,17 +65,22 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     images_root = "/home/dcor/datasets/COCO/val2014"
     if not os.path.isdir(images_root):
         images_root = "./data/coco/val2014"
+    images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
     embeddings = model.gpt.get_input_embeddings().weight.data
     embeddings = nnf.normalize(embeddings, 2, 1)
+    skips = 0
     for ii, d in enumerate(data):
         #print(ii)
-        #if ii > 20:
-        #    break
+        if ii > 20:
+            break
 
         img_id = d["image_id"]
         filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
-        #print(filename)
-
+        #print(filename) 
+        if not os.path.isfile(filename):
+            skips+=1
+            print('skips=',skips)
+            continue
         image_raw = Image.open(filename).convert("RGB")
         image = preprocess(image_raw).unsqueeze(0).to(device)
         with torch.no_grad():
@@ -123,7 +131,7 @@ def main():
         images_root = "./data/coco/val2014"
     with open(f'data/coco/annotations/train_caption.json', 'r') as f:
         data = json.load(f)
-
+    root_dir = './'
     print('loaded data')
     print(type(data))
     print(len(data))

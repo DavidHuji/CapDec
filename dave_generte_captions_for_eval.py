@@ -37,10 +37,10 @@ def noise_augmentation(x, variance=0.001):
     x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))
     return torch.nn.functional.normalize(x, dim=1)
 
-
 class MappingType(Enum):
     MLP = 'mlp'
-    Transformer = 'transformer'
+    TransformerEncoder = 'transformer_encoder'
+    TransformerDecoder = 'transformer_decoder'
 
 
 class ClipCocoDataset(Dataset):
@@ -456,7 +456,7 @@ def main():
     #     data = json.load(f)
     root_dir = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption'
     with open(f'data/coco/annotations/train_caption.json', 'r') as f:
-        data = json.load(f)['annotations']
+        data = json.load(f)
     print('loaded data')
     print(type(data))
     print(len(data))
