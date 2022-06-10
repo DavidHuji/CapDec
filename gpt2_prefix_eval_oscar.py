@@ -70,6 +70,7 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
     new_data = []
+    results = []
     for ii, d in enumerate(data):
         #print(ii)
         if ii-skips > 20:
@@ -79,8 +80,8 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
         filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
         #print(filename) 
         if not os.path.isfile(filename):
-            skips+=1
-            print('skips=', skips)
+            skips += 1
+            print('skips=', skips, " filename=", filename)
             continue
         image_raw = Image.open(filename).convert("RGB")
         image = preprocess(image_raw).unsqueeze(0).to(device)
@@ -97,9 +98,10 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
         else:
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
 
-        print(img_id)
-        print(generated_text_prefix.lower())
-        print(d["caption"])
+        results.append((img_id, d["caption"], generated_text_prefix.lower()))
+        if ii % 19 == 0:
+            print(results)
+            results.clear()
         if DEBUG:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
@@ -164,6 +166,7 @@ def main():
         #     continue
         # model = ClipCaptionE2E()
         args.is_rn = 'rn' in args.checkpoint
+        args.is_rn = True
         prefix_dim = [512, 640][args.is_rn]
         mapping_type = {'mlp': MappingType.MLP, 'transformer_encoder': MappingType.TransformerEncoder,
                         'transformer_decoder': MappingType.TransformerDecoder}[args.mapping_type]
