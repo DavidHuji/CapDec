@@ -135,7 +135,7 @@ def main():
     # with open(f'data/coco/annotations/train_caption.json', 'r') as f:
     #     data = json.load(f)
     with open(f'data/coco/annotations/new_annotations/captions_val2014.json', 'r') as f:
-        data = json.load(f)
+        data = json.load(f)['annotations']
     root_dir = './'
     print('loaded data')
     print(type(data))
