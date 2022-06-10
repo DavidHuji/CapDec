@@ -69,9 +69,10 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     embeddings = model.gpt.get_input_embeddings().weight.data
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
+    new_data = {}
     for ii, d in enumerate(data):
         #print(ii)
-        if ii > 20:
+        if ii-skips > 20:
             break
 
         img_id = d["image_id"]
@@ -104,10 +105,12 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
 
         d["caption"] = generated_text_prefix.lower()
+        new_data.append(d.copy())
+
 
     #sys.exit()
     with open(out_path, 'w') as outfile:
-        json.dump(data, outfile)
+        json.dump(new_data, outfile)
     print("JSON is dumped")
 
     return 0
@@ -129,7 +132,9 @@ def main():
     images_root = "./data/coco/train2014"
     if not os.path.isdir(images_root):
         images_root = "./data/coco/val2014"
-    with open(f'data/coco/annotations/train_caption.json', 'r') as f:
+    # with open(f'data/coco/annotations/train_caption.json', 'r') as f:
+    #     data = json.load(f)
+    with open(f'data/coco/annotations/new_annotations/captions_val2014.json', 'r') as f:
         data = json.load(f)
     root_dir = './'
     print('loaded data')
