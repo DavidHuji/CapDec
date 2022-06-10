@@ -99,7 +99,7 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
 
         results.append((img_id, d["caption"], generated_text_prefix.lower()))
-        if ii % 19 == 0:
+        if ii % 99 == 0:
             print(results)
             results.clear()
         if DEBUG:
@@ -107,7 +107,7 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
 
         d["caption"] = generated_text_prefix.lower()
-        new_data.append(d.copy())
+        new_data.append({"caption": generated_text_prefix.lower(), "image_id": d["image_id"]})
 
 
     #sys.exit()
