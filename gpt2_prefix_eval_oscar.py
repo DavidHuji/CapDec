@@ -69,7 +69,7 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     embeddings = model.gpt.get_input_embeddings().weight.data
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
-    new_data = {}
+    new_data = []
     for ii, d in enumerate(data):
         #print(ii)
         if ii-skips > 20:
