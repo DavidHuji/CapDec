@@ -80,7 +80,7 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
         #print(filename) 
         if not os.path.isfile(filename):
             skips+=1
-            print('skips=',skips)
+            print('skips=', skips)
             continue
         image_raw = Image.open(filename).convert("RGB")
         image = preprocess(image_raw).unsqueeze(0).to(device)
@@ -111,7 +111,7 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     #sys.exit()
     with open(out_path, 'w') as outfile:
         json.dump(new_data, outfile)
-    print("JSON is dumped")
+    print("JSON is dumped", " skipped=", skips)
 
     return 0
 
