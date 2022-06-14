@@ -73,8 +73,8 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     results = []
     for ii, d in enumerate(data):
         #print(ii)
-        if ii-skips > 20:
-            break
+        #if ii-skips > 200:
+         #   break
 
         img_id = d["image_id"]
         filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
@@ -99,9 +99,12 @@ def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
 
         results.append((img_id, d["caption"], generated_text_prefix.lower()))
-        if ii % 19 == 0:
-            print(results)
+        if ii % 1999 == 0:
+            print('\n\n', ii, results)
             results.clear()
+            print('\n\n', ii)
+            with open(out_path, 'w') as outfile:
+                json.dump(new_data, outfile)
         if DEBUG:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
