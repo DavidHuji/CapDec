@@ -145,7 +145,7 @@ def main():
     clean_data_of_train_list = True
     if clean_data_of_train_list:
         train_list_img_ids = {}
-        pt_train_list = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/annotations/train_caption_of_real_training.json'
+        pt_train_list = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/annotations/train_caption.json'
         with open(pt_train_list) as f:
             train_data = json.load(f)
         for d in train_data:
