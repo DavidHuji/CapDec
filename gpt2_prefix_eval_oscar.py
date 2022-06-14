@@ -50,8 +50,8 @@ import os.path
 
 def train(data, model: ClipCaptionModel, out_path, tokenizer, args=None):
     device = CUDA(0)
-    model = model.to(device) #FIXME
-    model.eval() #FIXME
+    model = model.to(device)
+    model.eval()
     if args.is_rn:
         clip_model, preprocess = clip.load("RN50x4", device=device, jit=False)
         normalize = True
@@ -138,6 +138,22 @@ def main():
     #     data = json.load(f)
     with open(f'data/coco/annotations/new_annotations/captions_val2014.json', 'r') as f:
         data = json.load(f)['annotations']
+
+    clean_data_of_train_list = True
+    if clean_data_of_train_list:
+        train_list_img_ids = {}
+        pt_train_list = './annotations/train_caption_of_real_training.json'
+        with open(pt_train_list) as f:
+            train_data = json.load(f)
+        for d in train_data:
+            train_list_img_ids[int(d['image_id'])] = 1
+        i = 0
+        for d in data:
+            if int(d['image_id']) in train_list_img_ids:
+                data.remove(d)
+                i+=1
+        print(f'\n{i} images removed from val data since they were in train data, the remaining data size is {len(data)}\n')
+
     root_dir = './'
     print('loaded data')
     print(type(data))
