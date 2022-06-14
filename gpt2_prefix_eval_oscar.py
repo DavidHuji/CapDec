@@ -139,7 +139,7 @@ def main():
         images_root = "./data/coco/val2014"
     # with open(f'data/coco/annotations/train_caption.json', 'r') as f:
     #     data = json.load(f)
-    with open(f'data/coco/annotations/new_annotations/captions_val2014.json', 'r') as f:
+    with open(f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/annotations/new_annotations/captions_val2014.json', 'r') as f:
         data = json.load(f)['annotations']
 
     clean_data_of_train_list = True
