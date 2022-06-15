@@ -65,9 +65,12 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
                 prefix = torch.tensor([])
             if add_text_embedding:
                 caption = d["caption"]
-                if len(caption) > 76:
+                try:  # if caption is too long
+                    caption_tokens = clip.tokenize(caption).to(device)
+                except:
+                    caption_tokens = clip.tokenize(caption[100]).to(device)
                     long_caps += 1
-                caption_tokens = clip.tokenize(caption[:77]).to(device)
+                    print(f'Long captions: {long_caps} long caption: {caption}')
                 caption_embedding = clip_model.encode_text(caption_tokens).cpu()
                 caption_embedding /= torch.norm(caption_embedding, keepdim=True)
         d["clip_embedding"] = i
