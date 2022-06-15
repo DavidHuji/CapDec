@@ -54,7 +54,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
     for i in tqdm(range(len(data))):
         d = data[i]
         img_id = d["image_id"]
-        filename = images_path + d['filename'] + '.jpg'
+        filename = images_path + d['filename']
         image = io.imread(filename)
         image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
         with torch.no_grad():
