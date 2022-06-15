@@ -51,6 +51,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
     all_embeddings = []
     all_captions = []
     all_text_embeddings = []
+    long_caps = 0 
     for i in tqdm(range(len(data))):
         d = data[i]
         img_id = d["image_id"]
@@ -64,7 +65,9 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
                 prefix = torch.tensor([])
             if add_text_embedding:
                 caption = d["caption"]
-                caption_tokens = clip.tokenize(caption).to(device)
+                if len(caption) > 76:
+                    long_caps += 1
+                caption_tokens = clip.tokenize(caption[:77]).to(device)
                 caption_embedding = clip_model.encode_text(caption_tokens).cpu()
                 caption_embedding /= torch.norm(caption_embedding, keepdim=True)
         d["clip_embedding"] = i
@@ -80,6 +83,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
         pickle.dump({"clip_embedding": torch.cat(all_embeddings, dim=0), "captions": all_captions, 'clip_embedding_text_dave': torch.cat(all_text_embeddings, dim=0)}, f)
 
     print('Done')
+    print(f'long_caps bigger then 76 amount was = {long_caps}')
     print("%0d embeddings saved " % len(all_embeddings))
     return 0
 
