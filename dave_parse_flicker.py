@@ -58,7 +58,10 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
         image = io.imread(filename)
         image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
         with torch.no_grad():
-            prefix = clip_model.encode_image(image).cpu()
+            if not add_text_embedding:
+                prefix = clip_model.encode_image(image).cpu()
+            else:
+                prefix = torch.tensor([])
             if add_text_embedding:
                 caption = d["caption"]
                 caption_tokens = clip.tokenize(caption).to(device)
