@@ -65,7 +65,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     if data_mode == 0:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
     else:
-        images_root = '/home/gamir/DER-Roei/davidn/flicker30/flicker30k_images'
+        images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
     embeddings = model.gpt.get_input_embeddings().weight.data
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
@@ -130,7 +130,7 @@ def load_data(dataset_mode):
             data = json.load(f)['annotations']
     elif dataset_mode == 1:
         with open(
-                f'/home/gamir/DER-Roei/davidn/dataset_flickr30k_correct_format.jsonvalidation',
+                f'/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsonvalidation',
                 'r') as f:
             data = json.load(f)
 
