@@ -94,15 +94,38 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
 def run_main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip_model_type', default="ViT-B/32", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
+    parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for NOTHING!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
-    out_path = f"./data/flicker30_{clip_model_name}_train.pkl"
-    if add_text_embedding:
-        out_path = f"./data/flicker30_{clip_model_name}_train_with_text_embeddings.pkl"
-        print(f'Text embeddings will be added to the dataset')
+    if args.dataset_mode == 1:
+        out_path = f"./data/flicker30_{clip_model_name}_train.pkl"
+        if add_text_embedding:
+            out_path = f"./data/flicker30_{clip_model_name}_train_with_text_embeddings.pkl"
+            print(f'Text embeddings will be added to the dataset')
+        annotations_path = f"/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsontrain"
+        images_path = f"/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images/"
+    elif args.dataset_mode == 2:
+        out_path = f"./data/styleHumor_{clip_model_name}_train.pkl"
+        if add_text_embedding:
+            out_path = f"./data/styleHumor_{clip_model_name}_train_with_text_embeddings.pkl"
+            print(f'Text embeddings will be added to the dataset')
+        annotations_path = f"/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/humor_train.json"
+        images_path = f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
 
-    annotations_path = f"/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsontrain"
-    images_path = f"/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images/"
+    elif args.dataset_mode == 3:
+        out_path = f"./data/styleRoman_{clip_model_name}_train.pkl"
+        if add_text_embedding:
+            out_path = f"./data/styleRoman_{clip_model_name}_train_with_text_embeddings.pkl"
+            print(f'Text embeddings will be added to the dataset')
+        annotations_path = f"/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/roman_train.json"
+        images_path = f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
+    elif args.dataset_mode == 4:
+        out_path = f"./data/styleFactual_{clip_model_name}_train.pkl"
+        if add_text_embedding:
+            out_path = f"./data/styleFactual_{clip_model_name}_train_with_text_embeddings.pkl"
+            print(f'Text embeddings will be added to the dataset')
+        annotations_path = f"/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/factual_train.json"
+        images_path = f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
 
     exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path))
 

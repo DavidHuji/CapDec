@@ -64,8 +64,13 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
 
     if data_mode == 0:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
-    else:
+    elif data_mode == 1:
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
+    elif data_mode == 2 or data_mode == 3 or data_mode == 4:
+        images_root = '/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
+    else:
+        print("Wrong data mode")
+        exit(3)
     embeddings = model.gpt.get_input_embeddings().weight.data
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
@@ -76,7 +81,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         img_id = d["image_id"]
         if data_mode == 0:
             filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
-        elif data_mode == 1:
+        elif data_mode == 1 or data_mode == 4 or data_mode == 2 or data_mode == 3:
             filename = d["filename"]
             filename = f'{images_root}/{filename}'
         #print(filename)
@@ -133,6 +138,21 @@ def load_data(dataset_mode):
                 f'/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsonvalidation',
                 'r') as f:
             data = json.load(f)
+    elif dataset_mode == 2:
+        with open(
+                f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/humor_test.json',
+                'r') as f:
+            data = json.load(f)
+    elif dataset_mode == 3:
+        with open(
+                f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/roman_test.json',
+                'r') as f:
+            data = json.load(f)
+    elif dataset_mode == 4:
+        with open(
+                f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/factual_test.json',
+                'r') as f:
+            data = json.load(f)
 
     clean_data_of_train_list = True and (dataset_mode == 0)  # only for coco
     if clean_data_of_train_list:
@@ -176,7 +196,7 @@ def main():
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30
+    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
     parser.add_argument('--prefix_length_clip', type=int, default=10)
     parser.add_argument('--mapping_type', type=str, default='transformer_encoder',
                         help='mlp/transformer_encoder/transformer_decoder')
