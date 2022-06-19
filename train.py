@@ -317,7 +317,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
     )
     # save_config(args)
     for epoch in range(epochs):
-        print(f">>> Training epoch {epoch}")
+        print(f">>> Training epoch {epoch} / {epochs}")
         sys.stdout.flush()
         progress = tqdm(total=len(train_dataloader), desc=output_prefix)
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
@@ -351,6 +351,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', default='./data/coco/oscar_split_train.pkl')
+    parser.add_argument('--pretrain_weights', default='')
     parser.add_argument('--out_dir', default='./checkpoints')
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
     parser.add_argument('--noise_aug_variance', type=float, default=0.0)
@@ -378,6 +379,8 @@ def main():
                                   num_layers=args.num_layers, mapping_type=args.mapping_type)
         print("Train both prefix and GPT")
         sys.stdout.flush()
+    if args.pretrain_weights != '':
+        model.load_state_dict(torch.load(args.pretrain_weights, map_location=device))
     train(dataset, model, args, output_dir=args.out_dir, output_prefix=args.prefix)
 
 
