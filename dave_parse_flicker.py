@@ -93,7 +93,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
 
 def run_main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--clip_model_type', default="ViT-B/32", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
+    parser.add_argument('--clip_model_type', default="RN50x4", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
     parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for NOTHING!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
