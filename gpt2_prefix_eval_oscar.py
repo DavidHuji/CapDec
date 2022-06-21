@@ -103,7 +103,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                 if args.text_autoencoder:
                     # in this case thew image is actually text input
                     caption_tokens = clip.tokenize(d['caption']).to(device)
-                    prefix = clip_model.encode_text(caption_tokens)
+                    prefix = clip_model.encode_text(caption_tokens).float()
                     prefix /= torch.norm(prefix, keepdim=True)
                 else:
                     prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
