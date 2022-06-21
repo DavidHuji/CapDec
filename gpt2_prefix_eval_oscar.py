@@ -68,7 +68,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
     elif data_mode == 2 or data_mode == 3 or data_mode == 4:
         images_root = '/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
-    else:
+    elif data_mode != 5:
         print("Wrong data mode")
         exit(3)
     embeddings = model.gpt.get_input_embeddings().weight.data
