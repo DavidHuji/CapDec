@@ -115,7 +115,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
 
         results.append((img_id, d["caption"], generated_text_prefix.lower()))
-        if ii % 1999 == 0:
+        if ii % 99 == 0:
             print('\n\n', ii, results)
             results.clear()
             print('\n\n', ii)
