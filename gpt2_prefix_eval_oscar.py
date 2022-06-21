@@ -84,18 +84,28 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         elif data_mode == 1 or data_mode == 4 or data_mode == 2 or data_mode == 3:
             filename = d["filename"]
             filename = f'{images_root}/{filename}'
+        elif data_mode == 5:
+            filename = 'no need for filename, yay!!1'
+
         #print(filename)
-        if not os.path.isfile(filename):
+        if not os.path.isfile(filename) and data_mode != 5:
             skips += 1
             print('skips=', skips, " filename=", filename)
             continue
-        image_raw = Image.open(filename).convert("RGB")
-        image = preprocess(image_raw).unsqueeze(0).to(device)
+        if data_mode != 5:
+            image_raw = Image.open(filename).convert("RGB")
+            image = preprocess(image_raw).unsqueeze(0).to(device)
         with torch.no_grad():
             if type(model) is ClipCaptionE2E:
                 prefix_embed = model.forward_image(image)
             else:
-                prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
+                if args.text_autoencoder:
+                    # in this case thew image is actually text input
+                    caption_tokens = clip.tokenize(image).to(device)
+                    prefix = clip_model.encode_text(caption_tokens, dtype=torch.float32).cpu()
+                    prefix /= torch.norm(prefix, keepdim=True)
+                else:
+                    prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
                 if normalize:
                     prefix = prefix / prefix.norm(2, -1)
                 prefix_embed = model.clip_project(prefix).reshape(1, args.prefix_length, -1)
@@ -153,8 +163,16 @@ def load_data(dataset_mode):
                 f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/factual_test.json',
                 'r') as f:
             data = json.load(f)
+    elif dataset_mode == 5:
+        with open(
+                f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/val.json',
+                'r') as f:
+            data = json.load(f)
+    else:
+        print("Wrong dataset mode")
+        exit(3)
 
-    clean_data_of_train_list = True and (dataset_mode == 0)  # only for coco
+    clean_data_of_train_list = False and (dataset_mode == 0)  # only for coco
     if clean_data_of_train_list:
         train_list_img_ids = {}
         pt_train_list = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/annotations/train_caption.json'
@@ -194,6 +212,7 @@ def main():
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_false')
     parser.add_argument('--beam', dest='beam', action='store_false')
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
+    parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_false')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
@@ -201,6 +220,8 @@ def main():
     parser.add_argument('--mapping_type', type=str, default='transformer_encoder',
                         help='mlp/transformer_encoder/transformer_decoder')
     args = parser.parse_args()
+    if args.text_autoencoder:
+        args.dataset_mode = 5
     data = load_data(dataset_mode=args.dataset_mode)
 
     name = args.checkpoint.split("/")[-1].split(".")[0] + ("_beam" if args.beam else "_max")
