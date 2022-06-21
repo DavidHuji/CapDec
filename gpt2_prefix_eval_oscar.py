@@ -75,6 +75,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
     new_data = []
+    prefix_for_distance_ablation_metric = {}
     results = []
     for ii, d in enumerate(data):
 
@@ -113,8 +114,11 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             generated_text_prefix = generate_beam(model, tokenizer, embed=prefix_embed)[0]
         else:
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
-
-        results.append((img_id, d["caption"], generated_text_prefix.lower()))
+        if args.ablation_dist:
+            if d['image_id'] not in prefix_for_distance_ablation_metric:
+                prefix_for_distance_ablation_metric[d['image_id']] = [prefix_embed.cpu().numpy().reshape(-1)]
+            else:
+                prefix_for_distance_ablation_metric[d['image_id']].append(prefix_embed.cpu().numpy().reshape(-1))
         if ii % 99 == 0:
             print('\n\n', ii, results)
             results.clear()
@@ -134,6 +138,18 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         json.dump(new_data, outfile)
     print("JSON is dumped", " skipped=", skips)
 
+    if args.ablation_dist:
+        # calculate the distance between the 5 prefixes
+        distances, data_size = [], 0
+        for img_id in prefix_for_distance_ablation_metric:
+            data_size += 1
+            dist, combs = 0.0, 0
+            for i in range(len(prefix_for_distance_ablation_metric[img_id])):
+                for j in range(i+1, len(prefix_for_distance_ablation_metric[img_id])):
+                    dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] - prefix_for_distance_ablation_metric[img_id][j])
+                    combs += 1
+            distances.append(dist / combs)
+        print(f"\n\n\n Average L2 between 5 annotations of same image: {distances.mean()}, STD: {distances.std()}\n\n\n")
     return 0
 
 
@@ -213,6 +229,7 @@ def main():
     parser.add_argument('--beam', dest='beam', action='store_false')
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_false')
+    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_false')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
