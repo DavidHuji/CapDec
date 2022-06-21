@@ -363,7 +363,7 @@ def main():
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_true')
     parser.add_argument('--mapping_type', type=str, default='mlp', help='mlp/transformer')
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--is_rn', dest='is_rn', action='store_true')
+    parser.add_argument('--is_rn', dest='is_rn', action='store_false')
     parser.add_argument('--normalize_prefix', dest='normalize_prefix', action='store_true')
     args = parser.parse_args()
     prefix_length = args.prefix_length

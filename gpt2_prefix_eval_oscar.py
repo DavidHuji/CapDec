@@ -229,7 +229,7 @@ def main():
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_false')
     parser.add_argument('--beam', dest='beam', action='store_false')
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
-    parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_false')
+    parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true')
     parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_false')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
