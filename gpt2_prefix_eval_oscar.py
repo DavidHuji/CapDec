@@ -114,6 +114,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             generated_text_prefix = generate_beam(model, tokenizer, embed=prefix_embed)[0]
         else:
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
+        results.append((img_id, d["caption"], generated_text_prefix.lower()))
         if args.ablation_dist:
             if d['image_id'] not in prefix_for_distance_ablation_metric:
                 prefix_for_distance_ablation_metric[d['image_id']] = [prefix_embed.cpu().numpy().reshape(-1)]
