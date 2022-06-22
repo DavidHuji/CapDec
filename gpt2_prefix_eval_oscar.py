@@ -126,6 +126,21 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             print('\n\n', ii)
             with open(out_path, 'w') as outfile:
                 json.dump(new_data, outfile)
+
+            if args.ablation_dist:
+                # calculate the distance between the 5 prefixes
+                distances, data_size = [], 0
+                for img_id in prefix_for_distance_ablation_metric:
+                    data_size += 1
+                    dist, combs = 0.0, 0
+                    for i in range(len(prefix_for_distance_ablation_metric[img_id])):
+                        for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
+                            dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] -
+                                                   prefix_for_distance_ablation_metric[img_id][j])
+                            combs += 1
+                    distances.append(dist / combs)
+                print(
+                    f"\n\n\n Average L2 between 5 annotations of same image: {distances.mean()}, STD: {distances.std()}\n\n\n")
         if DEBUG:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
@@ -230,7 +245,7 @@ def main():
     parser.add_argument('--beam', dest='beam', action='store_false')
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true')
-    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_false')
+    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
