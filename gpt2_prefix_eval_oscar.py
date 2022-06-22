@@ -132,14 +132,15 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                 distances, data_size = [], 0
                 for img_id in prefix_for_distance_ablation_metric:
                     data_size += 1
-                    dist, combs = 0.0, 0
+                    dist, combs, shape_pref = 0.0, 0, 0
                     for i in range(len(prefix_for_distance_ablation_metric[img_id])):
                         for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
                             dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] -
-                                                   prefix_for_distance_ablation_metric[img_id][j])
+                                                   prefix_for_distance_ablation_metric[img_id][j], ord=1)
+                            shape_pref = prefix_for_distance_ablation_metric[img_id][i]
                             combs += 1
                     if combs > 1:
-                        distances.append(dist / combs)
+                        distances.append(dist / (shape_pref * combs))
                 print(
                     f"\n\n\n Average L2 between 5 annotations of same image: {np.array(distances).mean()}, STD: {np.array(distances).std()}\n\n\n")
         if DEBUG and not args.ablation_dist:
