@@ -117,9 +117,9 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         results.append((img_id, d["caption"], generated_text_prefix.lower()))
         if args.ablation_dist:
             if d['image_id'] not in prefix_for_distance_ablation_metric:
-                prefix_for_distance_ablation_metric[d['image_id']] = [prefix_embed.cpu().numpy().reshape(-1)]
+                prefix_for_distance_ablation_metric[d['image_id']] = [(prefix_embed.cpu().numpy().reshape(-1), prefix.cpu().numpy().reshape(-1))]
             else:
-                prefix_for_distance_ablation_metric[d['image_id']].append(prefix_embed.cpu().numpy().reshape(-1))
+                prefix_for_distance_ablation_metric[d['image_id']].append((prefix_embed.cpu().numpy().reshape(-1), prefix.cpu().numpy().reshape(-1)))
         if ii % 99 == 0:
             print('\n\n', ii, results)
             results.clear()
@@ -130,22 +130,35 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             if args.ablation_dist:
                 # calculate the distance between the 5 prefixes
                 distances,distances_l2, data_size = [],[], 0
+                distances_clip,distances_l2_clip = [],[]
                 for img_id in prefix_for_distance_ablation_metric:
                     data_size += 1
                     dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
+                    dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0, 0
                     for i in range(len(prefix_for_distance_ablation_metric[img_id])):
                         for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
-                            dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] -
-                                                   prefix_for_distance_ablation_metric[img_id][j], ord=1)
-                            dist_l2 += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] -
-                                                   prefix_for_distance_ablation_metric[img_id][j], ord=2)
-                            shape_pref = prefix_for_distance_ablation_metric[img_id][i].shape[0]
+                            dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][0] -
+                                                   prefix_for_distance_ablation_metric[img_id][j][0], ord=1)
+                            dist_l2 += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][0] -
+                                                   prefix_for_distance_ablation_metric[img_id][j][0], ord=2)
+                            shape_pref = prefix_for_distance_ablation_metric[img_id][i][0].shape[0]
                             combs += 1
+
+                            dist_clip += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][1] -
+                                                   prefix_for_distance_ablation_metric[img_id][j][1], ord=1)
+                            dist_l2_clip += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][1] -
+                                                   prefix_for_distance_ablation_metric[img_id][j][1], ord=2)
+                            shape_pref_clip = prefix_for_distance_ablation_metric[img_id][i][1].shape[0]
                     if combs > 1:
                         distances.append(dist / (shape_pref * combs))
                         distances_l2.append(dist_l2 / (shape_pref * combs))
-                print(f"\n\n\n Average noremlised L1 between 5 annotations of same image: {np.array(distances).mean()}, STD: {np.array(distances).std()}\n\n\n")
-                print(f"\n\n\n Average noremlised L2 between 5 annotations of same image: {np.array(distances_l2).mean()}, STD: {np.array(distances_l2).std()}\n\n\n")
+                        distances_clip.append(dist_clip / (shape_pref_clip * combs))
+                        distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
+                print(f"\n\n\n Average noremlised L1 between 5 annotations of same image MAPPER: {np.array(distances).mean()}, STD: {np.array(distances).std()}")
+                print(f"\n\n\n Average noremlised L2 between 5 annotations of same image MAPPER: {np.array(distances_l2).mean()}, STD: {np.array(distances_l2).std()}")
+                print(f"\n\n\n Average noremlised L1 between 5 annotations of same image CLIP: {np.array(distances_clip).mean()}, STD: {np.array(distances_clip).std()}")
+                print(f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
+
         if DEBUG and not args.ablation_dist:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
@@ -153,27 +166,42 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         d["caption"] = generated_text_prefix.lower()
         new_data.append({"caption": generated_text_prefix.lower(), "image_id": d["image_id"]})
 
-
-    #sys.exit()
-    with open(out_path, 'w') as outfile:
-        json.dump(new_data, outfile)
-    print("JSON is dumped", " skipped=", skips)
-
     if args.ablation_dist:
         # calculate the distance between the 5 prefixes
         distances, distances_l2, data_size = [], [], 0
+        distances_clip, distances_l2_clip = [], []
         for img_id in prefix_for_distance_ablation_metric:
             data_size += 1
-            dist,dist_l2, combs = 0.0, 0.0, 0
+            dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
+            dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0, 0
             for i in range(len(prefix_for_distance_ablation_metric[img_id])):
-                for j in range(i+1, len(prefix_for_distance_ablation_metric[img_id])):
-                    dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] - prefix_for_distance_ablation_metric[img_id][j], ord=1)
-                    dist_l2 += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] - prefix_for_distance_ablation_metric[img_id][j], ord=2)
+                for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
+                    dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][0] -
+                                           prefix_for_distance_ablation_metric[img_id][j][0], ord=1)
+                    dist_l2 += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][0] -
+                                              prefix_for_distance_ablation_metric[img_id][j][0], ord=2)
+                    shape_pref = prefix_for_distance_ablation_metric[img_id][i][0].shape[0]
                     combs += 1
-            distances.append(dist / combs)
-            distances_l2.append(dist_l2 / combs)
-        print(f"\n\n\n Average L1 normlised between 5 annotations of same image: {np.array(distances).mean()}, STD: {np.array(distances).std()}\n\n\n")
-        print(f"\n\n\n Average noremlised L2 between 5 annotations of same image: {np.array(distances_l2).mean()}, STD: {np.array(distances_l2).std()}\n\n\n")
+
+                    dist_clip += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][1] -
+                                                prefix_for_distance_ablation_metric[img_id][j][1], ord=1)
+                    dist_l2_clip += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][1] -
+                                                   prefix_for_distance_ablation_metric[img_id][j][1], ord=2)
+                    shape_pref_clip = prefix_for_distance_ablation_metric[img_id][i][1].shape[0]
+            if combs > 1:
+                distances.append(dist / (shape_pref * combs))
+                distances_l2.append(dist_l2 / (shape_pref * combs))
+                distances_clip.append(dist_clip / (shape_pref_clip * combs))
+                distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
+        print(
+            f"\n\n\n Average noremlised L1 between 5 annotations of same image MAPPER: {np.array(distances).mean()}, STD: {np.array(distances).std()}")
+        print(
+            f"\n\n\n Average noremlised L2 between 5 annotations of same image MAPPER: {np.array(distances_l2).mean()}, STD: {np.array(distances_l2).std()}")
+        print(
+            f"\n\n\n Average noremlised L1 between 5 annotations of same image CLIP: {np.array(distances_clip).mean()}, STD: {np.array(distances_clip).std()}")
+        print(
+            f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
+
     return 0
 
 
