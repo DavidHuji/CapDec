@@ -142,7 +142,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                         distances.append(dist / combs)
                 print(
                     f"\n\n\n Average L2 between 5 annotations of same image: {np.array(distances).mean()}, STD: {np.array(distances).std()}\n\n\n")
-        if DEBUG:
+        if DEBUG and not args.ablation_dist:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
 
