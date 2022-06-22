@@ -134,7 +134,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                 for img_id in prefix_for_distance_ablation_metric:
                     data_size += 1
                     dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
-                    dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0, 0
+                    dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0
                     for i in range(len(prefix_for_distance_ablation_metric[img_id])):
                         for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
                             dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][0] -
@@ -173,7 +173,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         for img_id in prefix_for_distance_ablation_metric:
             data_size += 1
             dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
-            dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0, 0
+            dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0,
             for i in range(len(prefix_for_distance_ablation_metric[img_id])):
                 for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
                     dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i][0] -
