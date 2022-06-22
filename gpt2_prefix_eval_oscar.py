@@ -137,7 +137,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                         for j in range(i + 1, len(prefix_for_distance_ablation_metric[img_id])):
                             dist += np.linalg.norm(prefix_for_distance_ablation_metric[img_id][i] -
                                                    prefix_for_distance_ablation_metric[img_id][j], ord=1)
-                            shape_pref = prefix_for_distance_ablation_metric[img_id][i]
+                            shape_pref = prefix_for_distance_ablation_metric[img_id][i].shape[0]
                             combs += 1
                     if combs > 1:
                         distances.append(dist / (shape_pref * combs))
