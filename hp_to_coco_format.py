@@ -31,7 +31,7 @@ def extract_sentences():
         coco_format.append(correct_format)
 
     # for name in out_names:
-    with open('parssed_' + pt, 'w') as f:
+    with open('parssed_' + pt[:-3] +'json', 'w') as f:
         json.dump(coco_format, f)
     print('size: ',len(coco_format))
 
