@@ -1,4 +1,4 @@
-name: clip_prefix_caption
+name: CapDec
 channels:
   - defaults
 dependencies:

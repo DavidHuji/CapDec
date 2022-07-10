@@ -1,4 +1,4 @@
-# CLIP prefix captioning.
+# CapDec: zero-shot image captioning.
 
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
 Inference Notebook: <a href="https://colab.research.google.com/drive/1tuoAC5F4sC7qid56Z0ap-stR3rwdk0ZV?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>  
@@ -7,17 +7,15 @@ Inference Notebook: <a href="https://colab.research.google.com/drive/1tuoAC5F4sC
 
 
 
-## Official implementation for the paper ["ClipCap: CLIP Prefix for Image Captioning"](https://arxiv.org/abs/2111.09734)
+## Official implementation for the paper ["CapDec"](TBD add link)
 
 
 
 
 ## Description  
-Image captioning is a complicated task, where usually a pretrained detection network is used, requires additional supervision in the form of object annotation. We present a new approach that does not requires additional information (i.e. requires only images and captions), thus can be applied to any data. In addition, our model's training time is much faster than similar methods while achieving comparable to state-of-the-art results, even for the Conceptual Captions dataset contains over 3M images. 
+We consider the task of image-captioning using only the CLIP model and additional text data at training time, and no additional captioned images. Our approach relies on the fact that CLIP is trained to make visual and textual embeddings similar. Therefore, we only need to learn how to translate CLIP textual embeddings back into text, and we can learn how to do this by learning a decoder for the CLIP text encoder using only text. We argue that this intuition is “almost correct” because of a gap between the embedding spaces, and propose to rectify this via noise injection during training. We demonstrate the effectiveness of our approach by showing SOTA zero-shot image captioning across four benchmarks, including style transfer.
 
-In our work, we use the [CLIP](https://github.com/openai/CLIP) model, which was already trained over an extremely large number of images, thus is capable of generating semantic encodings for arbitrary images without additional supervision. To produce meaningful sentences we fine-tune a pretrained language model, which has been proven to be successful for other natural language tasks. The key idea is to use the CLIP encoding as a prefix to the textual captions by employing a simple mapping network over the raw encoding, and then fine-tune our language model to generate a valid caption. In addition, we present another variant, where we utilize a transformer architecture for the mapping network and avoid the fine-tuning of GPT-2. Still, our light model achieve comaparable to state-of-the-art over nocaps dataset.
-
-## COCO Examples
+## COCO Examples TBD exchange captions with yours
 
 <table>
   <tr>
@@ -46,7 +44,7 @@ In our work, we use the [CLIP](https://github.com/openai/CLIP) model, which was 
  </table>
 
 
-## Conceptual Captions Examples
+## FlickrStyle7k Examples TBD
 
 <table>
   <tr>
@@ -150,6 +148,7 @@ Similarly to the COCO training, you can train a transformer mapping network, and
 ## Citation
 If you use this code for your research, please cite:
 ```
+TBD
 @article{mokady2021clipcap,
   title={ClipCap: CLIP Prefix for Image Captioning},
   author={Mokady, Ron and Hertz, Amir and Bermano, Amit H},
@@ -163,9 +162,10 @@ If you use this code for your research, please cite:
 
 ## Acknowledgments
 This repository is heavily based on [CLIP](https://github.com/openai/CLIP) and [Hugging-faces](https://github.com/huggingface/transformers) repositories.
-For training we used the data of [COCO dataset](https://cocodataset.org/#home) and [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/).
+For training we used the data of [COCO dataset](https://cocodataset.org/#home), Flickr and style.
+Mention ClipCap repo here - TBD.
 
 ## Contact
-For any inquiry please contact us at our email addresses: ron.mokady@gmail.com or amirhertz@mail.tau.ac.il.
+For any inquiry please feel free to contact me at: nukraidavid@mail.tau.ac.il.
 
 

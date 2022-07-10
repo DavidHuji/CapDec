@@ -480,9 +480,7 @@ def main():
 
         name = args.checkpoint.split("/")[-1].split(".")[0] + ("_beam" if args.beam else "_max")
         out_path = f"{root_dir}/{name}.json"
-        # if os.path.isfile(out_path):
-        #     continue
-        # model = ClipCaptionE2E()
+
         args.is_rn = 'rn' in args.checkpoint
         prefix_dim = [512, 640][args.is_rn]
         mapping_type = {'mlp': MappingType.MLP, 'transformer_encoder': MappingType.TransformerEncoder,
@@ -491,15 +489,6 @@ def main():
                                   mapping_type=mapping_type, num_layers=args.num_layers)
         model.load_state_dict(torch.load(args.checkpoint, map_location=CUDA(0)))  # FIXME
         print(args.checkpoint)
-
-        # model2 = ClipCaptionModel(10)
-        # model2.load_state_dict(torch.load(args.checkpoint2))
-        # print(args.checkpoint2)
-
-        # for p1, p2 in zip(model.parameters(), model2.parameters()):
-        #    print(p1.data - p2.data)
-
-        # out_path = '/home/dcor/ronmokady/Oscar/checkpoint-29-66420/ours12_coco_format.json'
 
         train(data, model, out_path, tokenizer, args=args)
 
