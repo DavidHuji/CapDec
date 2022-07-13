@@ -77,6 +77,8 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     new_data = []
     prefix_for_distance_ablation_metric = {}
     results = []
+
+    ablation_image_dist_stat = {'counter': 0, 'L2': 0.0}
     for ii, d in enumerate(data):
 
         img_id = d["image_id"]
@@ -129,8 +131,8 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
 
             if args.ablation_dist:
                 # calculate the distance between the 5 prefixes
-                distances,distances_l2, data_size = [],[], 0
-                distances_clip,distances_l2_clip = [],[]
+                distances,distances_l2, data_size = [], [], 0
+                distances_clip,distances_l2_clip = [],  []
                 for img_id in prefix_for_distance_ablation_metric:
                     data_size += 1
                     dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
@@ -283,6 +285,7 @@ def main():
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true')
     parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true')
+    parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
