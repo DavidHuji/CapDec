@@ -123,9 +123,10 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             else:
                 prefix_for_distance_ablation_metric[d['image_id']].append((prefix_embed.cpu().numpy().reshape(-1), prefix.cpu().numpy().reshape(-1)))
         if args.ablation_image_dist:
-            caption_tokens = clip.tokenize(d['caption']).to(device)
-            txt_prefix = clip_model.encode_text(caption_tokens).float()
-            txt_prefix /= txt_prefix.norm(2, -1)
+            with torch.no_grad():
+                caption_tokens = clip.tokenize(d['caption']).to(device)
+                txt_prefix = clip_model.encode_text(caption_tokens).float()
+                txt_prefix /= txt_prefix.norm(2, -1)
             l2_dist_img_txt = np.linalg.norm(txt_prefix.cpu().numpy().reshape(-1) - prefix.cpu().numpy().reshape(-1), ord=2)
             ablation_image_dist_stat['counter'] += 1
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
