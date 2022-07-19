@@ -122,6 +122,15 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                 prefix_for_distance_ablation_metric[d['image_id']] = [(prefix_embed.cpu().numpy().reshape(-1), prefix.cpu().numpy().reshape(-1))]
             else:
                 prefix_for_distance_ablation_metric[d['image_id']].append((prefix_embed.cpu().numpy().reshape(-1), prefix.cpu().numpy().reshape(-1)))
+        if args.ablation_image_dist:
+            caption_tokens = clip.tokenize(d['caption']).to(device)
+            txt_prefix = clip_model.encode_text(caption_tokens).float()
+            txt_prefix /= txt_prefix.norm(2, -1)
+            l2_dist_img_txt = np.linalg.norm(txt_prefix - prefix, ord=2)
+            ablation_image_dist_stat['counter'] += 1
+            ablation_image_dist_stat['L2'] += l2_dist_img_txt
+
+
         if ii % 99 == 0:
             print('\n\n', ii, results)
             results.clear()
@@ -160,7 +169,8 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
                 print(f"\n\n\n Average noremlised L2 between 5 annotations of same image MAPPER: {np.array(distances_l2).mean()}, STD: {np.array(distances_l2).std()}")
                 print(f"\n\n\n Average noremlised L1 between 5 annotations of same image CLIP: {np.array(distances_clip).mean()}, STD: {np.array(distances_clip).std()}")
                 print(f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
-
+            if args.ablation_image_dist:
+                print(f"\n\n\n L2 between images and texts embeddings: {ablation_image_dist_stat['L2'] / ablation_image_dist_stat['counter']}, dim size={prefix.shape}")
         if DEBUG and not args.ablation_dist:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
@@ -203,6 +213,9 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             f"\n\n\n Average noremlised L1 between 5 annotations of same image CLIP: {np.array(distances_clip).mean()}, STD: {np.array(distances_clip).std()}")
         print(
             f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
+    if args.ablation_image_dist:
+        print(
+            f"\n\n\nFinal L2 between images and texts embeddings: {ablation_image_dist_stat['L2'] / ablation_image_dist_stat['counter']}, dim size={prefix.shape}")
 
     return 0
 
