@@ -126,7 +126,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             caption_tokens = clip.tokenize(d['caption']).to(device)
             txt_prefix = clip_model.encode_text(caption_tokens).float()
             txt_prefix /= txt_prefix.norm(2, -1)
-            l2_dist_img_txt = np.linalg.norm(txt_prefix - prefix, ord=2)
+            l2_dist_img_txt = np.linalg.norm(txt_prefix.cpu().numpy().reshape(-1) - prefix.cpu().numpy().reshape(-1), ord=2)
             ablation_image_dist_stat['counter'] += 1
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
 
