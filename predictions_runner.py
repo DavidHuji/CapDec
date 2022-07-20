@@ -80,7 +80,6 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
 
     ablation_image_dist_stat = {'counter': 0, 'L2': 0.0}
     for ii, d in enumerate(data):
-
         img_id = d["image_id"]
         if data_mode == 0:
             filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
@@ -90,7 +89,6 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         elif data_mode == 5:
             filename = 'no need for filename, yay!!1'
 
-        #print(filename)
         if not os.path.isfile(filename) and data_mode != 5:
             skips += 1
             print('skips=', skips, " filename=", filename)
@@ -130,7 +128,6 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             l2_dist_img_txt = np.linalg.norm(txt_prefix.cpu().numpy().reshape(-1) - prefix.cpu().numpy().reshape(-1), ord=2)
             ablation_image_dist_stat['counter'] += 1
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
-
 
         if ii % 99 == 0:
             print('\n\n', ii, results)
