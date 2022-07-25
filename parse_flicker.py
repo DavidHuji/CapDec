@@ -27,7 +27,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
     for i in tqdm(range(len(data))):
         d = data[i]
         img_id = d["image_id"]
-        if images_path != 'harryPotterNoImgs':
+        if images_path != 'NoImgs':
             filename = images_path + d['filename']
             image = io.imread(filename)
             image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
@@ -67,7 +67,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
 def run_main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip_model_type', default="RN50x4", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
-    parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for NOTHING!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter
+    parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for NOTHING!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter, 7 for news.
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
     if args.dataset_mode == 1:
@@ -102,7 +102,11 @@ def run_main():
     elif args.dataset_mode == 6:
         out_path = f"./data/hp_train.pkl"
         annotations_path = f"parssed_harryPotterBooks.json"
-        images_path = f'harryPotterNoImgs'
+        images_path = f'NoImgs'
+    elif args.dataset_mode == 7:
+        out_path = f"./data/parsed_news_train.pkl"
+        annotations_path = f"parssed_news_data.json"
+        images_path = f'NoImgs'
 
     exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path))
 
