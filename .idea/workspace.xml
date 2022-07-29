@@ -4,31 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="harry potter corpus">
+    <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="news">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/COCO_val2014_000000060623.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/COCO_val2014_000000165547.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/COCO_val2014_000000354533.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/COCO_val2014_000000386164.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/COCO_val2014_000000562207.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/COCO_val2014_000000579664.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/CONCEPTUAL_01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/CONCEPTUAL_02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/CONCEPTUAL_03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/CONCEPTUAL_04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/CONCEPTUAL_05.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Images/CONCEPTUAL_06.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cog.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generte_captions_for_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/generte_captions_for_eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gpt2_prefix_eval_oscar.py" beforeDir="false" afterPath="$PROJECT_DIR$/gpt2_prefix_eval_oscar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/clip_prefix_captioning_inference.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/transformer_inference.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parse_conceptual.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parssed_harryPotterBooks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_train.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run_train.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predictions_runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictions_runner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,8 +87,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="credentialsType com.jetbrains.python.remote.PyCreateRemoteInterpreterDialog$PyCreateRemoteSdkForm" value="SSH Configuration" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -118,7 +98,15 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.github.copilot.settings.ApplicationConfigurable" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="CLIP_prefix_caption" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="CLIP_prefix_caption" />
+      </console-settings>
+    </option>
   </component>
   <component name="PyDebuggerOptionsProvider">
     <option name="mySupportGeventDebugging" value="true" />
@@ -132,7 +120,7 @@
       <recent name="$PROJECT_DIR$/hp_data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.gpt2_prefix_eval_oscar">
+  <component name="RunManager" selected="Python.predictions_runner">
     <configuration name="generte_captions_for_eval" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CLIP_prefix_caption" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -156,36 +144,6 @@
       </PathMappingSettings>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/generte_captions_for_eval.py" />
       <option name="PARAMETERS" value="--data ./data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl --out_dir ./coco_train/ --mapping_type transformer  --num_layers 8 --prefix_length 40 --prefix_length_clip 40 --is_rn --bs 4" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="gpt2_prefix_eval_oscar" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CLIP_prefix_caption" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="CUDA_VISIBLE_DEVICES" value="0" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <PathMappingSettings>
-        <option name="pathMappings">
-          <list>
-            <mapping local-root="$PROJECT_DIR$" remote-root="/home/gamir/DER-Roei/davidn/CLIP_prefix_caption" />
-          </list>
-        </option>
-      </PathMappingSettings>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/gpt2_prefix_eval_oscar.py" />
-      <option name="PARAMETERS" value="--mapping_type transformer_encoder  --num_layers 8 --prefix_length 40  --prefix_length_clip 40 --checkpoint ../transformer_weights.pt --dataset_mode 4 --is_rn" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -250,8 +208,45 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <PathMappingSettings>
+        <option name="pathMappings">
+          <list>
+            <mapping local-root="$PROJECT_DIR$" remote-root="/home/gamir/DER-Roei/davidn/CLIP_prefix_caption" />
+          </list>
+        </option>
+      </PathMappingSettings>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parse_flicker.py" />
       <option name="PARAMETERS" value="--dataset_mode 3" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="predictions_runner" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CLIP_prefix_caption" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="CUDA_VISIBLE_DEVICES" value="0" />
+      </envs>
+      <option name="SDK_HOME" value="sshConfig://nukraidavid@c-009.cs.tau.ac.il:22/home/gamir/DER-Roei/davidn/my_conda_main_dir/anaconda3/envs/clip_prefix_caption/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <PathMappingSettings>
+        <option name="pathMappings">
+          <list>
+            <mapping local-root="$PROJECT_DIR$" remote-root="/home/gamir/DER-Roei/davidn/CLIP_prefix_caption" />
+          </list>
+        </option>
+      </PathMappingSettings>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/predictions_runner.py" />
+      <option name="PARAMETERS" value="--mapping_type transformer_encoder  --num_layers 8 --prefix_length 40  --prefix_length_clip 40 --checkpoint ../transformer_weights.pt --is_rn --dataset_mode 0 --ablation_dist" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -281,7 +276,7 @@
         </option>
       </PathMappingSettings>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
-      <option name="PARAMETERS" value="--data ./data/flicker30_RN50x4_train_with_text_embeddings.pkl --out_dir ./flicker_train/ --mapping_type transformer  --num_layers 8 --prefix_length 40 --prefix_length_clip 40 --is_rn --bs 4 --noise_aug_variance 0.001" />
+      <option name="PARAMETERS" value="--data ./data/hp_coco_combined_embeddings.pkl --out_dir ./hp_coco_train/ --mapping_type transformer  --num_layers 8 --prefix_length 40 --prefix_length_clip 40 --normalize_prefix --is_rn --bs 4 --noise_aug_variance 0.001" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -291,21 +286,27 @@
     </configuration>
     <list>
       <item itemvalue="Python.train" />
-      <item itemvalue="Python.generte_captions_for_eval" />
       <item itemvalue="Python.parse_flicker" />
+      <item itemvalue="Python.generte_captions_for_eval" />
       <item itemvalue="Python.parse_coco" />
-      <item itemvalue="Python.gpt2_prefix_eval_oscar" />
       <item itemvalue="Python.hp_to_coco_format" />
+      <item itemvalue="Python.predictions_runner" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.gpt2_prefix_eval_oscar" />
+        <item itemvalue="Python.predictions_runner" />
         <item itemvalue="Python.hp_to_coco_format" />
+        <item itemvalue="Python.parse_flicker" />
         <item itemvalue="Python.parse_coco" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="NONE" />
+    <option name="myConnectionId" value="" />
+  </component>
   <component name="SvnConfiguration">
     <configuration>$USER_HOME$/.subversion</configuration>
   </component>
@@ -325,21 +326,12 @@
       <workItem from="1654698883557" duration="6850000" />
       <workItem from="1654760590294" duration="70892000" />
       <workItem from="1655719139993" duration="40495000" />
-      <workItem from="1657189259569" duration="1628000" />
-    </task>
-    <task id="LOCAL-00001" summary="adding support in text embeddings">
-      <created>1653291639039</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1653291639039</updated>
-    </task>
-    <task id="LOCAL-00002" summary="adding support in text embeddings">
-      <created>1653291729757</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1653291729757</updated>
+      <workItem from="1657189259569" duration="14528000" />
+      <workItem from="1657733941626" duration="2598000" />
+      <workItem from="1658242642944" duration="27130000" />
+      <workItem from="1658755694669" duration="861000" />
+      <workItem from="1658760642635" duration="5018000" />
+      <workItem from="1658868725508" duration="3166000" />
     </task>
     <task id="LOCAL-00003" summary="cosmetics">
       <created>1653292008154</created>
@@ -614,7 +606,77 @@
       <option name="project" value="LOCAL" />
       <updated>1656022870714</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="readme">
+      <created>1657461363604</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1657461363604</updated>
+    </task>
+    <task id="LOCAL-00043" summary="ablation_image_dist">
+      <created>1657722236193</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1657722236193</updated>
+    </task>
+    <task id="LOCAL-00044" summary="ablation_image_dist">
+      <created>1658242854645</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1658242854645</updated>
+    </task>
+    <task id="LOCAL-00045" summary="ablation_image_dist">
+      <created>1658243557472</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1658243557472</updated>
+    </task>
+    <task id="LOCAL-00046" summary="ablation_image_dist">
+      <created>1658246815373</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1658246815373</updated>
+    </task>
+    <task id="LOCAL-00047" summary="ablation_image_dist">
+      <created>1658246889785</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1658246889785</updated>
+    </task>
+    <task id="LOCAL-00048" summary="ablation_image_dist">
+      <created>1658246998824</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1658246998824</updated>
+    </task>
+    <task id="LOCAL-00049" summary="ablation_image_dist">
+      <created>1658345031603</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1658345031603</updated>
+    </task>
+    <task id="LOCAL-00050" summary="better print format">
+      <created>1658404224373</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1658404224374</updated>
+    </task>
+    <task id="LOCAL-00051" summary="news">
+      <created>1658773913253</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1658773913254</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -675,16 +737,15 @@
     <MESSAGE value="distance metric b" />
     <MESSAGE value="add in clip embedding ablation" />
     <MESSAGE value="harry potter corpus" />
-    <option name="LAST_COMMIT_MESSAGE" value="harry potter corpus" />
+    <MESSAGE value="readme" />
+    <MESSAGE value="ablation_image_dist" />
+    <MESSAGE value="better print format" />
+    <MESSAGE value="news" />
+    <option name="LAST_COMMIT_MESSAGE" value="news" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/parse_coco.py</url>
-          <line>47</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/predict.py</url>
           <line>3</line>
@@ -726,24 +787,34 @@
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gpt2_prefix_eval_oscar.py</url>
-          <line>152</line>
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>154</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gpt2_prefix_eval_oscar.py</url>
-          <line>308</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gpt2_prefix_eval_oscar.py</url>
-          <line>82</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/gpt2_prefix_eval_oscar.py</url>
-          <line>232</line>
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>234</line>
           <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>100</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/parse_flicker.py</url>
+          <line>55</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/parse_flicker.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>155</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -757,11 +828,13 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$dave_parse_flicker.coverage" NAME="dave_parse_flicker Coverage Results" MODIFIED="1655662921879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$hp_to_coco_format.coverage" NAME="hp_to_coco_format Coverage Results" MODIFIED="1656098080875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$gpt2_prefix_eval_oscar.coverage" NAME="gpt2_prefix_eval_oscar Coverage Results" MODIFIED="1656098837377" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_coco.coverage" NAME="parse_coco Coverage Results" MODIFIED="1653292224326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_flicker.coverage" NAME="parse_flicker Coverage Results" MODIFIED="1658322918253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$hp_to_coco_format.coverage" NAME="hp_to_coco_format Coverage Results" MODIFIED="1658327141549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$gpt2_prefix_eval_oscar.coverage" NAME="predictions_runner Coverage Results" MODIFIED="1658405055838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_coco.coverage" NAME="parse_coco Coverage Results" MODIFIED="1658322762154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$dave_generte_captions_for_eval.coverage" NAME="dave_generte_captions_for_eval Coverage Results" MODIFIED="1654781081779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$train.coverage" NAME="train Coverage Results" MODIFIED="1655802834886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$predictions_runner.coverage" NAME="predictions_runner Coverage Results" MODIFIED="1658761095951" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$train.coverage" NAME="train Coverage Results" MODIFIED="1658345165446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/parse_coco.py">

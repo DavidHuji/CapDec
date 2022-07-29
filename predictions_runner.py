@@ -251,6 +251,11 @@ def load_data(dataset_mode):
                 f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/val.json',
                 'r') as f:
             data = json.load(f)
+    elif dataset_mode == 6:
+        with open(
+                f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/train.json',
+                'r') as f:
+            data = json.load(f)
     else:
         print("Wrong dataset mode")
         exit(3)
