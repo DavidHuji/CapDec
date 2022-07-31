@@ -68,6 +68,8 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
     elif data_mode == 2 or data_mode == 3 or data_mode == 4:
         images_root = '/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
+    elif data_mode == 6:
+        images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/train2014/'
     elif data_mode != 5:
         print("Wrong data mode")
         exit(3)
@@ -83,6 +85,8 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
         img_id = d["image_id"]
         if data_mode == 0:
             filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
+        elif data_mode == 6:
+            filename = f'{images_root}/COCO_train2014_{int(img_id):012d}.jpg'
         elif data_mode == 1 or data_mode == 4 or data_mode == 2 or data_mode == 3:
             filename = d["filename"]
             filename = f'{images_root}/{filename}'
@@ -248,6 +252,11 @@ def load_data(dataset_mode):
             data = json.load(f)
     elif dataset_mode == 5:
         with open(
+                f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/val.json',
+                'r') as f:
+            data = json.load(f)
+    elif dataset_mode == 6:
+        with open(
                 f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/train.json',
                 'r') as f:
             data = json.load(f)
@@ -300,7 +309,7 @@ def main():
     parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco, 1 for flicker30, 2 humor style,3 romantic,4 factual of style
+    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train
     parser.add_argument('--prefix_length_clip', type=int, default=10)
     parser.add_argument('--mapping_type', type=str, default='transformer_encoder',
                         help='mlp/transformer_encoder/transformer_decoder')
