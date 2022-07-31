@@ -223,7 +223,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
 def load_data(dataset_mode):
     if dataset_mode == 0:
         with open(
-                f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/annotations/new_annotations/captions_val2014.json',
+                f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/val.json',
                 'r') as f:
             data = json.load(f)['annotations']
     elif dataset_mode == 1:
@@ -247,11 +247,6 @@ def load_data(dataset_mode):
                 'r') as f:
             data = json.load(f)
     elif dataset_mode == 5:
-        with open(
-                f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/val.json',
-                'r') as f:
-            data = json.load(f)
-    elif dataset_mode == 6:
         with open(
                 f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/train.json',
                 'r') as f:
