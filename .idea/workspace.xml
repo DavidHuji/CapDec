@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="fairness ids align">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parse_flicker.py" beforeDir="false" afterPath="$PROJECT_DIR$/parse_flicker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,14 +336,7 @@
       <workItem from="1659871782510" duration="11000" />
       <workItem from="1659873768953" duration="677000" />
       <workItem from="1660476977062" duration="4181000" />
-      <workItem from="1660813540760" duration="5005000" />
-    </task>
-    <task id="LOCAL-00008" summary="bug fix">
-      <created>1654854957962</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1654854957962</updated>
+      <workItem from="1660813540760" duration="10932000" />
     </task>
     <task id="LOCAL-00009" summary="bug fix">
       <created>1654855001462</created>
@@ -680,7 +674,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660842178757</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="fairness ids align">
+      <created>1660842996165</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1660842996165</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -808,12 +809,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>55</line>
+          <line>82</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>53</line>
+          <line>80</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

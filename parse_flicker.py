@@ -1,4 +1,4 @@
-import torch
+import torch, random
 import skimage.io as io
 import clip
 from PIL import Image
@@ -13,9 +13,33 @@ import argparse, math
 add_text_embedding = True
 device = torch.device('cuda:0')
 
+# constants
+# first line man, second woman, each column has the same form of gender. e.g. wife-husband, girl-boy etc.
+gender_terms_map = [['boy', 'brother', 'dad', 'husband', 'man', 'groom', 'male',   'guy',  'men',  'males', 'boys',     'guys',   'dads', 'dude',    'policeman', 'policemen', 'boyfriend',      'father',  'son',     'fireman',      'he', 'actor', 'gentleman', 'mans', 'his', 'actors'],
+                    ['girl', 'sister', 'mom', 'wife',  'woman', 'bride', 'female', 'lady', 'women', 'girls', 'ladies', 'females', 'moms', 'actress', 'nun',     'policewoman',    'girlfriend',  'mother',  'daughter',  'fire woman', 'she', 'actress', 'lady',  'women', 'her', 'actresses']]
+gender_terms = gender_terms_map[0] + gender_terms_map[1]
+gender_terms_set = set(gender_terms)
+man_terms_set = set(gender_terms_map[0])
+woman_terms_set = set(gender_terms_map[1])
 
-def main(clip_model_type, clip_model_name, out_path, annotations_path, images_path):
 
+def caption_has_gender_term(caption):
+    caption_words = caption.lower().split(' ')
+    return len(set(caption_words) & gender_terms_set) > 0
+
+
+def change_gender_randomly(caption):
+    caption_words = caption.lower().split(' ')
+    indexs = [-1 for i in range(len(caption_words))]
+    for i in range(len(indexs)):
+        if caption_words[i] in gender_terms_set:
+            form_index = gender_terms.index(caption_words[i]) % len(gender_terms_map[0])
+            caption_words[i] = gender_terms_map[random.randint(0, 1)][form_index]
+    caption = ' '.join(map(str, caption_words))
+    return caption
+
+
+def main(clip_model_type, clip_model_name, out_path, annotations_path, images_path, fix_gender_imbalance):
     clip_model, preprocess = clip.load(clip_model_type, device=device, jit=False)
     with open(annotations_path, 'r') as f:
         data = json.load(f)
@@ -38,6 +62,9 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
                 prefix = torch.tensor([])
             if add_text_embedding:
                 caption = d["caption"]
+                if fix_gender_imbalance:
+                    if caption_has_gender_term(caption):
+                        caption = change_gender_randomly(caption)
                 try:  # if caption is too long
                     caption_tokens = clip.tokenize(caption).to(device)
                 except:
@@ -68,6 +95,7 @@ def run_main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip_model_type', default="RN50x4", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
     parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for NOTHING!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter, 7 for news.
+    parser.add_argument('--fix_gender_imbalance', default=False, action='store_true')
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
     if args.dataset_mode == 1:
@@ -112,7 +140,7 @@ def run_main():
         annotations_path = f"/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_train.json"
         images_path = f'NoImgs'
 
-    exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path))
+    exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path, args.fix_gender_imbalance))
 
 
 if __name__ == '__main__':
