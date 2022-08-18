@@ -83,7 +83,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     ablation_image_dist_stat = {'counter': 0, 'L2': 0.0}
     for ii, d in enumerate(data):
         img_id = d["image_id"]
-        if data_mode == 0:
+        if data_mode == 0 or data_mode == 7:
             filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
         elif data_mode == 6:
             filename = f'{images_root}/COCO_train2014_{int(img_id):012d}.jpg'
