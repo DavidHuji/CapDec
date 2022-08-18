@@ -262,7 +262,7 @@ def load_data(dataset_mode):
             data = json.load(f)
     elif dataset_mode == 7:
         with open(
-                f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/womanSnowboard_for_creating_capdec_preds.json',
+                f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_test.json',
                 'r') as f:
             data = json.load(f)
     else:

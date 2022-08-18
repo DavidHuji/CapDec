@@ -107,6 +107,10 @@ def run_main():
         out_path = f"./data/parsed_news_train.pkl"
         annotations_path = f"parssed_news_data.json"
         images_path = f'NoImgs'
+    elif args.dataset_mode == 8:
+        out_path = f"./data/parsed_coco_snowboarding_split_train.pkl"
+        annotations_path = f"/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_train.json"
+        images_path = f'NoImgs'
 
     exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path))
 
