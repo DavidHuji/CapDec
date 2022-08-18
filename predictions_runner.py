@@ -62,7 +62,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     # preprocess = clip_transform_full()
     #prefix_length = 10
 
-    if data_mode == 0:
+    if data_mode == 0 or data_mode == 7:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
     elif data_mode == 1:
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
@@ -319,6 +319,7 @@ def main():
     parser.add_argument('--mapping_type', type=str, default='transformer_encoder',
                         help='mlp/transformer_encoder/transformer_decoder')
     args = parser.parse_args()
+    print(f'beam search = {args.beam}')
     if args.text_autoencoder:
         args.dataset_mode = 5
     data = load_data(dataset_mode=args.dataset_mode)
