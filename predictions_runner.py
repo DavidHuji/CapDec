@@ -260,6 +260,11 @@ def load_data(dataset_mode):
                 f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/train.json',
                 'r') as f:
             data = json.load(f)
+    elif dataset_mode == 7:
+        with open(
+                f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/womanSnowboard_for_creating_capdec_preds.json',
+                'r') as f:
+            data = json.load(f)
     else:
         print("Wrong dataset mode")
         exit(3)
@@ -309,7 +314,7 @@ def main():
     parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train
+    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train, 7 coco val for womanSnowboard_for_creating_capdec_preds
     parser.add_argument('--prefix_length_clip', type=int, default=10)
     parser.add_argument('--mapping_type', type=str, default='transformer_encoder',
                         help='mlp/transformer_encoder/transformer_decoder')
