@@ -35,8 +35,9 @@ def change_gender_randomly(caption):
         if caption_words[i] in gender_terms_set:
             form_index = gender_terms.index(caption_words[i]) % len(gender_terms_map[0])
             caption_words[i] = gender_terms_map[random.randint(0, 1)][form_index]
-    caption = ' '.join(map(str, caption_words))
-    return caption
+    new_caption = ' '.join(map(str, caption_words))
+    print(f'Changed caption from {caption} to {new_caption}')
+    return new_caption
 
 
 def main(clip_model_type, clip_model_name, out_path, annotations_path, images_path, fix_gender_imbalance):
