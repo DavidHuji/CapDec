@@ -30,13 +30,6 @@ from gpt2_prefix_e2e import ClipCaptionE2E
 device = torch.device('cuda:0')
 
 
-def noise_augmentation(x, variance=0.001):
-    if not train_with_noise_data_augmentation or variance == 0:
-        return x
-    x = torch.nn.functional.normalize(x, dim=1)
-    x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))
-    return torch.nn.functional.normalize(x, dim=1)
-
 class MappingType(Enum):
     MLP = 'mlp'
     TransformerEncoder = 'transformer_encoder'
