@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="balance fairness">
+    <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="skdpr data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generte_captions_for_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/generte_captions_for_eval.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parse_flicker.py" beforeDir="false" afterPath="$PROJECT_DIR$/parse_flicker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +120,7 @@
       <recent name="$PROJECT_DIR$/hp_data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.predictions_runner">
+  <component name="RunManager" selected="Python.parse_flicker">
     <configuration name="generte_captions_for_eval" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CLIP_prefix_caption" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -295,9 +294,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.parse_flicker" />
         <item itemvalue="Python.predictions_runner" />
         <item itemvalue="Python.hp_to_coco_format" />
-        <item itemvalue="Python.parse_flicker" />
         <item itemvalue="Python.parse_coco" />
       </list>
     </recent_temporary>
@@ -337,14 +336,7 @@
       <workItem from="1659871782510" duration="11000" />
       <workItem from="1659873768953" duration="677000" />
       <workItem from="1660476977062" duration="4181000" />
-      <workItem from="1660813540760" duration="14935000" />
-    </task>
-    <task id="LOCAL-00012" summary="cosmetics">
-      <created>1654867884390</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1654867884390</updated>
+      <workItem from="1660813540760" duration="21883000" />
     </task>
     <task id="LOCAL-00013" summary="flicker parser">
       <created>1655287753201</created>
@@ -682,7 +674,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660850309219</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="skdpr data">
+      <created>1660934626200</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1660934626200</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -749,7 +748,8 @@
     <MESSAGE value="news" />
     <MESSAGE value="fairness ids align" />
     <MESSAGE value="balance fairness" />
-    <option name="LAST_COMMIT_MESSAGE" value="balance fairness" />
+    <MESSAGE value="skdpr data" />
+    <option name="LAST_COMMIT_MESSAGE" value="skdpr data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -806,18 +806,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>83</line>
+          <line>88</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>81</line>
+          <line>86</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/predictions_runner.py</url>
           <line>159</line>
           <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/parse_flicker.py</url>
+          <line>105</line>
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -831,8 +836,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$dave_parse_flicker.coverage" NAME="dave_parse_flicker Coverage Results" MODIFIED="1655662921879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_flicker.coverage" NAME="parse_flicker Coverage Results" MODIFIED="1658322918253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$hp_to_coco_format.coverage" NAME="hp_to_coco_format Coverage Results" MODIFIED="1658327141549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_flicker.coverage" NAME="parse_flicker Coverage Results" MODIFIED="1661075651897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$gpt2_prefix_eval_oscar.coverage" NAME="predictions_runner Coverage Results" MODIFIED="1658405055838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_coco.coverage" NAME="parse_coco Coverage Results" MODIFIED="1658322762154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$dave_generte_captions_for_eval.coverage" NAME="dave_generte_captions_for_eval Coverage Results" MODIFIED="1654781081779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

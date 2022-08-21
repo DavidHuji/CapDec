@@ -23,15 +23,20 @@ man_terms_set = set(gender_terms_map[0])
 woman_terms_set = set(gender_terms_map[1])
 
 
-def caption_has_gender_term(caption):
+def caption_has_gender_term(caption, gender_mode=0):  # gender_mode=0 for both, 1 for man only, 2 for woman only
     caption_words = caption.lower().split(' ')
-    return len(set(caption_words) & gender_terms_set) > 0
+    if gender_mode == 0:
+        return len(set(caption_words) & gender_terms_set) > 0
+    elif gender_mode==1:
+        return len(set(caption_words) & man_terms_set) > 0
+    elif gender_mode==2:
+        return len(set(caption_words) & woman_terms_set) > 0
 
 
 def change_gender_randomly(caption):
     caption_words = caption.lower().split(' ')
-    indexs = [-1 for i in range(len(caption_words))]
-    for i in range(len(indexs)):
+
+    for i in range(len(caption_words)):
         if caption_words[i] in gender_terms_set:
             form_index = gender_terms.index(caption_words[i]) % len(gender_terms_map[0])
             caption_words[i] = gender_terms_map[random.randint(0, 1)][form_index]
@@ -148,7 +153,7 @@ def run_main():
         out_path = f"./data/shkspr_train.pkl"
         annotations_path = f"parssed_sheikspir_alllines_111k.json"
         images_path = f'NoImgs'
-
+    print(f'out_path is {out_path} fix gender imbalance is {args.fix_gender_imbalance}')
     exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path, args.fix_gender_imbalance))
 
 
