@@ -229,7 +229,7 @@ def load_data(dataset_mode):
         with open(
                 f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/val.json',
                 'r') as f:
-            data = json.load(f)['annotations']
+            data = json.load(f)
     elif dataset_mode == 1:
         with open(
                 f'/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsonvalidation',
