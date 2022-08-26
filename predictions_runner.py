@@ -17,6 +17,58 @@ from torchvision import transforms
 # from oscar_eval_amir_ig_
 
 
+def count_ready_parphrased_embeddings(embeddings_dict):
+    ready = 0
+    for img_id in embeddings_dict.keys():
+        if embeddings_dict[img_id] is not None:
+            if len(embeddings_dict[img_id]) == 5:
+                ready += 1
+    return ready
+
+
+def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_distances.pkl'):
+    # calculate the distance between the 5 prefixes
+    distances, distances_l2, data_size = [], [], 0
+    distances_clip, distances_l2_clip = [], []
+    for img_id in embeddings_dict.keys():
+        data_size += 1
+        dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
+        dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0
+        for i in range(len(embeddings_dict[img_id])):
+            for j in range(i + 1, len(embeddings_dict[img_id])):
+                dist += np.linalg.norm(embeddings_dict[img_id][i][0] -
+                                       embeddings_dict[img_id][j][0], ord=1)
+                dist_l2 += np.linalg.norm(embeddings_dict[img_id][i][0] -
+                                          embeddings_dict[img_id][j][0], ord=2)
+                shape_pref = embeddings_dict[img_id][i][0].shape[0]
+                combs += 1
+
+                dist_clip += np.linalg.norm(embeddings_dict[img_id][i][1] -
+                                            embeddings_dict[img_id][j][1], ord=1)
+                dist_l2_clip += np.linalg.norm(embeddings_dict[img_id][i][1] -
+                                               embeddings_dict[img_id][j][1], ord=2)
+                shape_pref_clip = embeddings_dict[img_id][i][1].shape[0]
+        if combs == 5 * 4 / 2:
+            distances.append(dist / (shape_pref * combs))
+            distances_l2.append(dist_l2 / (shape_pref * combs))
+            distances_clip.append(dist_clip / (shape_pref_clip * combs))
+            distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
+    print(
+        f"\n\n\n Average noremlised L1 between 5 annotations of same image MAPPER: {np.array(distances).mean()}, STD: {np.array(distances).std()}")
+    print(
+        f"\n\n\n Average noremlised L2 between 5 annotations of same image MAPPER: {np.array(distances_l2).mean()}, STD: {np.array(distances_l2).std()}")
+    print(
+        f"\n\n\n Average noremlised L1 between 5 annotations of same image CLIP: {np.array(distances_clip).mean()}, STD: {np.array(distances_clip).std()}")
+    print(
+        f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
+    if out_file is not None:
+        import pickle
+        with open(out_file, 'wb') as f:
+            pickle.dump(({"distances_clip": distances_clip, "distances_l2_clip": distances_l2_clip}), f)
+        print(f"Saved distances to {out_file} and finished")
+        exit(0)
+    return distances, distances_l2, distances_clip, distances_l2_clip, data_size
+
 
 def image_to_display(img) -> ARRAY:
     if type(img) is str:
@@ -132,6 +184,10 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
             l2_dist_img_txt = np.linalg.norm(txt_prefix.cpu().numpy().reshape(-1) - prefix.cpu().numpy().reshape(-1), ord=2)
             ablation_image_dist_stat['counter'] += 1
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
+
+        if args.ablation_dist_review:
+            if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 900:
+                calc_distances_of_ready_embeddings(prefix_for_distance_ablation_metric)
 
         if ii % 99 == 0:
             for r in results:
@@ -312,6 +368,7 @@ def main():
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true')
     parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true')
     parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true')
+    parser.add_argument('--ablation_dist_review', dest='ablation_dist_review', action='store_true')
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train, 7 coco val for womanSnowboard_for_creating_capdec_preds

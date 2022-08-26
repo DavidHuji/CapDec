@@ -17,7 +17,7 @@ device = torch.device('cuda:0')
 
 
 def noise_augmentation(x, variance=0.001):
-    if not train_with_noise_data_augmentation or variance == 0:
+    if not train_with_noise_data_augmentation or variance == 0 or not add_text_embedding:
         return x
     x = torch.nn.functional.normalize(x, dim=1)
     x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))
