@@ -100,7 +100,7 @@ def clip_transform_full(n_px=224):
 import os.path
 
 
-def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, args=None):
+def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode, args=None):
     device = CUDA(0)
     model = model.to(device)
     model.eval()
@@ -114,15 +114,15 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     # preprocess = clip_transform_full()
     #prefix_length = 10
 
-    if data_mode == 0 or data_mode == 7:
+    if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
-    elif data_mode == 1:
+    elif dataset_mode == 1:
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
-    elif data_mode == 2 or data_mode == 3 or data_mode == 4:
+    elif dataset_mode == 2 or dataset_mode == 3 or dataset_mode == 4:
         images_root = '/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
-    elif data_mode == 6:
+    elif dataset_mode == 6:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/train2014/'
-    elif data_mode != 5:
+    elif dataset_mode != 5:
         print("Wrong data mode")
         exit(3)
     embeddings = model.gpt.get_input_embeddings().weight.data
@@ -135,21 +135,21 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, data_mode, ar
     ablation_image_dist_stat = {'counter': 0, 'L2': 0.0}
     for ii, d in enumerate(data):
         img_id = d["image_id"]
-        if data_mode == 0 or data_mode == 7:
+        if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
             filename = f'{images_root}/COCO_val2014_{int(img_id):012d}.jpg'
-        elif data_mode == 6:
+        elif dataset_mode == 6:
             filename = f'{images_root}/COCO_train2014_{int(img_id):012d}.jpg'
-        elif data_mode == 1 or data_mode == 4 or data_mode == 2 or data_mode == 3:
+        elif dataset_mode == 1 or dataset_mode == 4 or dataset_mode == 2 or dataset_mode == 3:
             filename = d["filename"]
             filename = f'{images_root}/{filename}'
-        elif data_mode == 5:
+        elif dataset_mode == 5:
             filename = 'no need for filename, yay!!1'
 
-        if not os.path.isfile(filename) and data_mode != 5:
+        if not os.path.isfile(filename) and dataset_mode != 5:
             skips += 1
             print('skips=', skips, " filename=", filename)
             continue
-        if data_mode != 5:
+        if dataset_mode != 5:
             image_raw = Image.open(filename).convert("RGB")
             image = preprocess(image_raw).unsqueeze(0).to(device)
         with torch.no_grad():
@@ -317,9 +317,10 @@ def load_data(dataset_mode):
                 'r') as f:
             data = json.load(f)
     elif dataset_mode == 7:
-        with open(
-                f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_test.json',
-                'r') as f:
+        with open(f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_test.json', 'r') as f:
+            data = json.load(f)
+    elif dataset_mode == 8:
+        with open(f'/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/combinedNwes_on_cocoVal.json', 'r') as f:
             data = json.load(f)
     else:
         print("Wrong dataset mode")
