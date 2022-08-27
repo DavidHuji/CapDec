@@ -361,6 +361,7 @@ def main():
     root_dir = './'
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', default=f'./checkpoints/coco_prefix_t10_rn-006.pt')
+    parser.add_argument('--out', default='')
     # parser.add_argument('--checkpoint2', default='./checkpoints/coco_train-012.pt')
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_false')
     parser.add_argument('--beam', dest='beam', action='store_false')
@@ -382,8 +383,9 @@ def main():
     data = load_data(dataset_mode=args.dataset_mode)
 
     name = args.checkpoint.split("/")[-1].split(".")[0] + ("_beam" if args.beam else "_max")
-    out_path = f"{root_dir}/{name}.json"
 
+    out_path = f"{root_dir}/{name}.json" if (args.out == '') else args.out
+    print(f'out_path = {out_path}, dataset_mode = {args.dataset_mode}')
     args.is_rn = 'rn' in args.checkpoint
     args.is_rn = True
     prefix_dim = [512, 640][args.is_rn]
