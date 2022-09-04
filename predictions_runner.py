@@ -407,6 +407,7 @@ def main():
                               mapping_type=mapping_type, num_layers=args.num_layers)
     model.load_state_dict(torch.load(args.checkpoint, map_location=CUDA(0)))  # FIXME
     print(args.checkpoint)
+    print(f'modality_offset={args.add_modality_offset}')
 
     make_preds(data, model, out_path, tokenizer, args.dataset_mode, args=args)
 

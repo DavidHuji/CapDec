@@ -16,11 +16,13 @@ from parse_coco import add_text_embedding, train_with_noise_data_augmentation
 device = torch.device('cuda:0')
 
 
-def noise_augmentation(x, variance=0.001):
+def noise_augmentation(x, variance=0.001, modality_offset=None):
     if not train_with_noise_data_augmentation or variance == 0 or not add_text_embedding:
         return x
     x = torch.nn.functional.normalize(x, dim=1)
     x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))
+    if modality_offset is not None:
+        x = x + modality_offset
     return torch.nn.functional.normalize(x, dim=1)
 
 
@@ -314,7 +316,13 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=warmup_steps, num_training_steps=epochs * len(train_dataloader)
     )
-    # save_config(args)
+
+    if args.add_modality_offset:
+        with open('CLIP_embeddings_centers_info.pkl', 'rb') as f:
+            modality_offset = pickle.load(f)['offset_to_add_in_training']
+    else:
+        modality_offset = 0
+
     for epoch in range(epochs):
         print(f">>> Training epoch {epoch} / {epochs}")
         sys.stdout.flush()
@@ -323,7 +331,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
 
-            prefix = noise_augmentation(prefix, args.noise_aug_variance)
+            prefix = noise_augmentation(prefix, args.noise_aug_variance, modality_offset=(modality_offset if args.add_modality_offset else None))
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
             loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
@@ -352,6 +360,7 @@ def main():
     parser.add_argument('--data', default='./data/coco/oscar_split_train.pkl')
     parser.add_argument('--pretrain_weights', default='')
     parser.add_argument('--out_dir', default='./checkpoints')
+    parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true')
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
     parser.add_argument('--noise_aug_variance', type=float, default=0.0)
     parser.add_argument('--epochs', type=int, default=10)
@@ -380,6 +389,7 @@ def main():
         sys.stdout.flush()
     if args.pretrain_weights != '':
         model.load_state_dict(torch.load(args.pretrain_weights, map_location=device))
+    print(f'modality_offset={args.add_modality_offset}')
     train(dataset, model, args, output_dir=args.out_dir, output_prefix=args.prefix)
 
 
