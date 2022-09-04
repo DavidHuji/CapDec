@@ -10,7 +10,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import json
 import clip   # installed from https://github.com/openai/CLIP
-import argparse
+import argparse, pickle
 from gpt2_prefix_eval import generate_beam, generate2, imshow, get_prefix_tokens
 from gpt2_prefix_e2e import ClipCaptionE2E
 from torchvision import transforms
@@ -24,6 +24,11 @@ def count_ready_parphrased_embeddings(embeddings_dict):
             if len(embeddings_dict[img_id]) == 5:
                 ready += 1
     return ready
+
+
+def get_precalculated_centers():
+    with open('CLIP_embeddings_centers_info.pkl', 'rb') as f:
+        return pickle.load(f)
 
 
 def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_distances.pkl'):
@@ -114,6 +119,9 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
     # preprocess = clip_transform_full()
     #prefix_length = 10
 
+    if args.add_modality_offset:
+        modality_offset = get_precalculated_centers()['offset_to_add_in_inference']
+
     if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
     elif dataset_mode == 1:
@@ -165,6 +173,8 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
                     prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
                 if normalize:
                     prefix = prefix / prefix.norm(2, -1)
+                if args.add_modality_offset:
+                    prefix = prefix + modality_offset
                 prefix_embed = model.clip_project(prefix).reshape(1, args.prefix_length, -1)
         if args.beam:
             generated_text_prefix = generate_beam(model, tokenizer, embed=prefix_embed)[0]
@@ -368,6 +378,7 @@ def main():
     parser.add_argument('--beam', dest='beam', action='store_false')
     parser.add_argument('--is_rn', dest='is_rn', action='store_false')
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true')
+    parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true')
     parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true')
     parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true')
     parser.add_argument('--ablation_dist_review', dest='ablation_dist_review', action='store_true')
@@ -396,6 +407,7 @@ def main():
                               mapping_type=mapping_type, num_layers=args.num_layers)
     model.load_state_dict(torch.load(args.checkpoint, map_location=CUDA(0)))  # FIXME
     print(args.checkpoint)
+
     make_preds(data, model, out_path, tokenizer, args.dataset_mode, args=args)
 
 

@@ -30,7 +30,6 @@ class MappingType(Enum):
 
 
 class ClipCocoDataset(Dataset):
-
     def __len__(self) -> int:
         return len(self.captions_tokens)
 

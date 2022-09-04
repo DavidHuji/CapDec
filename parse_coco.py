@@ -62,6 +62,6 @@ def main(clip_model_type: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--clip_model_type', default="ViT-B/32", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
+    parser.add_argument('--clip_model_type', default='RN50x4', choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
     args = parser.parse_args()
     exit(main(args.clip_model_type))
