@@ -120,7 +120,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
     #prefix_length = 10
 
     if args.add_modality_offset:
-        modality_offset = get_precalculated_centers()['offset_to_add_in_inference']
+        modality_offset = get_precalculated_centers()['offset_to_add_in_inference'].to(device)
 
     if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
