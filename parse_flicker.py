@@ -69,7 +69,7 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
             if add_text_embedding:
                 caption = d["caption"]
                 if fix_gender_imbalance:
-                    if caption_has_gender_term(caption):
+                    if caption_has_gender_term(caption, gender_mode=(fix_gender_imbalance-1)):
                         caption = change_gender_randomly(caption)
                 try:  # if caption is too long
                     caption_tokens = clip.tokenize(caption).to(device)
@@ -100,11 +100,18 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
 def run_main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip_model_type', default="RN50x4", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
-    parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for NOTHING!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter, 7 for news.
-    parser.add_argument('--fix_gender_imbalance', default=False, action='store_true')
+    parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for COCO!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter, 7 for news.
+    parser.add_argument('--fix_gender_imbalance_mode', type=int, default=0)  # 1 for both genders, 2 for man only, 3 for woman only
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
-    if args.dataset_mode == 1:
+    if args.dataset_mode == 0:
+        out_path = f"./data/coco/oscar_split_{clip_model_name}_train.pkl"
+        if add_text_embedding:
+            out_path = f"./data/coco/oscar_split_{clip_model_name}_train_with_text_embeddings.pkl"
+            print(f'Text embeddings will be added to the dataset')
+        annotations_path = './data/coco/annotations/train_caption.json'
+        images_path = './data/coco/train2014/'
+    elif args.dataset_mode == 1:
         out_path = f"./data/flicker30_{clip_model_name}_train.pkl"
         if add_text_embedding:
             out_path = f"./data/flicker30_{clip_model_name}_train_with_text_embeddings.pkl"
@@ -142,19 +149,15 @@ def run_main():
         annotations_path = f"parssed_news_data.json"
         images_path = f'NoImgs'
     elif args.dataset_mode == 8:
-        out_path = f"./data/parsed_coco_snowboarding_split_train.pkl"
+        out_path = f"./data/BALANCED_parsed_coco_snowboarding_split_train_MODEis{args.fix_gender_imbalance_mode}.pkl"
         annotations_path = f"/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_train.json"
         images_path = f'NoImgs'
     elif args.dataset_mode == 9:
-        out_path = f"./data/BALANCED_parsed_coco_snowboarding_split_train.pkl"
-        annotations_path = f"/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/coco_snowboarding_annnotations/my_coco_snowboarding_train.json"
-        images_path = f'NoImgs'
-    elif args.dataset_mode == 10:
         out_path = f"./data/shkspr_train.pkl"
         annotations_path = f"parssed_sheikspir_alllines_111k.json"
         images_path = f'NoImgs'
-    print(f'out_path is {out_path} fix gender imbalance is {args.fix_gender_imbalance}')
-    exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path, args.fix_gender_imbalance))
+    print(f'out_path is {out_path} fix gender imbalance is {args.fix_gender_imbalance_mode}')
+    exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path, args.fix_gender_imbalance_mode))
 
 
 if __name__ == '__main__':
