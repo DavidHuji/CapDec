@@ -45,7 +45,7 @@ def change_gender_randomly(caption):
     return new_caption
 
 
-def main(clip_model_type, clip_model_name, out_path, annotations_path, images_path, fix_gender_imbalance):
+def main(clip_model_type, clip_model_name, out_path, annotations_path, images_path, fix_gender_imbalance, data_mode):
     clip_model, preprocess = clip.load(clip_model_type, device=device, jit=False)
     with open(annotations_path, 'r') as f:
         data = json.load(f)
@@ -58,7 +58,10 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
         d = data[i]
         img_id = d["image_id"]
         if images_path != 'NoImgs':
-            filename = images_path + d['filename']
+            if data_mode == 0:
+                filename = f"./data/coco/train2014/COCO_train2014_{int(img_id):012d}.jpg"
+            else:
+                filename = images_path + d['filename']
             image = io.imread(filename)
             image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
         with torch.no_grad():
@@ -157,7 +160,7 @@ def run_main():
         annotations_path = f"parssed_sheikspir_alllines_111k.json"
         images_path = f'NoImgs'
     print(f'out_path is {out_path} fix gender imbalance is {args.fix_gender_imbalance_mode}')
-    exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path, args.fix_gender_imbalance_mode))
+    exit(main(args.clip_model_type, clip_model_name, out_path, annotations_path, images_path, args.fix_gender_imbalance_mode, data_mode=args.dataset_mode))
 
 
 if __name__ == '__main__':
