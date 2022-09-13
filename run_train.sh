@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES=1 python train.py --data ./data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl --out_dir ./coco_train/ --mapping_type transformer --normalize_prefix  --num_layers 8 --prefix_length 40 --prefix_length_clip 40 --is_rn --noise_aug_variance 0.001
+CUDA_VISIBLE_DEVICES=X python train.py --data ./data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl --out_dir ./verification_train/001 --mapping_type transformer --normalize_prefix  --num_layers 8 --prefix_length 40 --prefix_length_clip 40 --is_rn --noise_aug_variance 0.001 --bs 30
