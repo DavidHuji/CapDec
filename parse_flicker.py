@@ -53,17 +53,23 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
     all_embeddings = []
     all_captions = []
     all_text_embeddings = []
-    long_caps = 0 
+    long_caps = 0
+    not_found = 0
     for i in tqdm(range(len(data))):
         d = data[i]
         img_id = d["image_id"]
-        if images_path != 'NoImgs':
-            if data_mode == 0:
-                filename = f"./data/coco/train2014/COCO_train2014_{int(img_id):012d}.jpg"
-            else:
-                filename = images_path + d['filename']
-            image = io.imread(filename)
-            image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
+        if not add_text_embedding:
+            if images_path != 'NoImgs':
+                if data_mode == 0:
+                    filename = f"./data/coco/train2014/COCO_train2014_{int(img_id):012d}.jpg"
+                else:
+                    filename = images_path + d['filename']
+                if os.path.isfile(filename):
+                    image = io.imread(filename)
+                else:
+                    not_found += 1
+                    continue
+                image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
         with torch.no_grad():
             if not add_text_embedding:
                 prefix = clip_model.encode_image(image).cpu()
@@ -97,6 +103,8 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
     print('Done')
     print(f'long_caps bigger then 76 amount was = {long_caps}')
     print("%0d embeddings saved " % len(all_embeddings))
+    print(f'not found images = {not_found}')
+    print(f'text embeddings = {add_text_embedding}')
     return 0
 
 
