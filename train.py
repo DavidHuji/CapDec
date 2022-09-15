@@ -11,16 +11,14 @@ import sys
 import argparse
 import json, math
 from typing import Tuple, Optional, Union
-from parse_coco import train_with_noise_data_augmentation
 
 device = torch.device('cuda:0')
 
 
-def noise_augmentation(x, variance=0.001, modality_offset=None):
-    if not train_with_noise_data_augmentation or variance == 0.0:
+def noise_injection(x, variance=0.001, modality_offset=None):
+    if variance == 0.0:
         return x
-    x = torch.nn.functional.normalize(x, dim=1)
-    x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))
+    x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))  # todo by some conventions multivraiance noise should be devided by sqrt of dim
     if modality_offset is not None:
         x = x + modality_offset
     return torch.nn.functional.normalize(x, dim=1)
@@ -330,8 +328,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
-
-            prefix = noise_augmentation(prefix, args.noise_aug_variance, modality_offset=(modality_offset if args.add_modality_offset else None))
+            prefix = noise_injection(prefix, args.noise_aug_variance, modality_offset=(modality_offset if args.add_modality_offset else None))
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
             loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
