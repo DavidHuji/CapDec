@@ -116,12 +116,12 @@ def run_main():
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
     if args.dataset_mode == 0:
-        out_path = f"./data/coco/verified_split_oscar_split_{clip_model_name}_train.pkl"
+        out_path = f"./data/coco/verified_split_COCO_train_set.pkl"
         if add_text_embedding:
-            out_path = f"./data/coco/verified_split_oscar_split_{clip_model_name}_train_with_text_embeddings.pkl"
+            out_path = f"./data/coco/verified_split_COCO_train_set_with_text.pkl"
             print(f'Text embeddings will be added to the dataset')
-        annotations_path = './data/coco/annotations/train_caption.json'
-        images_path = './data/coco/train2014/'
+        annotations_path = f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/train.json',
+        images_path = '/home/gamir/DER-Roei/davidn/myprivate_coco/train2014/'
     elif args.dataset_mode == 1:
         out_path = f"./data/flicker30_{clip_model_name}_train.pkl"
         if add_text_embedding:

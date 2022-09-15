@@ -11,13 +11,13 @@ import sys
 import argparse
 import json, math
 from typing import Tuple, Optional, Union
-from parse_coco import add_text_embedding, train_with_noise_data_augmentation
+from parse_coco import train_with_noise_data_augmentation
 
 device = torch.device('cuda:0')
 
 
 def noise_augmentation(x, variance=0.001, modality_offset=None):
-    if not train_with_noise_data_augmentation or variance == 0 or not add_text_embedding:
+    if not train_with_noise_data_augmentation or variance == 0.0:
         return x
     x = torch.nn.functional.normalize(x, dim=1)
     x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))
@@ -60,15 +60,15 @@ class ClipCocoDataset(Dataset):
         return tokens, mask, prefix
 
     def __init__(self, data_path: str,  prefix_length: int, gpt2_type: str = "gpt2",
-                 normalize_prefix=False):
+                 normalize_prefix=False, use_image_embedding_as_clipcap=False):
         self.tokenizer = GPT2Tokenizer.from_pretrained(gpt2_type)
         self.prefix_length = prefix_length
         self.normalize_prefix = normalize_prefix
         with open(data_path, 'rb') as f:
             all_data = pickle.load(f)
-        print("Data size is %0d" % len(all_data["clip_embedding" if not add_text_embedding else "clip_embedding_text_dave"]))
+        print("Data size is %0d" % len(all_data["clip_embedding" if use_image_embedding_as_clipcap else "clip_embedding_text_dave"]))
         sys.stdout.flush()
-        self.prefixes = all_data["clip_embedding" if not add_text_embedding else "clip_embedding_text_dave"]
+        self.prefixes = all_data["clip_embedding" if use_image_embedding_as_clipcap else "clip_embedding_text_dave"]
         captions_raw = all_data["captions"]
         self.image_ids = [caption["image_id"] for caption in captions_raw]
         self.captions = [caption['caption'] for caption in captions_raw]
@@ -372,10 +372,11 @@ def main():
     parser.add_argument('--mapping_type', type=str, default='mlp', help='mlp/transformer')
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--is_rn', dest='is_rn', action='store_true')
-    parser.add_argument('--normalize_prefix', dest='normalize_prefix', action='store_true')
+    parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true')
+    parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_false')
     args = parser.parse_args()
     prefix_length = args.prefix_length
-    dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=args.normalize_prefix)
+    dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=(not args.dont_normalize_prefix), use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
     prefix_dim = 640 if args.is_rn else 512
     args.mapping_type = {'mlp': MappingType.MLP, 'transformer': MappingType.Transformer}[args.mapping_type]
     if args.only_prefix:
