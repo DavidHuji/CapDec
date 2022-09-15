@@ -9,6 +9,7 @@ import argparse
 import json
 import time
 import transformer_mapper
+import clip
 
 
 class MappingType(Enum):

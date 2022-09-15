@@ -5,7 +5,7 @@ import os
 from custom_types import *
 from tqdm import tqdm, trange
 import torch
-from gpt2_prefix import ClipCocoDataset, ClipCaptionModel, ClipCaptionPrefix, MappingType
+from gpt2_prefix import ClipCaptionModel, MappingType
 from PIL import Image
 import matplotlib.pyplot as plt
 import json
@@ -27,7 +27,7 @@ def count_ready_parphrased_embeddings(embeddings_dict):
 
 
 def get_precalculated_centers():
-    with open('CLIP_embeddings_centers_info.pkl', 'rb') as f:
+    with open('others/CLIP_embeddings_centers_info.pkl', 'rb') as f:
         return pickle.load(f)
 
 

@@ -316,7 +316,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
     )
 
     if args.add_modality_offset:
-        with open('CLIP_embeddings_centers_info.pkl', 'rb') as f:
+        with open('others/CLIP_embeddings_centers_info.pkl', 'rb') as f:
             modality_offset = pickle.load(f)['offset_to_add_in_training'].to(device)
     else:
         modality_offset = None
