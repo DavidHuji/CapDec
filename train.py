@@ -319,7 +319,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
         with open('CLIP_embeddings_centers_info.pkl', 'rb') as f:
             modality_offset = pickle.load(f)['offset_to_add_in_training'].to(device)
     else:
-        modality_offset = 0
+        modality_offset = None
 
     for epoch in range(epochs):
         print(f">>> Training epoch {epoch} / {epochs}")
@@ -328,7 +328,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
-            prefix = noise_injection(prefix, args.noise_aug_variance, modality_offset=(modality_offset if args.add_modality_offset else None))
+            prefix = noise_injection(prefix, args.noise_variance, modality_offset=modality_offset)
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
             loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
@@ -357,20 +357,20 @@ def main():
     parser.add_argument('--data', default='./data/coco/oscar_split_train.pkl')
     parser.add_argument('--pretrain_weights', default='')
     parser.add_argument('--out_dir', default='./checkpoints')
-    parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true')
+    parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
-    parser.add_argument('--noise_aug_variance', type=float, default=0.0)
+    parser.add_argument('--noise_variance', type=float, default=0.0)
     parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=10)
     parser.add_argument('--prefix_length_clip', type=int, default=10)
     parser.add_argument('--bs', type=int, default=30)
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_true')
-    parser.add_argument('--mapping_type', type=str, default='mlp', help='mlp/transformer')
+    parser.add_argument('--mapping_type', type=str, default='transformer', help='mlp/transformer')
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--is_rn', dest='is_rn', action='store_true')
-    parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true')
-    parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_false')
+    parser.add_argument('--is_rn', dest='is_rn', action='store_true', default=False)
+    parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true', default=False)
+    parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_false', default=True)
     args = parser.parse_args()
     prefix_length = args.prefix_length
     dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=(not args.dont_normalize_prefix), use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
