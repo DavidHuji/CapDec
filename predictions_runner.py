@@ -373,15 +373,13 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', default=f'./checkpoints/coco_prefix_t10_rn-006.pt')
     parser.add_argument('--out', default='')
-    # parser.add_argument('--checkpoint2', default='./checkpoints/coco_train-012.pt')
-    parser.add_argument('--only_prefix', dest='only_prefix', action='store_false')
-    parser.add_argument('--beam', dest='beam', action='store_false')
-    parser.add_argument('--is_rn', dest='is_rn', action='store_false')
-    parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true')
-    parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true')
-    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true')
-    parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true')
-    parser.add_argument('--ablation_dist_review', dest='ablation_dist_review', action='store_true')
+    parser.add_argument('--beam', dest='beam', action='store_true', default=True)
+    parser.add_argument('--is_rn', dest='is_rn', action='store_true', default=True)
+    parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true', default=False)
+    parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
+    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true', default=False)
+    parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true', default=False)
+    parser.add_argument('--ablation_dist_review', dest='ablation_dist_review', action='store_true', default=False)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train, 7 coco val for womanSnowboard_for_creating_capdec_preds
@@ -398,8 +396,6 @@ def main():
 
     out_path = f"{root_dir}/{name}.json" if (args.out == '') else args.out
     print(f'out_path = {out_path}, dataset_mode = {args.dataset_mode}')
-    args.is_rn = 'rn' in args.checkpoint
-    args.is_rn = True
     prefix_dim = [512, 640][args.is_rn]
     mapping_type = {'mlp': MappingType.MLP, 'transformer_encoder': MappingType.TransformerEncoder,
                     'transformer_decoder': MappingType.TransformerDecoder}[args.mapping_type]
