@@ -397,9 +397,10 @@ def main():
     out_path = f"{root_dir}/{name}.json" if (args.out == '') else args.out
     print(f'out_path = {out_path}, dataset_mode = {args.dataset_mode}')
 
-    with open(f'{root_dir}/commandline_args.txt', 'w') as f:
+    out_dir = out_path.split('/')[:-1].join('/')
+    with open(f'{out_dir}/commandline_args.txt', 'w') as f:
         json.dump(args.__dict__, f, indent=2)
-        print(f'args saved to file {root_dir}/commandline_args.txt')
+        print(f'args saved to file {out_dir}/commandline_args.txt')
 
     prefix_dim = [512, 640][args.is_rn]
     mapping_type = {'mlp': MappingType.MLP, 'transformer_encoder': MappingType.TransformerEncoder,
