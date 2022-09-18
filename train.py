@@ -364,17 +364,17 @@ def main():
     parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--prefix_length_clip', type=int, default=40)
-    parser.add_argument('--bs', type=int, default=30)
+    parser.add_argument('--bs', type=int, default=32)
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_true', default=False)
     parser.add_argument('--mapping_type', type=str, default='transformer', help='mlp/transformer')
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--is_rn', dest='is_rn', action='store_true', default=True)
+    parser.add_argument('--is_not_rn', dest='is_not_rn', action='store_true', default=False)
     parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true', default=False)
-    parser.add_argument('--normalize_prefix', dest='normalize_prefix', action='store_true', default=True)
+    parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_true', default=False)
     args = parser.parse_args()
     prefix_length = args.prefix_length
-    dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=args.normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
-    prefix_dim = 640 if args.is_rn else 512
+    dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
+    prefix_dim = 640 if not args.is_not_rn else 512
     args.mapping_type = {'mlp': MappingType.MLP, 'transformer': MappingType.Transformer}[args.mapping_type]
     if args.only_prefix:
         model = ClipCaptionPrefix(prefix_length, clip_length=args.prefix_length_clip, prefix_size=prefix_dim,
