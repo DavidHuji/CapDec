@@ -389,7 +389,7 @@ def main():
         model.load_state_dict(torch.load(args.pretrain_weights, map_location=device))
     print(f'modality_offset={args.add_modality_offset}')
     with open(f'{args.out_dir}/commandline_args.txt', 'w') as f:
-        json.dump(args.__dict__, f, indent=2)
+        json.dump(dict(args.__dict__), f, indent=2)
         print(f'args saved to file {args.out_dir}/commandline_args.txt')
     train(dataset, model, args, output_dir=args.out_dir, output_prefix=args.prefix)
 

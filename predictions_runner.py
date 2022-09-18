@@ -399,7 +399,9 @@ def main():
 
     out_dir = '/'.join(out_path.split('/')[:-1])
     with open(f'{out_dir}/commandline_args.txt', 'w') as f:
-        json.dump(args.__dict__, f, indent=2)
+        args_at_dict = args.__dict__
+        args_at_dict.pop('mapping_type')
+        json.dump(args_at_dict, f, indent=2)
         print(f'args saved to file {out_dir}/commandline_args.txt')
 
     prefix_dim = [512, 640][args.is_rn]
