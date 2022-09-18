@@ -388,7 +388,9 @@ def main():
     if args.pretrain_weights != '':
         model.load_state_dict(torch.load(args.pretrain_weights, map_location=device))
     print(f'modality_offset={args.add_modality_offset}')
-    with open(f'{args.out_dir}commandline_args.txt', 'w') as f:
+    from pathlib import Path
+    Path(args.out_dir).mkdir(parents=True, exist_ok=True)
+    with open(f'{args.out_dir}/commandline_args.txt', 'w') as f:
         args_at_dict = args.__dict__
         args_at_dict.pop('mapping_type')
         json.dump(dict(args_at_dict), f, indent=2)
