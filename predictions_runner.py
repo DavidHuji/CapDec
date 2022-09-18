@@ -397,7 +397,7 @@ def main():
     out_path = f"{root_dir}/{name}.json" if (args.out == '') else args.out
     print(f'out_path = {out_path}, dataset_mode = {args.dataset_mode}')
 
-    out_dir = out_path.split('/')[:-1].join('/')
+    out_dir = '/'.join(out_path.split('/')[:-1])
     with open(f'{out_dir}/commandline_args.txt', 'w') as f:
         json.dump(args.__dict__, f, indent=2)
         print(f'args saved to file {out_dir}/commandline_args.txt')
