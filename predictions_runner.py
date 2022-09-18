@@ -399,7 +399,7 @@ def main():
 
     with open(f'{root_dir}/commandline_args.txt', 'w') as f:
         json.dump(args.__dict__, f, indent=2)
-        print('args saved to file {root_dir}/commandline_args.txt')
+        print(f'args saved to file {root_dir}/commandline_args.txt')
 
     prefix_dim = [512, 640][args.is_rn]
     mapping_type = {'mlp': MappingType.MLP, 'transformer_encoder': MappingType.TransformerEncoder,
