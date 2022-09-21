@@ -320,11 +320,13 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
             modality_offset = pickle.load(f)['offset_to_add_in_training'].to(device)
     else:
         modality_offset = None
-
+    loss_per_epoch_train = []
+    loss_per_epoch_val = []
     for epoch in range(epochs):
         print(f">>> Training epoch {epoch} / {epochs}")
         sys.stdout.flush()
         progress = tqdm(total=len(train_dataloader), desc=output_prefix)
+        accumulated_loss = 0.0
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
@@ -336,25 +338,42 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
             optimizer.step()
             scheduler.step()
             optimizer.zero_grad()
-            progress.set_postfix({"loss": loss.item()})
+            loss_value = loss.item()
+            progress.set_postfix({"loss": loss_value})
             progress.update()
+            accumulated_loss += loss_value
             if (idx + 1) % 10000 == 0:
                 torch.save(
                     model.state_dict(),
                     os.path.join(output_dir, f"{output_prefix}_latest.pt"),
                 )
         progress.close()
+        loss_per_epoch_train.append(accumulated_loss / len(train_dataloader))
+        print('loss_per_epoch_train: ', loss_per_epoch_train)
         if epoch % args.save_every == 0 or epoch == epochs - 1:
             torch.save(
                 model.state_dict(),
                 os.path.join(output_dir, f"{output_prefix}-{epoch:03d}.pt"),
             )
+        if args.val_pt:
+            val_dataset = ClipCocoDataset(args.val_pt, args.prefix_length, args.max_length, args.max_samples)
+            val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
+            val_loss = 0.0
+            for idx, (tokens, mask, prefix) in enumerate(val_dataloader):
+                tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
+                outputs = model(tokens, prefix, mask)
+                logits = outputs.logits[:, dataset.prefix_length - 1: -1]
+                loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
+                val_loss += loss.item()
+            loss_per_epoch_val.append(val_loss / len(val_dataloader))
+            print('val_loss', val_loss / len(val_dataloader))
     return model
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', default='./data/coco/oscar_split_train.pkl')
+    parser.add_argument('--val_pt', default='')
     parser.add_argument('--pretrain_weights', default='')
     parser.add_argument('--out_dir', default='./checkpoints')
     parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
