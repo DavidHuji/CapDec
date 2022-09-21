@@ -362,12 +362,14 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
             val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
             val_loss = 0.0
             model.eval()
-            for idx, (tokens, mask, prefix) in enumerate(val_dataloader):
-                tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
-                outputs = model(tokens, prefix, mask)
-                logits = outputs.logits[:, dataset.prefix_length - 1: -1]
-                loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
-                val_loss += loss.item()
+            with torch.no_grad():
+                torch.cuda.empty_cache()
+                for idx, (tokens, mask, prefix) in enumerate(val_dataloader):
+                    tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
+                    outputs = model(tokens, prefix, mask)
+                    logits = outputs.logits[:, dataset.prefix_length - 1: -1]
+                    loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
+                    val_loss += loss.item()
             model.train()
             loss_per_epoch_val.append(val_loss / len(val_dataloader))
             print('loss_per_epoch_val: ', loss_per_epoch_val)
