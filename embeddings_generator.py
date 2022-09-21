@@ -136,6 +136,13 @@ def run_main():
             print(f'Text embeddings will be added to the dataset')
         annotations_path = f"/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsontrain"
         images_path = f"/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images/"
+    elif args.dataset_mode == 1.5:
+        out_path = f"./data/flicker30_{clip_model_name}_validation.pkl"
+        if add_text_embedding:
+            out_path = f"./data/flicker30_{clip_model_name}_validation_with_text_embeddings.pkl"
+            print(f'Text embeddings will be added to the dataset')
+        annotations_path = f"/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsonvalidation"
+        images_path = f"/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images/"
     elif args.dataset_mode == 2:
         out_path = f"./data/styleHumor_{clip_model_name}_train.pkl"
         if add_text_embedding:
