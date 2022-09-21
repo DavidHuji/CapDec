@@ -356,7 +356,9 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
                 os.path.join(output_dir, f"{output_prefix}-{epoch:03d}.pt"),
             )
         if args.val_pt:
-            val_dataset = ClipCocoDataset(args.val_pt, args.prefix_length, args.max_length, args.max_samples)
+            val_dataset = ClipCocoDataset(args.val_pt, args.prefix_length, normalize_prefix=not args.dont_normalize_prefix,
+                            use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
+
             val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
             val_loss = 0.0
             model.eval()
@@ -385,7 +387,7 @@ def main():
     parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--prefix_length_clip', type=int, default=40)
-    parser.add_argument('--bs', type=int, default=32)
+    parser.add_argument('--bs', type=int, default=40)
     parser.add_argument('--only_prefix', dest='only_prefix', action='store_true', default=False)
     parser.add_argument('--mapping_type', type=str, default='transformer', help='mlp/transformer')
     parser.add_argument('--num_layers', type=int, default=8)
