@@ -111,8 +111,8 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
 def run_main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--clip_model_type', default="RN50x4", choices=('RN50', 'RN101', 'RN50x4', 'ViT-B/32'))
-    parser.add_argument('--dataset_mode', type=int, default=1)  # 0 for COCO!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter, 7 for news.
-    parser.add_argument('--fix_gender_imbalance_mode', type=float, default=0)  # 1 for both genders, 2 for man only, 3 for woman only
+    parser.add_argument('--dataset_mode', type=float, default=0.0)  # 0 for COCO!!, 1 for flicker30, 2 humor style,3 romantic,4 factual of style,6 harrypotter, 7 for news.
+    parser.add_argument('--fix_gender_imbalance_mode', type=int, default=0)  # 1 for both genders, 2 for man only, 3 for woman only
     args = parser.parse_args()
     clip_model_name = args.clip_model_type.replace('/', '_')
     if args.dataset_mode == 0:
