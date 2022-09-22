@@ -372,6 +372,8 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps:
             model.train()
             loss_per_epoch_val.append(val_loss / len(val_dataloader))
             print('loss_per_epoch_val: ', loss_per_epoch_val)
+            with open(os.path.join(output_dir, f"loss_per_epoch_train.json"), 'w') as f:
+                json.dump({'train': loss_per_epoch_train, 'val': loss_per_epoch_val}, f)
     return model
 
 
