@@ -299,8 +299,7 @@ def load_model(config_path: str, epoch_or_latest: Union[str, int] = '_latest'):
     return model, parser
 
 
-def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
-          lr: float = 2e-5, warmup_steps: int = 5000, output_dir: str = ".", output_prefix: str = ""):
+def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps: int = 5000, output_dir: str = ".", output_prefix: str = ""):
 
     device = torch.device('cuda:0')
     batch_size = args.bs
@@ -309,7 +308,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args,
         os.makedirs(output_dir)
     model = model.to(device)
     model.train()
-    optimizer = AdamW(model.parameters(), lr=lr)
+    optimizer = AdamW(model.parameters(), lr=args.lr)
     train_dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, drop_last=True)
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=warmup_steps, num_training_steps=epochs * len(train_dataloader)
@@ -385,6 +384,7 @@ def main():
     parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
     parser.add_argument('--noise_variance', type=float, default=0.0)
+    parser.add_argument('--lr', type=float, default=2e-5)
     parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=40)
