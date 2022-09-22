@@ -372,8 +372,8 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps:
             model.train()
             loss_per_epoch_val.append(val_loss / len(val_dataloader))
             print('loss_per_epoch_val: ', loss_per_epoch_val)
-            with open(os.path.join(output_dir, f"loss_per_epoch_train.json"), 'w') as f:
-                json.dump({'train': loss_per_epoch_train, 'val': loss_per_epoch_val}, f)
+        with open(os.path.join(output_dir, f"loss_per_epoch.json"), 'wb') as f:
+            json.dump({'train': loss_per_epoch_train, 'val': loss_per_epoch_val}, f)
     return model
 
 
@@ -387,7 +387,7 @@ def main():
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
     parser.add_argument('--noise_variance', type=float, default=0.0)
     parser.add_argument('--lr', type=float, default=2e-5)
-    parser.add_argument('--epochs', type=int, default=10)
+    parser.add_argument('--epochs', type=int, default=20)
     parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--prefix_length_clip', type=int, default=40)
@@ -399,6 +399,23 @@ def main():
     parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true', default=False)
     parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_true', default=False)
     args = parser.parse_args()
+    if args.data == 'COCO':
+        args.bs = 36
+        if args.use_image_embedding_as_clipcap:
+            args.data = './data/coco/oscar_split_RN50x4_train.pkl'
+            args.val_pt = ''  # not used
+        else:
+            args.data = './data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl'
+            args.val_pt = './data/coco/COCO_val_set_single_cap_per_sample_with_text.pkl'
+    elif args.data == 'FLICKR':
+        args.bs = 16
+        if args.use_image_embedding_as_clipcap:
+            args.data = './data/flicker30_RN50x4_train.pkl'
+            args.val_pt = ''  # not used
+        else:
+            args.data = './data/flicker30_RN50x4_train_with_text_embeddings.pkl'
+            args.val_pt = './data/flicker30_RN50x4_validation_with_text_embeddings.pkl'
+
     prefix_length = args.prefix_length
     dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
     prefix_dim = 640 if not args.is_not_rn else 512
@@ -421,7 +438,7 @@ def main():
         args_at_dict = args.__dict__
         args_at_dict.pop('mapping_type')
         json.dump(dict(args_at_dict), f, indent=2)
-        print(f'args saved to file {args.out_dir}/commandline_args.txt')
+        print(f'args saved to file {args.out_dir}/train_commandline_args.txt')
     train(dataset, model, args, output_dir=args.out_dir, output_prefix=args.prefix)
 
 
