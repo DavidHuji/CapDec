@@ -368,11 +368,11 @@ def main():
     images_root = "./data/coco/train2014"
     if not os.path.isdir(images_root):
         images_root = "./data/coco/val2014"
-    #
-    root_dir = './'
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--checkpoint', default=f'./checkpoints/coco_prefix_t10_rn-006.pt')
     parser.add_argument('--out', default='')
+    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train, 7 coco val for womanSnowboard_for_creating_capdec_preds
     parser.add_argument('--beam', dest='beam', action='store_true', default=True)
     parser.add_argument('--is_rn', dest='is_rn', action='store_true', default=True)
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true', default=False)
@@ -382,7 +382,6 @@ def main():
     parser.add_argument('--ablation_dist_review', dest='ablation_dist_review', action='store_true', default=False)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--num_layers', type=int, default=8)
-    parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train, 7 coco val for womanSnowboard_for_creating_capdec_preds
     parser.add_argument('--prefix_length_clip', type=int, default=40)
     parser.add_argument('--mapping_type', type=str, default='transformer_encoder',
                         help='mlp/transformer_encoder/transformer_decoder')
@@ -392,9 +391,9 @@ def main():
         args.dataset_mode = 5
     data = load_data(dataset_mode=args.dataset_mode)
 
-    name = args.checkpoint.split("/")[-1].split(".")[0] + ("_beam" if args.beam else "_max")
-
-    out_path = f"{root_dir}/{name}.json" if (args.out == '') else args.out
+    name = args.checkpoint.split("/")[-1].split(".")[0]
+    checkpoint_dir = '/'.join(args.checkpoint.split("/")[:-1])
+    out_path = f"{checkpoint_dir}/{name}.json" if (args.out == '') else args.out
     print(f'out_path = {out_path}, dataset_mode = {args.dataset_mode}')
 
     out_dir = '/'.join(out_path.split('/')[:-1])

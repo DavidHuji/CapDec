@@ -18,6 +18,7 @@ device = torch.device('cuda:0')
 def noise_injection(x, variance=0.001, modality_offset=None):
     if variance == 0.0:
         return x
+    x = torch.nn.functional.normalize(x, dim=1)
     x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))  # todo by some conventions multivraiance noise should be devided by sqrt of dim
     if modality_offset is not None:
         x = x + modality_offset
@@ -379,7 +380,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', default='./data/coco/oscar_split_train.pkl')
+    parser.add_argument('--data', default='clip_embedding.pkl')
     parser.add_argument('--val_pt', default='')
     parser.add_argument('--pretrain_weights', default='')
     parser.add_argument('--out_dir', default='./checkpoints')
