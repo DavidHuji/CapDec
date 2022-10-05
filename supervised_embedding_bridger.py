@@ -21,7 +21,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 def get_map_to_text_space_using_modality_bridger():
     # load model
     model = MLP(640, 640, 640, 3).to(device)
-    model.load_state_dict(torch.load('other/' + PATH))
+    model.load_state_dict(torch.load('others/' + PATH))
     model.eval()
 
     def map_to_text_space_using_modality_bridger(image_embedding):
