@@ -121,13 +121,13 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
         modality_offset = get_precalculated_centers()['offset_to_add_in_inference'].to(device)
 
     if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
-        images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014/'
+        images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014'
     elif dataset_mode == 1:
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
     elif dataset_mode == 2 or dataset_mode == 3 or dataset_mode == 4:
         images_root = '/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
     elif dataset_mode == 6:
-        images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/train2014/'
+        images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/train2014'
     elif dataset_mode != 5:
         print("Wrong data mode")
         exit(3)
