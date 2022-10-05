@@ -111,11 +111,9 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
     model.eval()
     if args.is_rn:
         clip_model, preprocess = clip.load("RN50x4", device=device, jit=False)
-        normalize = True
         args.beam = True
     else:
         clip_model, preprocess = clip.load("ViT-B/32", device=device, jit=False)
-        normalize = False
     # preprocess = clip_transform_full()
     #prefix_length = 10
 
@@ -133,13 +131,18 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
     elif dataset_mode != 5:
         print("Wrong data mode")
         exit(3)
+
+    #modality_bridger
+    if args.modality_bridger:
+        from supervised_embedding_bridger import get_map_to_text_space_using_modality_bridger
+        map_to_text_space_using_modality_bridger = get_map_to_text_space_using_modality_bridger()
+
     embeddings = model.gpt.get_input_embeddings().weight.data
     embeddings = nnf.normalize(embeddings, 2, 1)
     skips = 0
     new_data = []
     prefix_for_distance_ablation_metric = {}
     results = []
-
     ablation_image_dist_stat = {'counter': 0, 'L2': 0.0}
     for ii, d in enumerate(data):
         img_id = d["image_id"]
@@ -161,21 +164,18 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             image_raw = Image.open(filename).convert("RGB")
             image = preprocess(image_raw).unsqueeze(0).to(device)
         with torch.no_grad():
-            if type(model) is ClipCaptionE2E:
-                prefix_embed = model.forward_image(image)
+            if args.text_autoencoder:
+                # in this case thew image is actually text input
+                caption_tokens = clip.tokenize(d['caption']).to(device)
+                prefix = clip_model.encode_text(caption_tokens).float()
             else:
-                if args.text_autoencoder:
-                    # in this case thew image is actually text input
-                    caption_tokens = clip.tokenize(d['caption']).to(device)
-                    prefix = clip_model.encode_text(caption_tokens).float()
-                    prefix /= torch.norm(prefix, keepdim=True)
-                else:
-                    prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
-                if normalize:
-                    prefix = prefix / prefix.norm(2, -1)
-                if args.add_modality_offset:
-                    prefix = prefix + modality_offset
-                prefix_embed = model.clip_project(prefix).reshape(1, args.prefix_length, -1)
+                prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
+            prefix = prefix / prefix.norm(2, -1)
+            if args.add_modality_offset:
+                prefix = prefix + modality_offset
+            if args.modality_bridger:
+                prefix = map_to_text_space_using_modality_bridger(prefix)
+            prefix_embed = model.clip_project(prefix).reshape(1, args.prefix_length, -1)
         if args.beam:
             generated_text_prefix = generate_beam(model, tokenizer, embed=prefix_embed)[0]
         else:
@@ -373,6 +373,7 @@ def main():
     parser.add_argument('--checkpoint', default=f'./checkpoints/coco_prefix_t10_rn-006.pt')
     parser.add_argument('--out', default='')
     parser.add_argument('--dataset_mode', type=int, default=0)  # 0 for coco val, 1 for flicker30, 2 humor style,3 romantic,4 factual of style, 5 coco val text only, 6 coco train, 7 coco val for womanSnowboard_for_creating_capdec_preds
+    parser.add_argument('--modality_bridger', dest='modality_bridger', action='store_true', default=False)
     parser.add_argument('--beam', dest='beam', action='store_true', default=True)
     parser.add_argument('--is_rn', dest='is_rn', action='store_true', default=True)
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true', default=False)
