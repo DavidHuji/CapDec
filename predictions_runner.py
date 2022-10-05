@@ -122,7 +122,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
 
     if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/val2014'
-        images_root = '../myprivate_coco'
+        images_root = '../myprivate_coco/val2014'
     elif dataset_mode == 1:
         images_root = '/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images'
     elif dataset_mode == 2 or dataset_mode == 3 or dataset_mode == 4:
