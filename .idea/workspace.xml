@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="skdpr data">
+    <list default="true" id="7a415713-6726-4f73-a813-88033a52fffd" name="Default Changelist" comment="bridger">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parse_flicker.py" beforeDir="false" afterPath="$PROJECT_DIR$/parse_flicker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,7 @@
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="credentialsType com.jetbrains.python.remote.PyCreateRemoteInterpreterDialog$PyCreateRemoteSdkForm" value="SSH Configuration" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/others" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -113,14 +112,68 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/others" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sh_files" />
+      <recent name="$PROJECT_DIR$/others" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/hp_data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.parse_flicker">
+  <component name="RunManager" selected="Python.predictions_runner">
+    <configuration name="DELTE_IT_OLD_parse_coco" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CLIP_prefix_caption" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1 CUDA_VISIBLE_DEVICES=2" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DELTE_IT_OLD_parse_coco.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="embeddings_generator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="CLIP_prefix_caption" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <PathMappingSettings>
+        <option name="pathMappings">
+          <list>
+            <mapping local-root="$PROJECT_DIR$" remote-root="/home/gamir/DER-Roei/davidn/CLIP_prefix_caption" />
+          </list>
+        </option>
+      </PathMappingSettings>
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/embeddings_generator.py" />
+      <option name="PARAMETERS" value="--dataset_mode 0" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="generte_captions_for_eval" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CLIP_prefix_caption" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,64 +226,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="parse_coco" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CLIP_prefix_caption" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1 CUDA_VISIBLE_DEVICES=2" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parse_coco.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="parse_flicker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="CLIP_prefix_caption" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <PathMappingSettings>
-        <option name="pathMappings">
-          <list>
-            <mapping local-root="$PROJECT_DIR$" remote-root="/home/gamir/DER-Roei/davidn/CLIP_prefix_caption" />
-          </list>
-        </option>
-      </PathMappingSettings>
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/parse_flicker.py" />
-      <option name="PARAMETERS" value="--dataset_mode 3" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="predictions_runner" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="CLIP_prefix_caption" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="CUDA_VISIBLE_DEVICES" value="0" />
+        <env name="CUDA_VISIBLE_DEVICES" value="3" />
       </envs>
       <option name="SDK_HOME" value="sshConfig://nukraidavid@c-009.cs.tau.ac.il:22/home/gamir/DER-Roei/davidn/my_conda_main_dir/anaconda3/envs/clip_prefix_caption/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -246,7 +248,7 @@
         </option>
       </PathMappingSettings>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/predictions_runner.py" />
-      <option name="PARAMETERS" value="--mapping_type transformer_encoder  --num_layers 8 --prefix_length 40  --prefix_length_clip 40 --checkpoint ../transformer_weights.pt --is_rn --dataset_mode 0 --ablation_dist" />
+      <option name="PARAMETERS" value="--mapping_type transformer_encoder  --num_layers 8 --prefix_length 40  --prefix_length_clip 40 --checkpoint ../transformer_weights.pt --is_rn" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -276,7 +278,7 @@
         </option>
       </PathMappingSettings>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
-      <option name="PARAMETERS" value="--data ./data/hp_coco_combined_embeddings.pkl --out_dir ./hp_coco_train/ --mapping_type transformer  --num_layers 8 --prefix_length 40 --prefix_length_clip 40 --normalize_prefix --is_rn --bs 4 --noise_aug_variance 0.001" />
+      <option name="PARAMETERS" value="--data ./data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl --out_dir ./trials/ --bs 1 --noise_variance 0.001 --val_pt  ./data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -286,18 +288,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.train" />
-      <item itemvalue="Python.parse_flicker" />
       <item itemvalue="Python.generte_captions_for_eval" />
-      <item itemvalue="Python.parse_coco" />
       <item itemvalue="Python.hp_to_coco_format" />
       <item itemvalue="Python.predictions_runner" />
+      <item itemvalue="Python.embeddings_generator" />
+      <item itemvalue="Python.DELTE_IT_OLD_parse_coco" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.parse_flicker" />
         <item itemvalue="Python.predictions_runner" />
+        <item itemvalue="Python.embeddings_generator" />
         <item itemvalue="Python.hp_to_coco_format" />
-        <item itemvalue="Python.parse_coco" />
+        <item itemvalue="Python.DELTE_IT_OLD_parse_coco" />
       </list>
     </recent_temporary>
   </component>
@@ -336,352 +338,353 @@
       <workItem from="1659871782510" duration="11000" />
       <workItem from="1659873768953" duration="677000" />
       <workItem from="1660476977062" duration="4181000" />
-      <workItem from="1660813540760" duration="21883000" />
+      <workItem from="1660813540760" duration="104587000" />
+      <workItem from="1663700891170" duration="49089000" />
     </task>
-    <task id="LOCAL-00013" summary="flicker parser">
-      <created>1655287753201</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
+    <task id="LOCAL-00067" summary="review ablation">
+      <created>1661602434800</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
       <option name="project" value="LOCAL" />
-      <updated>1655287753201</updated>
+      <updated>1661602434800</updated>
     </task>
-    <task id="LOCAL-00014" summary="flicker parser">
-      <created>1655287894694</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
+    <task id="LOCAL-00068" summary="review ablation">
+      <created>1661641361651</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
       <option name="project" value="LOCAL" />
-      <updated>1655287894694</updated>
+      <updated>1661641361651</updated>
     </task>
-    <task id="LOCAL-00015" summary="flicker parser">
-      <created>1655306629067</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
+    <task id="LOCAL-00069" summary="add_modality_offset">
+      <created>1662324060507</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
       <option name="project" value="LOCAL" />
-      <updated>1655306629067</updated>
+      <updated>1662324060507</updated>
     </task>
-    <task id="LOCAL-00016" summary="flicker eval">
-      <created>1655397068023</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
+    <task id="LOCAL-00070" summary="add_modality_offset">
+      <created>1662325271295</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
       <option name="project" value="LOCAL" />
-      <updated>1655397068023</updated>
+      <updated>1662325271295</updated>
     </task>
-    <task id="LOCAL-00017" summary="adding style dataset">
-      <created>1655662640450</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
+    <task id="LOCAL-00071" summary="add_modality_offset">
+      <created>1662402886923</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
       <option name="project" value="LOCAL" />
-      <updated>1655662640450</updated>
+      <updated>1662402886923</updated>
     </task>
-    <task id="LOCAL-00018" summary="adding style dataset">
-      <created>1655662765348</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
+    <task id="LOCAL-00072" summary="add_modality_offset">
+      <created>1662407235507</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
       <option name="project" value="LOCAL" />
-      <updated>1655662765348</updated>
+      <updated>1662407235508</updated>
     </task>
-    <task id="LOCAL-00019" summary="adding style dataset">
-      <created>1655663920482</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
+    <task id="LOCAL-00073" summary="fix gender balance to only man">
+      <created>1662922085436</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
       <option name="project" value="LOCAL" />
-      <updated>1655663920482</updated>
+      <updated>1662922085436</updated>
     </task>
-    <task id="LOCAL-00020" summary="adding style dataset">
-      <created>1655666441997</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
+    <task id="LOCAL-00074" summary="verified split">
+      <created>1663109371132</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
       <option name="project" value="LOCAL" />
-      <updated>1655666441997</updated>
+      <updated>1663109371132</updated>
     </task>
-    <task id="LOCAL-00021" summary="adding text autoencoder">
-      <created>1655810680403</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
+    <task id="LOCAL-00075" summary="verified split">
+      <created>1663109955602</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
       <option name="project" value="LOCAL" />
-      <updated>1655810680403</updated>
+      <updated>1663109955602</updated>
     </task>
-    <task id="LOCAL-00022" summary="adding text autoencoder">
-      <created>1655814849330</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
+    <task id="LOCAL-00076" summary="verified split">
+      <created>1663156767089</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
       <option name="project" value="LOCAL" />
-      <updated>1655814849330</updated>
+      <updated>1663156767089</updated>
     </task>
-    <task id="LOCAL-00023" summary="distance metric">
-      <created>1655816089285</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
+    <task id="LOCAL-00077" summary="cosmetics">
+      <created>1663237385194</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
       <option name="project" value="LOCAL" />
-      <updated>1655816089285</updated>
+      <updated>1663237385194</updated>
     </task>
-    <task id="LOCAL-00024" summary="distance metric b">
-      <created>1655817395371</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
+    <task id="LOCAL-00078" summary="cosmetics">
+      <created>1663241075459</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
       <option name="project" value="LOCAL" />
-      <updated>1655817395371</updated>
+      <updated>1663241075459</updated>
     </task>
-    <task id="LOCAL-00025" summary="distance metric b">
-      <created>1655836902450</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
+    <task id="LOCAL-00079" summary="cosmetics">
+      <created>1663241974652</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
       <option name="project" value="LOCAL" />
-      <updated>1655836902450</updated>
+      <updated>1663241974652</updated>
     </task>
-    <task id="LOCAL-00026" summary="distance metric b">
-      <created>1655837659278</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
+    <task id="LOCAL-00080" summary="cosmetics">
+      <created>1663243903961</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
       <option name="project" value="LOCAL" />
-      <updated>1655837659278</updated>
+      <updated>1663243903961</updated>
     </task>
-    <task id="LOCAL-00027" summary="distance metric b">
-      <created>1655837730360</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
+    <task id="LOCAL-00081" summary="cosmetics">
+      <created>1663266102355</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
       <option name="project" value="LOCAL" />
-      <updated>1655837730360</updated>
+      <updated>1663266102355</updated>
     </task>
-    <task id="LOCAL-00028" summary="distance metric b">
-      <created>1655837835744</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
+    <task id="LOCAL-00082" summary="cosmetics">
+      <created>1663271101719</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
       <option name="project" value="LOCAL" />
-      <updated>1655837835744</updated>
+      <updated>1663271101719</updated>
     </task>
-    <task id="LOCAL-00029" summary="distance metric b">
-      <created>1655841441524</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00083" summary="cosmetics">
+      <created>1663442653194</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
       <option name="project" value="LOCAL" />
-      <updated>1655841441524</updated>
+      <updated>1663442653194</updated>
     </task>
-    <task id="LOCAL-00030" summary="distance metric b">
-      <created>1655886226876</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00084" summary="cosmetics">
+      <created>1663503819079</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
       <option name="project" value="LOCAL" />
-      <updated>1655886226876</updated>
+      <updated>1663503819079</updated>
     </task>
-    <task id="LOCAL-00031" summary="distance metric b">
-      <created>1655887666690</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00085" summary="cosmetics">
+      <created>1663505712542</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
       <option name="project" value="LOCAL" />
-      <updated>1655887666690</updated>
+      <updated>1663505712542</updated>
     </task>
-    <task id="LOCAL-00032" summary="distance metric b">
-      <created>1655889354005</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+    <task id="LOCAL-00086" summary="cosmetics">
+      <created>1663505918678</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
       <option name="project" value="LOCAL" />
-      <updated>1655889354005</updated>
+      <updated>1663505918678</updated>
     </task>
-    <task id="LOCAL-00033" summary="distance metric b">
-      <created>1655922193108</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+    <task id="LOCAL-00087" summary="cosmetics">
+      <created>1663506177754</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
       <option name="project" value="LOCAL" />
-      <updated>1655922193108</updated>
+      <updated>1663506177754</updated>
     </task>
-    <task id="LOCAL-00034" summary="distance metric b">
-      <created>1655922742851</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+    <task id="LOCAL-00088" summary="cosmetics">
+      <created>1663506327936</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
       <option name="project" value="LOCAL" />
-      <updated>1655922742851</updated>
+      <updated>1663506327936</updated>
     </task>
-    <task id="LOCAL-00035" summary="distance metric b">
-      <created>1655922833997</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+    <task id="LOCAL-00089" summary="cosmetics">
+      <created>1663508551739</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
       <option name="project" value="LOCAL" />
-      <updated>1655922833997</updated>
+      <updated>1663508551739</updated>
     </task>
-    <task id="LOCAL-00036" summary="distance metric b">
-      <created>1655923417578</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+    <task id="LOCAL-00090" summary="cosmetics">
+      <created>1663508594243</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
       <option name="project" value="LOCAL" />
-      <updated>1655923417578</updated>
+      <updated>1663508594243</updated>
     </task>
-    <task id="LOCAL-00037" summary="add in clip embedding ablation">
-      <created>1655926721241</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
+    <task id="LOCAL-00091" summary="cosmetics">
+      <created>1663538069666</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
       <option name="project" value="LOCAL" />
-      <updated>1655926721241</updated>
+      <updated>1663538069666</updated>
     </task>
-    <task id="LOCAL-00038" summary="add in clip embedding ablation">
-      <created>1655926825786</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
+    <task id="LOCAL-00092" summary="cosmetics">
+      <created>1663538311712</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
       <option name="project" value="LOCAL" />
-      <updated>1655926825786</updated>
+      <updated>1663538311712</updated>
     </task>
-    <task id="LOCAL-00039" summary="harry potter corpus">
-      <created>1656022130169</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
+    <task id="LOCAL-00093" summary="cosmetics">
+      <created>1663538427131</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
       <option name="project" value="LOCAL" />
-      <updated>1656022130169</updated>
+      <updated>1663538427131</updated>
     </task>
-    <task id="LOCAL-00040" summary="harry potter corpus">
-      <created>1656022644803</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
+    <task id="LOCAL-00094" summary="better metrics doc">
+      <created>1663748051503</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
       <option name="project" value="LOCAL" />
-      <updated>1656022644803</updated>
+      <updated>1663748051504</updated>
     </task>
-    <task id="LOCAL-00041" summary="harry potter corpus">
-      <created>1656022870714</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
+    <task id="LOCAL-00095" summary="better metrics doc">
+      <created>1663751758866</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
       <option name="project" value="LOCAL" />
-      <updated>1656022870714</updated>
+      <updated>1663751758866</updated>
     </task>
-    <task id="LOCAL-00042" summary="readme">
-      <created>1657461363604</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
+    <task id="LOCAL-00096" summary="better metrics doc">
+      <created>1663752871981</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
       <option name="project" value="LOCAL" />
-      <updated>1657461363604</updated>
+      <updated>1663752871981</updated>
     </task>
-    <task id="LOCAL-00043" summary="ablation_image_dist">
-      <created>1657722236193</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
+    <task id="LOCAL-00097" summary="better metrics doc">
+      <created>1663753252226</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
       <option name="project" value="LOCAL" />
-      <updated>1657722236193</updated>
+      <updated>1663753252226</updated>
     </task>
-    <task id="LOCAL-00044" summary="ablation_image_dist">
-      <created>1658242854645</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
+    <task id="LOCAL-00098" summary="better metrics doc">
+      <created>1663765536060</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
       <option name="project" value="LOCAL" />
-      <updated>1658242854645</updated>
+      <updated>1663765536060</updated>
     </task>
-    <task id="LOCAL-00045" summary="ablation_image_dist">
-      <created>1658243557472</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
+    <task id="LOCAL-00099" summary="calc val set">
+      <created>1663765712324</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
       <option name="project" value="LOCAL" />
-      <updated>1658243557472</updated>
+      <updated>1663765712324</updated>
     </task>
-    <task id="LOCAL-00046" summary="ablation_image_dist">
-      <created>1658246815373</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
+    <task id="LOCAL-00100" summary="calc val set">
+      <created>1663765854567</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
       <option name="project" value="LOCAL" />
-      <updated>1658246815373</updated>
+      <updated>1663765854567</updated>
     </task>
-    <task id="LOCAL-00047" summary="ablation_image_dist">
-      <created>1658246889785</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
+    <task id="LOCAL-00101" summary="calc val set">
+      <created>1663765903253</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
       <option name="project" value="LOCAL" />
-      <updated>1658246889785</updated>
+      <updated>1663765903253</updated>
     </task>
-    <task id="LOCAL-00048" summary="ablation_image_dist">
-      <created>1658246998824</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
+    <task id="LOCAL-00102" summary="validation flickr">
+      <created>1663772330860</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
       <option name="project" value="LOCAL" />
-      <updated>1658246998824</updated>
+      <updated>1663772330860</updated>
     </task>
-    <task id="LOCAL-00049" summary="ablation_image_dist">
-      <created>1658345031603</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
+    <task id="LOCAL-00103" summary="validation flickr">
+      <created>1663835882467</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
       <option name="project" value="LOCAL" />
-      <updated>1658345031603</updated>
+      <updated>1663835882467</updated>
     </task>
-    <task id="LOCAL-00050" summary="better print format">
-      <created>1658404224373</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
+    <task id="LOCAL-00104" summary="save losses to file">
+      <created>1663853768648</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
       <option name="project" value="LOCAL" />
-      <updated>1658404224374</updated>
+      <updated>1663853768648</updated>
     </task>
-    <task id="LOCAL-00051" summary="news">
-      <created>1658773913253</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
+    <task id="LOCAL-00105" summary="nice config">
+      <created>1663885314135</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
       <option name="project" value="LOCAL" />
-      <updated>1658773913254</updated>
+      <updated>1663885314135</updated>
     </task>
-    <task id="LOCAL-00052" summary="news">
-      <created>1659106853669</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
+    <task id="LOCAL-00106" summary="nice config">
+      <created>1663921101376</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
       <option name="project" value="LOCAL" />
-      <updated>1659106853670</updated>
+      <updated>1663921101377</updated>
     </task>
-    <task id="LOCAL-00053" summary="news">
-      <created>1659274268870</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
+    <task id="LOCAL-00107" summary="nice config">
+      <created>1664389181133</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
       <option name="project" value="LOCAL" />
-      <updated>1659274268870</updated>
+      <updated>1664389181133</updated>
     </task>
-    <task id="LOCAL-00054" summary="news">
-      <created>1659279503740</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
+    <task id="LOCAL-00108" summary="nice config">
+      <created>1664390150113</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
       <option name="project" value="LOCAL" />
-      <updated>1659279503740</updated>
+      <updated>1664390150113</updated>
     </task>
-    <task id="LOCAL-00055" summary="fairness ids align">
-      <created>1660824956286</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
+    <task id="LOCAL-00109" summary="nice config">
+      <created>1664999034165</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
       <option name="project" value="LOCAL" />
-      <updated>1660824956286</updated>
+      <updated>1664999034165</updated>
     </task>
-    <task id="LOCAL-00056" summary="fairness ids align">
-      <created>1660842178757</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
+    <task id="LOCAL-00110" summary="bridger">
+      <created>1665001258991</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
       <option name="project" value="LOCAL" />
-      <updated>1660842178757</updated>
+      <updated>1665001258991</updated>
     </task>
-    <task id="LOCAL-00057" summary="fairness ids align">
-      <created>1660842996165</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
+    <task id="LOCAL-00111" summary="bridger">
+      <created>1665001269822</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
       <option name="project" value="LOCAL" />
-      <updated>1660842996165</updated>
+      <updated>1665001269822</updated>
     </task>
-    <task id="LOCAL-00058" summary="balance fairness">
-      <created>1660850059326</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
+    <task id="LOCAL-00112" summary="bridger">
+      <created>1665001952774</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
       <option name="project" value="LOCAL" />
-      <updated>1660850059327</updated>
+      <updated>1665001952775</updated>
     </task>
-    <task id="LOCAL-00059" summary="balance fairness">
-      <created>1660850158653</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
+    <task id="LOCAL-00113" summary="bridger">
+      <created>1665003145954</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
       <option name="project" value="LOCAL" />
-      <updated>1660850158653</updated>
+      <updated>1665003145954</updated>
     </task>
-    <task id="LOCAL-00060" summary="balance fairness">
-      <created>1660850309219</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
+    <task id="LOCAL-00114" summary="bridger">
+      <created>1665003371156</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
       <option name="project" value="LOCAL" />
-      <updated>1660850309219</updated>
+      <updated>1665003371156</updated>
     </task>
-    <task id="LOCAL-00061" summary="skdpr data">
-      <created>1660934626200</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
+    <task id="LOCAL-00115" summary="bridger">
+      <created>1665054347245</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
       <option name="project" value="LOCAL" />
-      <updated>1660934626200</updated>
+      <updated>1665054347246</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -731,11 +734,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding support in text embeddings" />
-    <MESSAGE value="bug fix" />
-    <MESSAGE value="cosmetics" />
-    <MESSAGE value="flicker parser" />
-    <MESSAGE value="flicker eval" />
     <MESSAGE value="adding style dataset" />
     <MESSAGE value="adding text autoencoder" />
     <MESSAGE value="distance metric" />
@@ -749,80 +747,62 @@
     <MESSAGE value="fairness ids align" />
     <MESSAGE value="balance fairness" />
     <MESSAGE value="skdpr data" />
-    <option name="LAST_COMMIT_MESSAGE" value="skdpr data" />
+    <MESSAGE value="balanced unique gender" />
+    <MESSAGE value="review ablation" />
+    <MESSAGE value="add_modality_offset" />
+    <MESSAGE value="fix gender balance to only man" />
+    <MESSAGE value="verified split" />
+    <MESSAGE value="cosmetics" />
+    <MESSAGE value="better metrics doc" />
+    <MESSAGE value="calc val set" />
+    <MESSAGE value="validation flickr" />
+    <MESSAGE value="save losses to file" />
+    <MESSAGE value="nice config" />
+    <MESSAGE value="bridger" />
+    <option name="LAST_COMMIT_MESSAGE" value="bridger" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/predict.py</url>
-          <line>3</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generte_captions_for_eval.py</url>
-          <line>374</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generte_captions_for_eval.py</url>
-          <line>451</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generte_captions_for_eval.py</url>
-          <line>450</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/train.py</url>
-          <line>58</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/train.py</url>
-          <line>327</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/train.py</url>
-          <line>238</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/predictions_runner.py</url>
-          <line>158</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
-          <line>238</line>
+          <line>306</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
-          <line>104</line>
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>88</line>
+          <url>file://$PROJECT_DIR$/embeddings_generator.py</url>
+          <line>97</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>86</line>
-          <option name="timeStamp" value="59" />
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>55</line>
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/predictions_runner.py</url>
-          <line>159</line>
-          <option name="timeStamp" value="62" />
+          <line>186</line>
+          <option name="timeStamp" value="78" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/parse_flicker.py</url>
-          <line>105</line>
-          <option name="timeStamp" value="64" />
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>181</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>180</line>
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/train.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/predictions_runner.py</url>
+          <line>166</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -837,12 +817,12 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$dave_parse_flicker.coverage" NAME="dave_parse_flicker Coverage Results" MODIFIED="1655662921879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$hp_to_coco_format.coverage" NAME="hp_to_coco_format Coverage Results" MODIFIED="1658327141549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_flicker.coverage" NAME="parse_flicker Coverage Results" MODIFIED="1661075651897" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_flicker.coverage" NAME="parse_flicker Coverage Results" MODIFIED="1663109973708" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$gpt2_prefix_eval_oscar.coverage" NAME="predictions_runner Coverage Results" MODIFIED="1658405055838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$parse_coco.coverage" NAME="parse_coco Coverage Results" MODIFIED="1658322762154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CLIP_prefix_caption$dave_generte_captions_for_eval.coverage" NAME="dave_generte_captions_for_eval Coverage Results" MODIFIED="1654781081779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$predictions_runner.coverage" NAME="predictions_runner Coverage Results" MODIFIED="1660488604944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$train.coverage" NAME="train Coverage Results" MODIFIED="1658345165446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$predictions_runner.coverage" NAME="predictions_runner Coverage Results" MODIFIED="1663706816774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CLIP_prefix_caption$train.coverage" NAME="train Coverage Results" MODIFIED="1664477049809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/parse_coco.py">
