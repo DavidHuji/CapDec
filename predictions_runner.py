@@ -247,7 +247,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
                 print(f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
             if args.ablation_image_dist:
                 print(f"\n\n\n L2 between images and texts embeddings: {ablation_image_dist_stat['L2'] / ablation_image_dist_stat['counter']}pr, dim size={prefix.shape}")
-        if DEBUG and not args.ablation_dist:
+        if DEBUG and not args.ablation_dist and False:
             prefix_sent = get_prefix_tokens(prefix_embed, embeddings, tokenizer)
             imshow(image_raw, title=f'{generated_text_prefix}\n{prefix_sent}')
 
