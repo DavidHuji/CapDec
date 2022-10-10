@@ -34,7 +34,7 @@ def get_precalculated_centers():
 def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_distances.pkl'):
     # calculate the distance between the 5 prefixes
     distances, distances_l2, data_size = [], [], 0
-    distances_clip, distances_l2_clip = [], []
+    distances_clip, distances_l2_clip, distances_l2_from_center = [], [], []
     for img_id in embeddings_dict.keys():
         data_size += 1
         dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
@@ -58,6 +58,10 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
             distances_l2.append(dist_l2 / (shape_pref * combs))
             distances_clip.append(dist_clip / (shape_pref_clip * combs))
             distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
+
+        # calculate the distance from the center
+        center = embeddings_dict[img_id][:][1].mean(axis=0)  # todo make sure axis is right
+        distances_l2_from_center.append(np.linalg.norm(embeddings_dict[img_id][:][1] - center, ord=2, axis=1).mean())
     print(
         f"\n\n\n Average noremlised L1 between 5 annotations of same image MAPPER: {np.array(distances).mean()}, STD: {np.array(distances).std()}")
     print(
