@@ -205,7 +205,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             ablation_image_dist_stat['counter'] += 1
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
 
-        if args.ablation_dist_review:
+        if args.ablation_dist_review:  # this is for the review
             if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 90:
                 calc_distances_of_ready_embeddings(prefix_for_distance_ablation_metric)
 
