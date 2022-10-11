@@ -60,8 +60,9 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
             distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
 
         # calculate the distance from the center
-        center = embeddings_dict[img_id][:][1].mean(axis=0)  # todo make sure axis is right
-        distances_l2_from_center.append(np.linalg.norm(embeddings_dict[img_id][:][1] - center, ord=2, axis=1).mean())
+        five_embeddings = np.array([s[1] for s in embeddings_dict[img_id]])
+        center = five_embeddings.mean(axis=0)
+        distances_l2_from_center.append(np.linalg.norm(five_embeddings - center, ord=2, axis=1).mean())
     print(
         f"\n\n\n Average noremlised L1 between 5 annotations of same image MAPPER: {np.array(distances).mean()}, STD: {np.array(distances).std()}")
     print(
