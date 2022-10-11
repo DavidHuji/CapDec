@@ -171,7 +171,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             image_raw = Image.open(filename).convert("RGB")
             image = preprocess(image_raw).unsqueeze(0).to(device)
         with torch.no_grad():
-            if args.text_autoencoder:
+            if args.text_autoencoder or dataset_mode == 5:
                 # in this case thew image is actually text input
                 caption_tokens = clip.tokenize(d['caption']).to(device)
                 prefix = clip_model.encode_text(caption_tokens).float()
