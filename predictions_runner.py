@@ -34,7 +34,7 @@ def get_precalculated_centers():
 def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_distances.pkl'):
     # calculate the distance between the 5 prefixes
     distances, distances_l2, data_size = [], [], 0
-    distances_clip, distances_l2_clip, distances_l2_from_center = [], [], []
+    distances_clip, distances_l2_clip, distances_l2_from_center, max_distances_l1_from_center = [], [], [], []
     for img_id in embeddings_dict.keys():
         data_size += 1
         dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
@@ -63,6 +63,7 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
         five_embeddings = np.array([s[1] for s in embeddings_dict[img_id]])
         center = five_embeddings.mean(axis=0)
         distances_l2_from_center.append(np.linalg.norm(five_embeddings - center, ord=2, axis=1).mean())
+        max_distances_l1_from_center.append((five_embeddings - center).abs().max(dim=1)[0].mean())
     print(
         f"\n\n\n Average noremlised L1 between 5 annotations of same image MAPPER: {np.array(distances).mean()}, STD: {np.array(distances).std()}")
     print(
@@ -72,7 +73,9 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
     print(
         f"\n\n\n Average noremlised L2 between 5 annotations of same image CLIP: {np.array(distances_l2_clip).mean()}, STD: {np.array(distances_l2_clip).std()}")
     print(
-        f"\n\n\n L2 between 5 annotations of same image CLIP to their center: {np.array(distances_l2_from_center).mean()}, STD: {np.array(distances_l2_from_center).std()}")
+        f"\n\n\n Mean L2 between 5 annotations of same image CLIP to their center: {np.array(distances_l2_from_center).mean()}, STD: {np.array(distances_l2_from_center).std()}")
+    print(
+        f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP to their center: {np.array(distances_l2_from_center).mean()}, STD: {np.array(distances_l2_from_center).std()}")
     if out_file is not None:
         import pickle
         with open(out_file, 'wb') as f:
