@@ -15,15 +15,23 @@ from typing import Tuple, Optional, Union
 device = torch.device('cuda:0')
 
 
-def noise_injection(x, variance=0.001, modality_offset=None, uniform_noise=False):
+def get_uniform_ball_noise(input_shape, radius=0.1):
+    uniform_noise_ball = torch.randn(input_shape, device=device)  # normal distribution
+    uniform_noise_sphere = torch.nn.functional.normalize(uniform_noise_ball, dim=1)
+    u = torch.rand(input_shape[0], device=device)  # unified distribution
+    u = u ** (1. / input_shape[1])
+    uniform_noise_ball = (uniform_noise_sphere.T * u * radius).T
+    return uniform_noise_ball
+
+
+def noise_injection(x, variance=0.001, modality_offset=None, uniform_noise=False, dont_norm=False):
     if variance == 0.0:
         return x
     std = math.sqrt(variance)
-    x = torch.nn.functional.normalize(x, dim=1)
+    if not dont_norm:
+        x = torch.nn.functional.normalize(x, dim=1)
     if uniform_noise:
-        unit_ball = (torch.rand(x.shape, device=device) * 2) - 1
-        uniform_noise_ball = torch.rand(x.shape, device=device) * 2 * std - std
-        x = x + uniform_noise_ball
+        x = x + get_uniform_ball_noise(x.shape, radius=std)
     else:
         x = x + (torch.randn(x.shape, device=device) * std)  # todo by some conventions multivraiance noise should be devided by sqrt of dim
     if modality_offset is not None:
@@ -336,7 +344,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps:
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
-            prefix = noise_injection(prefix, args.noise_variance, modality_offset=modality_offset, uniform_noise=args.uniform_noise)
+            prefix = noise_injection(prefix, args.noise_variance, modality_offset=modality_offset, uniform_noise=args.uniform_noise, dont_norm=args.dont_norm)
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
             loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
@@ -394,6 +402,7 @@ def main():
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
     parser.add_argument('--noise_variance', type=float, default=0.0)
     parser.add_argument('--uniform_noise', dest='uniform_noise', action='store_true', default=False)
+    parser.add_argument('--dont_norm', dest='dont_norm', action='store_true', default=False)
     parser.add_argument('--lr', type=float, default=2e-5)
     parser.add_argument('--epochs', type=int, default=20)
     parser.add_argument('--save_every', type=int, default=1)
@@ -423,6 +432,12 @@ def main():
         else:
             args.data = './data/flicker30_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = './data/flicker30_RN50x4_validation_with_text_embeddings.pkl'
+    elif args.data == 'COCO_NONORM':
+        args.bs = 36
+        if args.use_image_embedding_as_clipcap:
+            exit('COCO_NONORM is not supported with use_image_embedding_as_clipcap')
+        else:
+            args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
 
     prefix_length = args.prefix_length
     dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
