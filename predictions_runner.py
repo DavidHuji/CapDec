@@ -61,7 +61,7 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
             distances_l2.append(dist_l2 / (shape_pref * combs))
             distances_clip.append(dist_clip / (shape_pref_clip * combs))
             distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
-            max_distances_l1.append(max_distance_l1)
+            max_distances_l1.append(max_distance_l1 / combs)
 
         # calculate the distance from the center
         five_embeddings = np.array([s[1] for s in embeddings_dict[img_id]])
