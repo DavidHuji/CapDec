@@ -118,7 +118,7 @@ def run_main():
     if args.dataset_mode == 0:
         out_path = f"./data/coco/verified_split_COCO_train_set.pkl"
         if add_text_embedding:
-            out_path = f"./data/coco/verified_split_COCO_train_set_with_text.pkl"
+            out_path = f"./data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl"
             print(f'Text embeddings will be added to the dataset')
         annotations_path = f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/train.json'
         images_path = '/home/gamir/DER-Roei/davidn/myprivate_coco/train2014/'
