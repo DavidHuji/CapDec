@@ -71,11 +71,8 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
                     continue
                 image = preprocess(Image.fromarray(image)).unsqueeze(0).to(device)
         with torch.no_grad():
-            if not add_text_embedding:
-                prefix = clip_model.encode_image(image).cpu()
-            else:
-                prefix = torch.tensor([])
             if add_text_embedding:
+                prefix = torch.tensor([])  # empty tensor
                 caption = d["caption"]
                 if fix_gender_imbalance:
                     if caption_has_gender_term(caption, gender_mode=(fix_gender_imbalance-1)):
@@ -83,11 +80,14 @@ def main(clip_model_type, clip_model_name, out_path, annotations_path, images_pa
                 try:  # if caption is too long
                     caption_tokens = clip.tokenize(caption).to(device)
                 except:
-                    caption_tokens = clip.tokenize(caption[100]).to(device)
+                    caption_tokens = clip.tokenize(caption[:100]).to(device)
                     long_caps += 1
                     print(f'Long captions: {long_caps} long caption: {caption}')
                 caption_embedding = clip_model.encode_text(caption_tokens).cpu()
-                caption_embedding /= torch.norm(caption_embedding, keepdim=True)
+                # caption_embedding /= torch.norm(caption_embedding, keepdim=True) it is better to avoid normaliztion in this stage so it will be possible to normelise or not later
+            else:
+                prefix = clip_model.encode_image(image).cpu()
+
         d["clip_embedding"] = i
         all_embeddings.append(prefix)
         if add_text_embedding:

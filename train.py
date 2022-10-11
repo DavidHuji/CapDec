@@ -15,11 +15,17 @@ from typing import Tuple, Optional, Union
 device = torch.device('cuda:0')
 
 
-def noise_injection(x, variance=0.001, modality_offset=None):
+def noise_injection(x, variance=0.001, modality_offset=None, uniform_noise=False):
     if variance == 0.0:
         return x
+    std = math.sqrt(variance)
     x = torch.nn.functional.normalize(x, dim=1)
-    x = x + (torch.randn(x.shape, device=device) * math.sqrt(variance))  # todo by some conventions multivraiance noise should be devided by sqrt of dim
+    if uniform_noise:
+        unit_ball = (torch.rand(x.shape, device=device) * 2) - 1
+        uniform_noise_ball = torch.rand(x.shape, device=device) * 2 * std - std
+        x = x + uniform_noise_ball
+    else:
+        x = x + (torch.randn(x.shape, device=device) * std)  # todo by some conventions multivraiance noise should be devided by sqrt of dim
     if modality_offset is not None:
         x = x + modality_offset
     return torch.nn.functional.normalize(x, dim=1)
@@ -330,7 +336,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps:
         for idx, (tokens, mask, prefix) in enumerate(train_dataloader):
             model.zero_grad()
             tokens, mask, prefix = tokens.to(device), mask.to(device), prefix.to(device, dtype=torch.float32)
-            prefix = noise_injection(prefix, args.noise_variance, modality_offset=modality_offset)
+            prefix = noise_injection(prefix, args.noise_variance, modality_offset=modality_offset, uniform_noise=args.uniform_noise)
             outputs = model(tokens, prefix, mask)
             logits = outputs.logits[:, dataset.prefix_length - 1: -1]
             loss = nnf.cross_entropy(logits.reshape(-1, logits.shape[-1]), tokens.flatten(), ignore_index=0)
@@ -387,6 +393,7 @@ def main():
     parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
     parser.add_argument('--prefix', default='coco_prefix', help='prefix for saved filenames')
     parser.add_argument('--noise_variance', type=float, default=0.0)
+    parser.add_argument('--uniform_noise', dest='uniform_noise', action='store_true', default=False)
     parser.add_argument('--lr', type=float, default=2e-5)
     parser.add_argument('--epochs', type=int, default=20)
     parser.add_argument('--save_every', type=int, default=1)
