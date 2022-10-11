@@ -80,6 +80,8 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
         f"\n\n\n Mean L2 between 5 annotations of same image CLIP to their center: {np.array(distances_l2_from_center).mean()}, STD: {np.array(distances_l2_from_center).std()}")
     print(
         f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP to their center: {np.array(max_distances_l1_from_center).mean()}, STD: {np.array(max_distances_l1_from_center).std()}")
+    print(
+        f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP: {np.array(max_distances_l1).mean()}, STD: {np.array(max_distances_l1).std()}")
     if out_file is not None:
         import pickle
         with open(out_file, 'wb') as f:
@@ -213,7 +215,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
 
         if args.ablation_dist_review:  # this is for the review
-            if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 90:
+            if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 30:
                 calc_distances_of_ready_embeddings(prefix_for_distance_ablation_metric)
 
         if ii % 99 == 0:
