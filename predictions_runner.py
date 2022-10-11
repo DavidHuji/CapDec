@@ -34,11 +34,11 @@ def get_precalculated_centers():
 def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_distances.pkl'):
     # calculate the distance between the 5 prefixes
     distances, distances_l2, data_size = [], [], 0
-    distances_clip, distances_l2_clip, distances_l2_from_center, max_distances_l1_from_center = [], [], [], []
+    distances_clip, distances_l2_clip, max_distances_l1, distances_l2_from_center, max_distances_l1_from_center = [], [], [], [], []
     for img_id in embeddings_dict.keys():
         data_size += 1
         dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
-        dist_clip, dist_l2_clip, shape_pref_clip = 0.0, 0.0, 0
+        dist_clip, dist_l2_clip, shape_pref_clip, max_distance_l1 = 0.0, 0.0, 0.0, 0.0
         for i in range(len(embeddings_dict[img_id])):
             for j in range(i + 1, len(embeddings_dict[img_id])):
                 dist += np.linalg.norm(embeddings_dict[img_id][i][0] -
@@ -53,11 +53,15 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
                 dist_l2_clip += np.linalg.norm(embeddings_dict[img_id][i][1] -
                                                embeddings_dict[img_id][j][1], ord=2)
                 shape_pref_clip = embeddings_dict[img_id][i][1].shape[0]
+
+                max_distance_l1 += np.abs(embeddings_dict[img_id][i][1] - embeddings_dict[img_id][j][1]).max()
+
         if combs == 5 * 4 / 2:
             distances.append(dist / (shape_pref * combs))
             distances_l2.append(dist_l2 / (shape_pref * combs))
             distances_clip.append(dist_clip / (shape_pref_clip * combs))
             distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
+            max_distances_l1.append(max_distance_l1)
 
         # calculate the distance from the center
         five_embeddings = np.array([s[1] for s in embeddings_dict[img_id]])
@@ -75,7 +79,7 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
     print(
         f"\n\n\n Mean L2 between 5 annotations of same image CLIP to their center: {np.array(distances_l2_from_center).mean()}, STD: {np.array(distances_l2_from_center).std()}")
     print(
-        f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP to their center: {np.array(distances_l2_from_center).mean()}, STD: {np.array(distances_l2_from_center).std()}")
+        f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP to their center: {np.array(max_distances_l1_from_center).mean()}, STD: {np.array(max_distances_l1_from_center).std()}")
     if out_file is not None:
         import pickle
         with open(out_file, 'wb') as f:
