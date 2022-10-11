@@ -133,6 +133,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
         images_root = '/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images'
     elif dataset_mode == 6:
         images_root = '/home/gamir/DER-Roei/davidn/CLIP_prefix_caption/data/coco/train2014'
+        images_root = '../myprivate_coco/train2014'
     elif dataset_mode != 5:
         print("Wrong data mode")
         exit(3)
@@ -202,7 +203,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
 
         if args.ablation_dist_review:
-            if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 900:
+            if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 1:
                 calc_distances_of_ready_embeddings(prefix_for_distance_ablation_metric)
 
         if ii % 99 == 0:
