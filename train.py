@@ -424,6 +424,12 @@ def main():
         else:
             args.data = './data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = './data/coco/COCO_val_set_single_cap_per_sample_with_text.pkl'
+        if args.dont_normalize_prefix:
+            if args.use_image_embedding_as_clipcap:
+                exit('COCO_NONORM is not supported with use_image_embedding_as_clipcap')
+            else:
+                args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
+                args.val_pt = ''
     elif args.data == 'FLICKR':
         args.bs = 16
         if args.use_image_embedding_as_clipcap:
@@ -432,12 +438,6 @@ def main():
         else:
             args.data = './data/flicker30_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = './data/flicker30_RN50x4_validation_with_text_embeddings.pkl'
-    elif args.data == 'COCO_NONORM':
-        args.bs = 36
-        if args.use_image_embedding_as_clipcap:
-            exit('COCO_NONORM is not supported with use_image_embedding_as_clipcap')
-        else:
-            args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
 
     prefix_length = args.prefix_length
     dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
