@@ -195,7 +195,7 @@ def check_results():
             exit()
 
 
-check_results()
+# check_results()
 
 if "__main__" == __name__:
     train_modal()

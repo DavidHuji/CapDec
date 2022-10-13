@@ -404,7 +404,7 @@ def main():
     parser.add_argument('--uniform_noise', dest='uniform_noise', action='store_true', default=False)
     parser.add_argument('--dont_norm', dest='dont_norm', action='store_true', default=False)
     parser.add_argument('--lr', type=float, default=2e-5)
-    parser.add_argument('--epochs', type=int, default=20)
+    parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--save_every', type=int, default=1)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--prefix_length_clip', type=int, default=40)
