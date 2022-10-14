@@ -125,14 +125,14 @@ def run_main():
     elif args.dataset_mode == 0.5:
         out_path = f"./data/coco/COCO_val_set_single_cap_per_sample.pkl"
         if add_text_embedding:
-            out_path = f"./data/coco/COCO_val_set_single_cap_per_sample_with_text.pkl"
+            out_path = f"./data/coco/COCO_val_set_single_cap_per_sample_with_text_not_norm.pkl"
             print(f'Text embeddings will be added to the dataset')
         annotations_path = f'/home/gamir/DER-Roei/davidn/myprivate_coco/annotations/single_caption_per_sample_val.json'
         images_path = '/home/gamir/DER-Roei/davidn/myprivate_coco/val2014/'
     elif args.dataset_mode == 1:
         out_path = f"./data/flicker30_{clip_model_name}_train.pkl"
         if add_text_embedding:
-            out_path = f"./data/flicker30_{clip_model_name}_train_with_text_embeddings.pkl"
+            out_path = f"./data/flicker30_{clip_model_name}_train_with_text_embeddings_not_norm.pkl"
             print(f'Text embeddings will be added to the dataset')
         annotations_path = f"/home/gamir/DER-Roei/davidn/flicker30/dataset_flickr30k_correct_format.jsontrain"
         images_path = f"/home/gamir/DER-Roei/davidn/flicker30/flickr30k_images/"
@@ -146,7 +146,7 @@ def run_main():
     elif args.dataset_mode == 2:
         out_path = f"./data/styleHumor_{clip_model_name}_train.pkl"
         if add_text_embedding:
-            out_path = f"./data/styleHumor_{clip_model_name}_train_with_text_embeddings.pkl"
+            out_path = f"./data/styleHumor_{clip_model_name}_train_with_text_embeddings_not_norm.pkl"
             print(f'Text embeddings will be added to the dataset')
         annotations_path = f"/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/humor_train.json"
         images_path = f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images/'
@@ -154,7 +154,7 @@ def run_main():
     elif args.dataset_mode == 3:
         out_path = f"./data/styleRoman_{clip_model_name}_train.pkl"
         if add_text_embedding:
-            out_path = f"./data/styleRoman_{clip_model_name}_train_with_text_embeddings.pkl"
+            out_path = f"./data/styleRoman_{clip_model_name}_train_with_text_embeddings_not_norm.pkl"
             print(f'Text embeddings will be added to the dataset')
         annotations_path = f"/home/gamir/DER-Roei/davidn/flicker8kforStyle/postprocessed_style_data/roman_train.json"
         images_path = f'/home/gamir/DER-Roei/davidn/flicker8kforStyle/Images/'
