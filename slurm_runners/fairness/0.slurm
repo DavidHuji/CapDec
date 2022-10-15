@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH --job-name=fairness0
-#SBATCH --output0.out
+#SBATCH --output=0.out
 #SBATCH --error=0.err
 #SBATCH --partition=killable
 #SBATCH --time=1400
