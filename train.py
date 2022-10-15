@@ -431,7 +431,7 @@ def main():
                 args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
                 args.val_pt = ''
     elif args.data == 'FLICKR':
-        args.bs = 16
+        args.bs = 12
         if args.use_image_embedding_as_clipcap:
             args.data = './data/flicker30_RN50x4_train.pkl'
             args.val_pt = ''  # not used
