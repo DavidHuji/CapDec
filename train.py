@@ -418,7 +418,7 @@ def main():
     if args.data == 'COCO':
         args.bs = 36
         if args.use_image_embedding_as_clipcap:
-            args.data = './data/coco/oscar_split_RN50x4_train.pkl'
+            args.data = './data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = ''  # not used
         else:
             args.data = './data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl'
@@ -427,7 +427,7 @@ def main():
             args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
             args.val_pt = ''
     elif args.data == 'FLICKR':
-        args.bs = 12
+        args.bs = 16
         if args.use_image_embedding_as_clipcap:
             args.data = './data/flicker30_RN50x4_train.pkl'
             args.val_pt = ''  # not used
@@ -458,7 +458,7 @@ def main():
     print(f'modality_offset={args.add_modality_offset}')
     from pathlib import Path
     Path(args.out_dir).mkdir(parents=True, exist_ok=True)
-    with open(f'{args.out_dir}/commandline_args.txt', 'w') as f:
+    with open(f'{args.out_dir}/train_commandline_args.txt', 'w') as f:
         args_at_dict = args.__dict__
         args_at_dict.pop('mapping_type')
         json.dump(dict(args_at_dict), f, indent=2)
