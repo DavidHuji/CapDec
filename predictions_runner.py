@@ -188,7 +188,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
                 prefix = clip_model.encode_text(caption_tokens).float()
             else:
                 prefix = clip_model.encode_image(image).to(device, dtype=torch.float32)
-            if not args.unnorm_embeddings:
+            if not args.dont_normalize_prefix:
                 prefix = prefix / prefix.norm(2, -1)
             if args.add_modality_offset:
                 prefix = prefix + modality_offset
@@ -396,7 +396,7 @@ def main():
     parser.add_argument('--modality_bridger', dest='modality_bridger', action='store_true', default=False)
     parser.add_argument('--beam', dest='beam', action='store_true', default=True)
     parser.add_argument('--is_rn', dest='is_rn', action='store_true', default=True)
-    parser.add_argument('--unnorm_embeddings', dest='unnorm_embeddings', action='store_true', default=False)
+    parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_true', default=False)
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true', default=False)
     parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
     parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true', default=False)
