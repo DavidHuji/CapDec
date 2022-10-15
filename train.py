@@ -438,7 +438,12 @@ def main():
         else:
             args.data = './data/flicker30_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = './data/flicker30_RN50x4_validation_with_text_embeddings.pkl'
-
+        if args.dont_normalize_prefix:
+            if args.use_image_embedding_as_clipcap:
+                exit('NONORM is not supported yet with use_image_embedding_as_clipcap')
+            else:
+                args.data = './data/flicker30_RN50x4_train_with_text_embeddings_not_norm.pkl'
+                args.val_pt = ''
     prefix_length = args.prefix_length
     dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
     prefix_dim = 640 if not args.is_not_rn else 512
