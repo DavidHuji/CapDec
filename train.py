@@ -370,7 +370,7 @@ def train(dataset: ClipCocoDataset, model: ClipCaptionModel, args, warmup_steps:
                 os.path.join(output_dir, f"{output_prefix}-{epoch:03d}.pt"),
             )
         if args.val_pt:
-            val_dataset = ClipCocoDataset(args.val_pt, args.prefix_length, normalize_prefix=not args.dont_normalize_prefix,
+            val_dataset = ClipCocoDataset(args.val_pt, args.prefix_length, normalize_prefix=not args.dont_norm,
                             use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
 
             val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=True, drop_last=True)
@@ -414,7 +414,6 @@ def main():
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--is_not_rn', dest='is_not_rn', action='store_true', default=False)
     parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true', default=False)
-    parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_true', default=False)
     args = parser.parse_args()
     if args.data == 'COCO':
         args.bs = 36
@@ -424,12 +423,9 @@ def main():
         else:
             args.data = './data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = './data/coco/COCO_val_set_single_cap_per_sample_with_text.pkl'
-        if args.dont_normalize_prefix:
-            if args.use_image_embedding_as_clipcap:
-                exit('COCO_NONORM is not supported with use_image_embedding_as_clipcap')
-            else:
-                args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
-                args.val_pt = ''
+        if args.dont_norm:
+            args.data = './data/coco/verified_split_COCO_train_set_with_text_not_norm.pkl'
+            args.val_pt = ''
     elif args.data == 'FLICKR':
         args.bs = 12
         if args.use_image_embedding_as_clipcap:
@@ -438,14 +434,14 @@ def main():
         else:
             args.data = './data/flicker30_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = './data/flicker30_RN50x4_validation_with_text_embeddings.pkl'
-        if args.dont_normalize_prefix:
+        if args.dont_norm:
             if args.use_image_embedding_as_clipcap:
                 exit('NONORM is not supported yet with use_image_embedding_as_clipcap')
             else:
                 args.data = './data/flicker30_RN50x4_train_with_text_embeddings_not_norm.pkl'
                 args.val_pt = ''
     prefix_length = args.prefix_length
-    dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_normalize_prefix, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
+    dataset = ClipCocoDataset(args.data, prefix_length, normalize_prefix=not args.dont_norm, use_image_embedding_as_clipcap=args.use_image_embedding_as_clipcap)
     prefix_dim = 640 if not args.is_not_rn else 512
     args.mapping_type = {'mlp': MappingType.MLP, 'transformer': MappingType.Transformer}[args.mapping_type]
     if args.only_prefix:
