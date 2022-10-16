@@ -416,7 +416,7 @@ def main():
     parser.add_argument('--use_image_embedding_as_clipcap', dest='use_image_embedding_as_clipcap', action='store_true', default=False)
     args = parser.parse_args()
     if args.data == 'COCO':
-        args.bs = 36
+        args.bs = 30
         if args.use_image_embedding_as_clipcap:
             args.data = './data/coco/oscar_split_RN50x4_train_with_text_embeddings.pkl'
             args.val_pt = ''  # not used

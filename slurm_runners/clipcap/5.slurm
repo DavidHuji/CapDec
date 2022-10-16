@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=clipcap5
+#SBATCH --job-name=cap5
 #SBATCH --output=5.out
 #SBATCH --error=5.err
 #SBATCH --partition=killable

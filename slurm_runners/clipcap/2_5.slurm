@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --job-name=clipcap2.5
+#SBATCH --job-name=ap2.5
 #SBATCH --output=2.5.out
 #SBATCH --error=2.5.err
 #SBATCH --partition=killable
