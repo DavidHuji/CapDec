@@ -5,6 +5,7 @@
 #SBATCH --partition=killable
 #SBATCH --time=1400
 #SBATCH --nodes=1
+#SBATCH --nodelist=n-202
 #SBATCH --ntasks=1
 #SBATCH --gpus=1
 cd /home/gamir/DER-Roei/davidn/CLIP_prefix_caption

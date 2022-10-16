@@ -7,7 +7,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --gpus=1
-#SBATCH --nodelist=n-204|n-203|n-202
+#SBATCH --nodelist=n-204
 cd /home/gamir/DER-Roei/davidn/CLIP_prefix_caption
 python predictions_runner.py --checkpoint final_repro/coco/capdec/0/coco_prefix-009.pt --text_autoencoder
 python predictions_runner.py --checkpoint final_repro/coco/capdec/001/coco_prefix-009.pt --text_autoencoder
