@@ -1,9 +1,8 @@
 import sys
 sys.path.append("/home/amir/projects/CLIP")
-from transformers import GPT2Tokenizer, GPT2LMHeadModel, AdamW, get_linear_schedule_with_warmup
+from transformers import GPT2Tokenizer
 import os
 from custom_types import *
-from tqdm import tqdm, trange
 import torch
 from gpt2_prefix import ClipCaptionModel, MappingType
 from PIL import Image
@@ -12,10 +11,9 @@ import json
 import clip   # installed from https://github.com/openai/CLIP
 import argparse, pickle
 from gpt2_prefix_eval import generate_beam, generate2, imshow, get_prefix_tokens
-from gpt2_prefix_e2e import ClipCaptionE2E
 from torchvision import transforms
-# from oscar_eval_amir_ig_
-
+import os.path
+import time
 
 def count_ready_parphrased_embeddings(embeddings_dict):
     ready = 0
@@ -34,11 +32,12 @@ def get_precalculated_centers():
 def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_distances.pkl'):
     # calculate the distance between the 5 prefixes
     distances, distances_l2, data_size = [], [], 0
-    distances_clip, distances_l2_clip, max_distances_l1, distances_l2_from_center, max_distances_l1_from_center = [], [], [], [], []
+    distances_clip, distances_l2_clip, max_distances_l1, distances_l2_from_center, max_distances_l1_from_center, maxoutof5 = [], [], [], [], [], []
     for img_id in embeddings_dict.keys():
         data_size += 1
         dist, dist_l2, combs, shape_pref = 0.0, 0.0, 0, 0
         dist_clip, dist_l2_clip, shape_pref_clip, max_distance_l1 = 0.0, 0.0, 0.0, 0.0
+        distances_between_paraphrased_embeddings = []
         for i in range(len(embeddings_dict[img_id])):
             for j in range(i + 1, len(embeddings_dict[img_id])):
                 dist += np.linalg.norm(embeddings_dict[img_id][i][0] -
@@ -47,7 +46,6 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
                                           embeddings_dict[img_id][j][0], ord=2)
                 shape_pref = embeddings_dict[img_id][i][0].shape[0]
                 combs += 1
-
                 dist_clip += np.linalg.norm(embeddings_dict[img_id][i][1] -
                                             embeddings_dict[img_id][j][1], ord=1)
                 dist_l2_clip += np.linalg.norm(embeddings_dict[img_id][i][1] -
@@ -55,6 +53,8 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
                 shape_pref_clip = embeddings_dict[img_id][i][1].shape[0]
 
                 max_distance_l1 += np.abs(embeddings_dict[img_id][i][1] - embeddings_dict[img_id][j][1]).max()
+                distances_between_paraphrased_embeddings.append(np.linalg.norm(embeddings_dict[img_id][i][1] -
+                                               embeddings_dict[img_id][j][1], ord=2) / (shape_pref_clip ** 0.5))
 
         if combs == 5 * 4 / 2:
             distances.append(dist / (shape_pref * combs))
@@ -62,6 +62,7 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
             distances_clip.append(dist_clip / (shape_pref_clip * combs))
             distances_l2_clip.append(dist_l2_clip / (shape_pref_clip * combs))
             max_distances_l1.append(max_distance_l1 / combs)
+            maxoutof5.append(np.max(distances_between_paraphrased_embeddings))
 
         # calculate the distance from the center
         five_embeddings = np.array([s[1] for s in embeddings_dict[img_id]])
@@ -82,6 +83,8 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
         f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP to their center: {np.array(max_distances_l1_from_center).mean()}, STD: {np.array(max_distances_l1_from_center).std()}")
     print(
         f"\n\n\n Max (per-entry) L1 between 5 annotations of same image CLIP: {np.array(max_distances_l1).mean()}, STD: {np.array(max_distances_l1).std()}")
+    print(
+        f"\n\n\n Taking max out of the 10 L2 between 5 annotations of same image CLIP: {np.array(maxoutof5).mean()}")
     if out_file is not None:
         import pickle
         with open(out_file, 'wb') as f:
@@ -117,8 +120,33 @@ def clip_transform_full(n_px=224):
         transforms.Normalize((0.48145466, 0.4578275, 0.40821073), (0.26862954, 0.26130258, 0.27577711)),
     ])
 
-    
-import os.path
+
+class Timer:
+    """
+    measure inference time
+    """
+    def __init__(self):
+        self.sum = 0
+        self.count = 0
+        self.starter, self.ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
+        self.timings = []
+
+    def __enter__(self):
+        self.starter.record()
+        return self
+
+    def __exit__(self, *args):
+        self.ender.record()
+        torch.cuda.synchronize()
+        interval = self.starter.elapsed_time(self.ender)
+        self.timings.append(interval)
+        self.sum += interval
+        self.count += 1
+
+    def __str__(self):
+        mean_syn = self.sum / self.count
+        std_syn = np.std(self.timings)
+        return f"mean: {mean_syn:.2f} ms, std: {std_syn:.2f} ms"
 
 
 def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode, args=None):
@@ -162,6 +190,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
     prefix_for_distance_ablation_metric = {}
     results = []
     ablation_image_dist_stat = {'counter': 0, 'L2': 0.0}
+    timer = Timer()
     for ii, d in enumerate(data):
         img_id = d["image_id"]
         if dataset_mode == 0 or dataset_mode == 7 or dataset_mode == 8:
@@ -182,6 +211,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             image_raw = Image.open(filename).convert("RGB")
             image = preprocess(image_raw).unsqueeze(0).to(device)
         with torch.no_grad():
+            timer.__enter__()
             if args.text_autoencoder or dataset_mode == 5:
                 # in this case thew image is actually text input
                 caption_tokens = clip.tokenize(d['caption']).to(device)
@@ -200,6 +230,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             generated_text_prefix = generate_beam(model, tokenizer, embed=prefix_embed)[0]
         else:
             generated_text_prefix = generate2(model, tokenizer, embed=prefix_embed)
+        timer.__exit__()
         results.append((img_id, d["caption"], generated_text_prefix.lower()))
         if args.ablation_dist:
             if d['image_id'] not in prefix_for_distance_ablation_metric:
@@ -220,6 +251,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
                 calc_distances_of_ready_embeddings(prefix_for_distance_ablation_metric)
 
         if ii % 99 == 0:
+            print(timer)
             for r in results:
                 print(r)
 
