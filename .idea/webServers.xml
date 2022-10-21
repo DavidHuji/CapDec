@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c35908f3-109b-4a51-bff5-c6e57bdc8ebb" name="nukraidavid@c-009.cs.tau.ac.il:22">
+        <fileTransfer rootFolder="/specific/a/home/cc/cs/nukraidavid" accessType="SFTP" host="c-009.cs.tau.ac.il" port="22" sshConfigId="eda6a043-8092-448c-b5a6-35b13ae50dfa" sshConfig="nukraidavid@c-009.cs.tau.ac.il:22" />
+      </webServer>
+    </option>
+  </component>
+</project>

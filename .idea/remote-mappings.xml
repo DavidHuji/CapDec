@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="python@sftp://nukraidavid@c-009.cs.tau.ac.il:22/home/gamir/DER-Roei/davidn/my_conda_main_dir/anaconda3/envs/clip_prefix_caption/bin/python">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/home/gamir/DER-Roei/davidn/CLIP_prefix_caption" />
+            </list>
+          </settings>
+        </remote-mappings>
+      </list>
+    </list>
+  </component>
+</project>
