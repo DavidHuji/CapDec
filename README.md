@@ -41,6 +41,7 @@ This is the formal repository for CapDec, in which you can easily reproduce the 
 
 
 ## FlickrStyle7k Examples - TBD
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/examples.png)
 
 <table>
   <tr>
