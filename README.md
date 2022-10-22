@@ -11,36 +11,7 @@ If you still want to use it, please feel free to consult with me in the email be
 As shown in the paper, CapDec achieves SOTA image-captioning in the setting of training without even a single image.
 This is the formal repository for CapDec, in which you can easily reproduce the papers results.
 
-## COCO Examples - TBD 
-
-<table>
-  <tr>
-    <td><img src="Images/COCO_val2014_000000562207.jpg" ></td>
-    <td><img src="Images/COCO_val2014_000000165547.jpg" ></td>
-    <td><img src="Images/COCO_val2014_000000579664.jpg" ></td>
-  </tr>
-  <tr>
-    <td>A couple of people standing next to an elephant. </td>
-     <td>A wooden table sitting in front of a window.</td>
-     <td>A bunch of bananas sitting on top of a table.</td>
-  </tr>
- </table>
- 
- <table>
-  <tr>
-    <td><img src="Images/COCO_val2014_000000060623.jpg" ></td>
-    <td><img src="Images/COCO_val2014_000000386164.jpg" ></td>
-    <td><img src="Images/COCO_val2014_000000354533.jpg" ></td>
-  </tr>
-  <tr>
-    <td>A woman holding a plate with a piece of cake in front of her face. </td>
-     <td>A wooden table topped with lots of wooden utensils.</td>
-     <td>A red motorcycle parked on top of a dirt field.</td>
-  </tr>
- </table>
-
-
-## FlickrStyle7k Examples - TBD
+## FlickrStyle7k Examples
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/examples.png)
 
 <table>
@@ -89,15 +60,20 @@ conda env create -f environment.yml
 conda activate clip_prefix_caption
 ```
 
-## COCO training
-
-Download [train_captions](https://drive.google.com/file/d/1D3EzUK1d1lNhD2hAvRiKPThidiVbP2K_/view?usp=sharing) to `data/coco/annotations`.
+## Download Data
+###COCO: Download [train_captions](https://drive.google.com/file/d/1D3EzUK1d1lNhD2hAvRiKPThidiVbP2K_/view?usp=sharing) to `data/coco/annotations`.
 
 Download [training images](http://images.cocodataset.org/zips/train2014.zip) and [validation images](http://images.cocodataset.org/zips/val2014.zip) and unzip (We use Karpathy et el. split).
+### Flickr
+TBD
+### Flickr7KStyle
+TBD
 
-Extract CLIP features using (output is `data/coco/oscar_split_ViT-B_32_train.pkl`):
+
+#Training
+Extract CLIP features using:
 ```
-python parse_coco.py --clip_model_type ViT-B/32
+python embeddings_generator.py -h
 ```
 Train with fine-tuning of GPT2:
 ```
@@ -118,11 +94,8 @@ python parse_coco.py --clip_model_type RN50x4
 python train.py --only_prefix --data ./data/coco/oscar_split_RN50x4_train.pkl --out_dir ./coco_train/ --mapping_type transformer  --num_layres 8 --prefix_length 40 --prefix_length_clip 40 --is_rn
 ```
 
-## Flickr7kStyle training
-
-Download the .TSV train/val files from [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/download) and place them under <data_root> directory.
-
-Similarly to the COCO training, you can train a transformer mapping network, and / or parse the images using a ResNet-based CLIP. 
+# Evaluation
+TBD upload pycocoeval here
 
 ## Citation
 If you use this code for your research, please cite:
