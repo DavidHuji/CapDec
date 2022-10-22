@@ -1,21 +1,13 @@
-# CapDec: zero-shot image captioning.
-
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
-Inference Notebook: <a href="https://colab.research.google.com/drive/1tuoAC5F4sC7qid56Z0ap-stR3rwdk0ZV?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>  
+# CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP
 
 
-
-
-
-## Official implementation for the paper ["CapDec"](TBD add link)
-
-
-
+## Official implementation for the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](TBD add link) (EMNLP 2022).
 
 ## Description  
-We consider the task of image-captioning using only the CLIP model and additional text data at training time, and no additional captioned images. Our approach relies on the fact that CLIP is trained to make visual and textual embeddings similar. Therefore, we only need to learn how to translate CLIP textual embeddings back into text, and we can learn how to do this by learning a decoder for the CLIP text encoder using only text. We argue that this intuition is “almost correct” because of a gap between the embedding spaces, and propose to rectify this via noise injection during training. We demonstrate the effectiveness of our approach by showing SOTA zero-shot image captioning across four benchmarks, including style transfer.
+As shown in the paper, CapDec achieves SOTA image-captioning in the setting of training without even a single image.
+This is the formal repository for CapDec, in which you can easily reproduce the papers results.
 
-## COCO Examples TBD exchange captions with yours
+## COCO Examples - TBD 
 
 <table>
   <tr>
@@ -44,7 +36,7 @@ We consider the task of image-captioning using only the CLIP model and additiona
  </table>
 
 
-## FlickrStyle7k Examples TBD
+## FlickrStyle7k Examples - TBD
 
 <table>
   <tr>
@@ -73,21 +65,13 @@ We consider the task of image-captioning using only the CLIP model and additiona
  </table>
 
 
-## Inference Notebooks
+## Inference Notebooks - TBD
 To help visualize the results we provide a Colab notebook found in `notebooks/clip_prefix_captioning_inference.ipynb`.   
 The notebook will download the pretrained models and run inference on a sample images or 
 on images of your choosing. It is recommended to run this in [Google Colab](https://colab.research.google.com/drive/1tuoAC5F4sC7qid56Z0ap-stR3rwdk0ZV?usp=sharing).
 Inference notebook for the **transformer mapping network (without fine-tune GPT-2)** can be found [here](https://colab.research.google.com/drive/180L3rMFmGujudwO1EJNF-lHIpAsAZ5xq?usp=sharing) for the COCO model (also in `notebooks/transformer_inference.ipynb`).
 
-
-
 Both [COCO](https://drive.google.com/file/d/1IdaBtMSvtyzF0ByVaBHtvM0JYSXRExRX/view?usp=sharing) and [Conceptual Captions](https://drive.google.com/file/d/14pXWwB4Zm82rsDdvbGguLfx9F8aM7ovT/view?usp=sharing) pretrained models are available for mlp mapping network. For the transformer (without fine-tuning GPT-2) we provide [COCO](https://drive.google.com/file/d/1GYPToCqFREwi285wPLhuVExlz7DDUDfJ/view?usp=sharing) pretrained model.
-
-
-
-## Inference GUI
-1. Run it [in the browser](https://replicate.ai/rmokady/clip_prefix_caption) using replicate.ai UI.
-2. Integrated to [Huggingface Spaces](https://huggingface.co/spaces) with [Gradio](https://github.com/gradio-app/gradio). See demo: [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/akhaliq/CLIP_prefix_captioning) (currently not supporting beam search)
 
 
 ## Training prerequisites
@@ -129,43 +113,27 @@ python parse_coco.py --clip_model_type RN50x4
 python train.py --only_prefix --data ./data/coco/oscar_split_RN50x4_train.pkl --out_dir ./coco_train/ --mapping_type transformer  --num_layres 8 --prefix_length 40 --prefix_length_clip 40 --is_rn
 ```
 
-## Conceptual training
+## Flickr7kStyle training
 
 Download the .TSV train/val files from [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/download) and place them under <data_root> directory.
 
-Download the images and extract CLIP features using (outputs are `<data_root>/conceptual_clip_ViT-B_32_train.pkl` and  `<data_root>/conceptual_clip_ViT-B_32_val.pkl`):
-```
-python parse_conceptual.py --clip_model_type ViT-B/32 --data_root <data_root> --num_threads 16
-```
-Notice, downloading the images might take a few days.
-
-Train with fine-tuning of GPT2:
-```
-python train.py --data <data_root>/conceptual_clip_ViT-B_32_train.pkl --out_dir ./conceptual_train/
-```
 Similarly to the COCO training, you can train a transformer mapping network, and / or parse the images using a ResNet-based CLIP. 
 
 ## Citation
 If you use this code for your research, please cite:
 ```
 TBD
-@article{mokady2021clipcap,
-  title={ClipCap: CLIP Prefix for Image Captioning},
-  author={Mokady, Ron and Hertz, Amir and Bermano, Amit H},
-  journal={arXiv preprint arXiv:2111.09734},
+@article{,
+  title={},
+  author={},
+  journal={},
   year={2021}
 }
 ```
 
-
-
-
 ## Acknowledgments
-This repository is heavily based on [CLIP](https://github.com/openai/CLIP) and [Hugging-faces](https://github.com/huggingface/transformers) repositories.
-For training we used the data of [COCO dataset](https://cocodataset.org/#home), Flickr and style.
-Mention ClipCap repo here - TBD.
+This repository is based on [CLIP](https://github.com/openai/CLIP), [ClipCap](https://github.com/rmokady/CLIP_prefix_caption) and [pycocotools](https://github.com/sks3i/pycocoevalcap) repositories.
+
 
 ## Contact
-For any inquiry please feel free to contact me at: nukraidavid@mail.tau.ac.il.
-
-
+For any issue please feel free to contact me at: nukraidavid@mail.tau.ac.il.
