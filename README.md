@@ -70,8 +70,7 @@ We upload the trained weights that we used for creating Fig.3 in the paper.
 [Here](link to weights in drive TBD) are the trained weight of 9 different noise levels. 
 You can download it if you do not want to wait for training.
 
-# Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times.
-##(Bonus - Was NOT presented at the paper - )
+# Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times (Bonus - Was NOT presented at the paper - )
 Cool application of CapDec is to create captions in style of specific corpus that was not even in the form of captions.
 Ideally, any given text can be used to train CapDec's decoder to decode CLIP embeddings. It enables to eliminate the need to have any sort of captions textual data. Moreover, it enables to create captioning model that is in the specific style of the given text.
 for that, we can first pretrain with images as regular ClipCap, then we fine tune as in CapDec with text only when the text data is a combination of half COCO captions and half sentences from the open text (HP or News) sentences in length between 4 to 20 words.
