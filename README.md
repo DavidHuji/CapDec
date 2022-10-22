@@ -42,13 +42,7 @@ This is the formal repository for CapDec, in which you can easily reproduce the 
 
 
 ## Inference Notebooks - TBD
-To help visualize the results we provide a Colab notebook found in `notebooks/clip_prefix_captioning_inference.ipynb`.   
-The notebook will download the pretrained models and run inference on a sample images or 
-on images of your choosing. It is recommended to run this in [Google Colab](https://colab.research.google.com/drive/1tuoAC5F4sC7qid56Z0ap-stR3rwdk0ZV?usp=sharing).
-Inference notebook for the **transformer mapping network (without fine-tune GPT-2)** can be found [here](https://colab.research.google.com/drive/180L3rMFmGujudwO1EJNF-lHIpAsAZ5xq?usp=sharing) for the COCO model (also in `notebooks/transformer_inference.ipynb`).
-
-Both [COCO](https://drive.google.com/file/d/1IdaBtMSvtyzF0ByVaBHtvM0JYSXRExRX/view?usp=sharing) and [Conceptual Captions](https://drive.google.com/file/d/14pXWwB4Zm82rsDdvbGguLfx9F8aM7ovT/view?usp=sharing) pretrained models are available for mlp mapping network. For the transformer (without fine-tuning GPT-2) we provide [COCO](https://drive.google.com/file/d/1GYPToCqFREwi285wPLhuVExlz7DDUDfJ/view?usp=sharing) pretrained model.
-
+TBD
 
 ## Training prerequisites
 
@@ -96,6 +90,16 @@ python train.py --only_prefix --data ./data/coco/oscar_split_RN50x4_train.pkl --
 
 # Evaluation
 TBD upload pycocoeval here
+
+# Bonus - Was NOT presented at the paper - Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Texts, or The New York Times.
+Cool application of CapDec is to create captions in style of specific corpus that was not even in the form of captions.
+Ideally, any given text can be used to train CapDec's decoder to decode CLIP embeddings. It enables to eliminate the need to have any sort of captions textual data. Moreover, it enables to create captioning model that is in the specific style of the given text.
+for that, we can first pretrain with images as regular ClipCap, then we fine tune as in CapDec with text only when the text data is a combination of half COCO captions and half sentences from the open text (HP or News) sentences in length between 4 to 20 words.
+Here are there a [few nice examples of results.](https://docs.google.com/presentation/d/19WGSbKZKy-Xd3QG4bIR7-zb5t-d_2xkRistgGz0Ykfs/edit#slide=id.gfdad7eec26_0_80)
+
+In order to reproduce that, all you need is to create sentences out of the open text, save them in the right format as the json we have for COCO and then repeat the steps mentioned above for training.
+For that you can use the attached script at others/hp_to_coco_format.py.
+Although you can use any sort of text for that, you can download the data we used, from the following links: [Harry Potter](https://www.kaggle.com/datasets/balabaskar/harry-potter-books-corpora-part-1-7), [Shakespeare](https://www.kaggle.com/datasets/kingburrito666/shakespeare-plays), [News](https://www.kaggle.com/datasets/sbhatti/news-articles-corpus)
 
 ## Citation
 If you use this code for your research, please cite:
