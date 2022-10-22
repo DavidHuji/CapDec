@@ -91,6 +91,11 @@ python train.py --only_prefix --data ./data/coco/oscar_split_RN50x4_train.pkl --
 # Evaluation
 TBD upload pycocoeval here
 
+# Pre Trained Models
+We upload the trained weights that we used for creating Fig.3 in the paper.
+[Here](link to weights in drive TBD) are the trained weight of 9 different noise levels. 
+You can download it if you do not want to wait for training.
+
 # Bonus - Was NOT presented at the paper - Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times.
 Cool application of CapDec is to create captions in style of specific corpus that was not even in the form of captions.
 Ideally, any given text can be used to train CapDec's decoder to decode CLIP embeddings. It enables to eliminate the need to have any sort of captions textual data. Moreover, it enables to create captioning model that is in the specific style of the given text.
@@ -100,6 +105,7 @@ Here are there a [few nice examples of results.](https://docs.google.com/present
 In order to reproduce that, all you need is to create sentences out of the open text, save them in the right format as the json we have for COCO and then repeat the steps mentioned above for training.
 For that you can use the attached script at others/hp_to_coco_format.py.
 Although you can use any sort of text for that, you can download the data we used, from the following links: [Harry Potter](https://www.kaggle.com/datasets/balabaskar/harry-potter-books-corpora-part-1-7), [Shakespeare](https://www.kaggle.com/datasets/kingburrito666/shakespeare-plays), [News](https://www.kaggle.com/datasets/sbhatti/news-articles-corpus)
+You can see an example of the correct format for training at others/parssed_sheikspir_alllines_111k.json
 
 ## Citation
 If you use this code for your research, please cite:
