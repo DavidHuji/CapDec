@@ -4,6 +4,9 @@
 ## Official implementation for the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](TBD add link) (EMNLP 2022).
 
 ## Description  
+IMPORTANT NOTE: The repo is NOT yet ready. It will be ready in a few days hopefully with a few running examples.
+If you still want to use it, please feel free to consult with me in the email below. 
+
 As shown in the paper, CapDec achieves SOTA image-captioning in the setting of training without even a single image.
 This is the formal repository for CapDec, in which you can easily reproduce the papers results.
 

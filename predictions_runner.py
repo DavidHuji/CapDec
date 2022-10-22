@@ -13,7 +13,7 @@ import argparse, pickle
 from gpt2_prefix_eval import generate_beam, generate2, imshow, get_prefix_tokens
 from torchvision import transforms
 import os.path
-import time
+
 
 def count_ready_parphrased_embeddings(embeddings_dict):
     ready = 0
@@ -57,6 +57,7 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
                                                embeddings_dict[img_id][j][1], ord=2) / (shape_pref_clip ** 0.5))
 
         if combs == 5 * 4 / 2:
+            # todo note that for l2 you should devide by sqrt(dim) rather than dim! for fix use *sqrt(sim)) later
             distances.append(dist / (shape_pref * combs))
             distances_l2.append(dist_l2 / (shape_pref * combs))
             distances_clip.append(dist_clip / (shape_pref_clip * combs))
@@ -176,11 +177,10 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
         images_root = '../myprivate_coco/train2014'
     elif dataset_mode != 5:
         print("Wrong data mode")
-        exit(3)
+        exit(1)
 
-    #modality_bridger
     if args.modality_bridger:
-        from supervised_embedding_bridger import get_map_to_text_space_using_modality_bridger
+        from others.supervised_embedding_bridger import get_map_to_text_space_using_modality_bridger
         map_to_text_space_using_modality_bridger = get_map_to_text_space_using_modality_bridger()
 
     embeddings = model.gpt.get_input_embeddings().weight.data

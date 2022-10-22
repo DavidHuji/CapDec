@@ -138,7 +138,7 @@ class MappingNetwork(nn.Module):
 
 class ClipCaptionModel(nn.Module):
 
-    #@functools.lru_cache #FIXME
+    #@functools.lru_cache
     def get_dummy_token(self, batch_size: int, device: D) -> T:
         return torch.zeros(batch_size, self.prefix_length, dtype=torch.int64, device=device)
 
