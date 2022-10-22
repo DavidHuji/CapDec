@@ -49,9 +49,9 @@ TBD
 [comment]: <> (Dependencies can be found at the [Inference notebook]&#40;https://colab.research.google.com/drive/1tuoAC5F4sC7qid56Z0ap-stR3rwdk0ZV?usp=sharing&#41; )
 Clone, create environment and install dependencies:  
 ```
-git clone https://github.com/rmokady/CLIP_prefix_caption && cd CLIP_prefix_caption
-conda env create -f environment.yml
-conda activate clip_prefix_caption
+git clone https://github.com/DavidHuji/CapDec && cd CapDec
+conda env create -f others/environment.yml
+conda activate CapDec
 ```
 
 ## Download Data
@@ -91,7 +91,7 @@ python train.py --only_prefix --data ./data/coco/oscar_split_RN50x4_train.pkl --
 # Evaluation
 TBD upload pycocoeval here
 
-# Bonus - Was NOT presented at the paper - Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Texts, or The New York Times.
+# Bonus - Was NOT presented at the paper - Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times.
 Cool application of CapDec is to create captions in style of specific corpus that was not even in the form of captions.
 Ideally, any given text can be used to train CapDec's decoder to decode CLIP embeddings. It enables to eliminate the need to have any sort of captions textual data. Moreover, it enables to create captioning model that is in the specific style of the given text.
 for that, we can first pretrain with images as regular ClipCap, then we fine tune as in CapDec with text only when the text data is a combination of half COCO captions and half sentences from the open text (HP or News) sentences in length between 4 to 20 words.
