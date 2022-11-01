@@ -12,6 +12,7 @@ As shown in the paper, CapDec achieves SOTA image-captioning in the setting of t
 This is the formal repository for CapDec, in which you can easily reproduce the papers results.
 
 ## FlickrStyle7k Examples
+Example for styled captions of CapDec on FlickrStyle10K dataset. 
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/examples.png)
 
 
@@ -28,38 +29,26 @@ conda env create -f others/environment.yml
 conda activate CapDec
 ```
 
-## Download Data
-###COCO: Download [train_captions](https://drive.google.com/file/d/1D3EzUK1d1lNhD2hAvRiKPThidiVbP2K_/view?usp=sharing) to `data/coco/annotations`.
-
-Download [training images](http://images.cocodataset.org/zips/train2014.zip) and [validation images](http://images.cocodataset.org/zips/val2014.zip) and unzip (We use Karpathy et el. split).
-### Flickr
-TBD
-### Flickr7KStyle
-TBD
+# Datasets
+1. Download the datasets using the following links: [COCO](https://www.kaggle.com/datasets/shtvkumar/karpathy-splits), [Flickr30K](https://www.kaggle.com/datasets/shtvkumar/karpathy-splits), [FlickrStyle10k](https://zhegan27.github.io/Papers/FlickrStyle_v0.9.zip).
+2. Parse the data to the correct format using our script parse_karpathy.py, just make sure to edit head the json paths inside the script.
 
 
 #Training
-Extract CLIP features using:
+Make sure to edit head the json or pkl paths inside the scripts.
+1. Extract CLIP features using the following script:
 ```
 python embeddings_generator.py -h
 ```
-Train with fine-tuning of GPT2:
+
+2. Training the model using the following script:
 ```
-python train.py --data ./data/coco/oscar_split_ViT-B_32_train.pkl --out_dir ./coco_train/
+python train.py --data clip_embeddings_of_last_stage.pkl --out_dir ./coco_train/
 ```
 
-Train only transformer mapping network:
+**There are a few interesting configurable parameters for training as follows:** 
 ```
-python train.py --only_prefix --data ./data/coco/oscar_split_ViT-B_32_train.pkl --out_dir ./coco_train/ --mapping_type transformer  --num_layres 8 --prefix_length 40 --prefix_length_clip 40
-```
-
-**If you wish to use ResNet-based CLIP:** 
-
-```
-python parse_coco.py --clip_model_type RN50x4
-```
-```
-python train.py --only_prefix --data ./data/coco/oscar_split_RN50x4_train.pkl --out_dir ./coco_train/ --mapping_type transformer  --num_layres 8 --prefix_length 40 --prefix_length_clip 40 --is_rn
+output of train.py -h
 ```
 
 # Evaluation
