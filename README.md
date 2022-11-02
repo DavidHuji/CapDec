@@ -29,7 +29,7 @@ conda activate CapDec
 2. Parse the data to the correct format using our script parse_karpathy.py, just make sure to edit head the json paths inside the script.
 
 
-#Training
+# Training
 Make sure to edit head the json or pkl paths inside the scripts.
 1. Extract CLIP features using the following script:
 ```
