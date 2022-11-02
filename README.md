@@ -4,7 +4,7 @@ As shown in the paper, CapDec achieves SOTA image-captioning in the setting of t
 This is the formal repository for CapDec, in which you can easily reproduce the papers results.
 
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png)
-
+ 
 
 ## FlickrStyle7k Examples
 Examples for styled captions of CapDec on FlickrStyle10K dataset:
