@@ -1,7 +1,7 @@
 # CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP
 
 
-## Official implementation for the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](TBD add link) (EMNLP 2022).
+## Official implementation for the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575) (EMNLP 2022).
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/fig1.png)
 
 ## Description  
