@@ -2,7 +2,7 @@
 
 
 ## Official implementation for the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575), EMNLP 2022 (findings).
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/fig1.png)
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png)
 
 ## Description  
 IMPORTANT NOTE: The repo is NOT yet ready. It will be ready in a few days hopefully with a few running examples.
@@ -13,7 +13,7 @@ This is the formal repository for CapDec, in which you can easily reproduce the 
 
 ## FlickrStyle7k Examples
 Example for styled captions of CapDec on FlickrStyle10K dataset. 
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/examples.png)
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/examples.png)
 
 
 ## Inference Notebooks - TBD
@@ -91,6 +91,11 @@ In order to reproduce that, all you need is to create sentences out of the open 
 For that you can use the attached script at others/hp_to_coco_format.py.
 Although you can use any sort of text for that, you can download the data we used, from the following links: [Harry Potter](https://www.kaggle.com/datasets/balabaskar/harry-potter-books-corpora-part-1-7), [Shakespeare](https://www.kaggle.com/datasets/kingburrito666/shakespeare-plays), [News](https://www.kaggle.com/datasets/sbhatti/news-articles-corpus)
 You can see an example of the correct format for training at others/parssed_sheikspir_alllines_111k.json
+
+Here are a few examples of the results of training on the Harry Potter books, Shakespeare plays, and news articles:
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent1.png)
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent2.png)
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent3.png)
 
 ## Citation
 If you use this code for your research, please cite:
