@@ -1,18 +1,14 @@
 # CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP
 
 
-## Official implementation for the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575), EMNLP 2022 (findings).
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png)
-
-## Description  
-IMPORTANT NOTE: The repo is NOT yet ready. It will be ready in a few days hopefully with a few running examples.
-If you still want to use it, please feel free to consult with me in the email below. 
-
+## Official implementation of the paper ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575), EMNLP 2022 (findings).
 As shown in the paper, CapDec achieves SOTA image-captioning in the setting of training without even a single image.
 This is the formal repository for CapDec, in which you can easily reproduce the papers results.
+![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png)
+
 
 ## FlickrStyle7k Examples
-Example for styled captions of CapDec on FlickrStyle10K dataset. 
+Examples for styled captions of CapDec on FlickrStyle10K dataset:
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/examples.png)
 
 
@@ -43,7 +39,7 @@ python embeddings_generator.py -h
 
 2. Training the model using the following script:
 ```
-python train.py --data clip_embeddings_of_last_stage.pkl --out_dir ./coco_train/
+python train.py --data clip_embeddings_of_last_stage.pkl --out_dir ./coco_train/ --noise_variance 0.016
 ```
 
 **There are a few interesting configurable parameters for training as follows. 
