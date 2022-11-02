@@ -72,9 +72,9 @@ optional arguments:
 For evaluation, we used a repository that adapts the [COCO evaluation script](https://github.com/tylin/coco-caption) to python 3 [here](https://github.com/sks3i/pycocoevalcap).
 
 # Pre Trained Models
-We upload the trained weights that we used for creating Fig.3 in the paper.
-[Here](link to weights in drive TBD) are the trained weight of 9 different noise levels. 
-You can download it if you do not want to wait for training.
+We upload the trained weights that we used for creating Fig.3 in the paper, so you can download it if you do not want to wait for training.
+[Here](https://drive.google.com/drive/folders/13VHl-eD87hoD4R_EBFKOG5z6P7geULid?usp=sharing) are the trained weight of 9 different noise levels. 
+
 
 # Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times (was NOT presented at the paper).
 Cool application of CapDec is to create captions in style of specific corpus that was not even in the form of captions.
