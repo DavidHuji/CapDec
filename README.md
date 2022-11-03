@@ -11,7 +11,7 @@ Examples for styled captions of CapDec on FlickrStyle10K dataset:
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/examples.png)
 
 
-## Inference Notebooks - TBD
+## Inference Notebooks
 TBD
 
 ## Training prerequisites
@@ -77,10 +77,7 @@ We upload the trained weights that we used for creating Fig.3 in the paper, so y
 
 
 # Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times (was NOT presented at the paper).
-Cool application of CapDec is to create captions in style of specific corpus that was not even in the form of captions.
-Ideally, any given text can be used to train CapDec's decoder to decode CLIP embeddings. It enables to eliminate the need to have any sort of captions textual data. Moreover, it enables to create captioning model that is in the specific style of the given text.
-for that, we can first pretrain with images as regular ClipCap, then we fine tune as in CapDec with text only when the text data is a combination of half COCO captions and half sentences from the open text (HP or News) sentences in length between 4 to 20 words.
-Here are there a [few nice examples of results.](https://docs.google.com/presentation/d/19WGSbKZKy-Xd3QG4bIR7-zb5t-d_2xkRistgGz0Ykfs/edit#slide=id.gfdad7eec26_0_80)
+A cool application of CapDec is to create captions in the style of a specific corpus that was not even in the form of captions. Ideally, any given text can be used to train CapDec's decoder to decode CLIP embeddings. It enables the elimination of the need to have any sort of captions textual data. Moreover, it enables captioning model that is in the specific style of the given text. for that, we can first pre-train with images as regular ClipCap, then we fine-tune as in CapDec with text only when the text data is a combination of half COCO captions and half sentences from the open text (HP or News) sentences in length between 4 to 20 words.
 
 In order to reproduce that, all you need is to create sentences out of the open text, save them in the right format as the json we have for COCO and then repeat the steps mentioned above for training.
 For that you can use the attached script at others/hp_to_coco_format.py.
