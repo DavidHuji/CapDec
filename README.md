@@ -69,7 +69,11 @@ optional arguments:
 ```
 
 # Evaluation
-For evaluation, we used a repository that adapts the [COCO evaluation script](https://github.com/tylin/coco-caption) to python 3 [here](https://github.com/sks3i/pycocoevalcap).
+For evaluation, we used a repository that adapts the [COCO evaluation script](https://github.com/tylin/coco-caption) to python 3 [here](https://github.com/sks3i/pycocoevalcap). \
+In order to evaluate the model, you need to first generate the captions using the following command (just edit the images_root path inside in order to direct it to the right ground truth annotations).
+```
+python predictions_runner.py  --checkpoint path_to_checkpoints.pt --dataset_mode 0 
+```
 
 # Pre Trained Models
 We upload the trained weights that we used for creating Fig.3 in the paper, so you can download it if you do not want to wait for training.
