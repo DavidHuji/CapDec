@@ -3,7 +3,8 @@ Inference Notebook (a few different models): <a href="https://colab.research.goo
 # ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575), EMNLP 2022 (findings).
 ## Official implementation of the paper 
 As shown in the paper, CapDec achieves SOTA image-captioning in the setting of training without even a single image.
-This is the formal repository for CapDec, in which you can easily reproduce the papers results.
+This is the formal repository for CapDec, in which you can easily reproduce the papers results. 
+You can also play with our [inference notebook]("https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing") to see how the model works, and try it on your OWN images with different CapDec-based models.
 
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png)
  
