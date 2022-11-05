@@ -1,5 +1,4 @@
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>  
-Inference Notebook: <a href="https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>
+Inference Notebook (a few different models): <a href="https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>
 
 # ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575), EMNLP 2022 (findings).
 ## Official implementation of the paper 
