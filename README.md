@@ -96,7 +96,6 @@ In principle, CapDec could be useful for creating captions that are fairer by fi
 
 In order to examine this idea we implemented text-data bias editing for gender terms. You can use it by adding the flag --fix_gender_imbalance_mode when you run the script of embeddings_generator.py. It has three modes: 0 - no fixing, 1 for both genders, 2 for men only, 3 for women only. For example when running: python embeddings_generator.py --fix_gender_imbalance_mode 2 any gender term of male will be exchanged with a probability of 0.5 to a female term, resulting in more balanced data (in COCO there are much more male captions than a woman as shown by ['woman also snowboard 2018'](https://arxiv.org/abs/1803.09797)).
 
-
 ## Citation
 If you use this code for your research, please cite:
 ```
