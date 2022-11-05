@@ -91,6 +91,17 @@ Here are a few examples of the results of training on the Harry Potter books, Sh
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent2.png)
 ![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent3.png)
 
+# Fairness.
+In principle, CapDec could be useful for creating captions that are more fair by fixing biases in the data. 
+For example, we can de-bias the textual data by changing gender terms. That trick is possible only in our setting of text-only training (i.e. image editing is much more complex than text editing). 
+More generally, any sort of bias in the data could be manipulated in the data by simple text editing.
+
+In order to examine this idea we implemented text-data's bias editing for gender terms.
+You can use it by adding the flag --fix_gender_imbalance_mode when you run the script of embeddings_generator.py.
+It has three modes: 0 - no fixing, 1 for both genders, 2 for man only, 3 for woman only.
+For example when running:```python embeddings_generator.py --fix_gender_imbalance_mode 2``` any gender term of male will be exchanged with a probability of 0.5 to a female term, resulting in a more balanced data (in COCO there are much more male captions than woman as shown by 'woman also snow board 2018').
+
+
 ## Citation
 If you use this code for your research, please cite:
 ```
