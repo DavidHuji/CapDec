@@ -100,12 +100,11 @@ In order to examine this idea we implemented text-data bias editing for gender t
 ## Citation
 If you use this code for your research, please cite:
 ```
-TBD
-@article{,
-  title={},
-  author={},
-  journal={},
-  year={2021}
+@article{nukrai2022text,
+  title={Text-Only Training for Image Captioning using Noise-Injected CLIP},
+  author={Nukrai, David and Mokady, Ron and Globerson, Amir},
+  journal={arXiv preprint arXiv:2211.00575},
+  year={2022}
 }
 ```
 

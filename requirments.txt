@@ -1,0 +1,13 @@
+clip==0.2.0
+clip_anytorch==2.5.0
+matplotlib==3.3.3
+numpy==1.23.4
+Pillow==9.3.0
+pycocotools==2.0.5
+scikit_image==0.19.3
+skimage==0.0
+torch==1.13.0
+torchvision==0.14.0
+tqdm==4.64.1
+transformers==4.24.0
+wandb==0.13.5
