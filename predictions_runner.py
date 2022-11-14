@@ -431,7 +431,7 @@ def main():
     parser.add_argument('--dont_normalize_prefix', dest='dont_normalize_prefix', action='store_true', default=False)
     parser.add_argument('--text_autoencoder', dest='text_autoencoder', action='store_true', default=False)
     parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
-    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true', default=False)
+    parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true', default=False)  # need to use dataset_mode=5 to use only text
     parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true', default=False)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--num_layers', type=int, default=8)
