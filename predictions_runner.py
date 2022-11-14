@@ -443,7 +443,6 @@ def main():
     if args.text_autoencoder:
         args.dataset_mode = 5
     data = load_data(dataset_mode=args.dataset_mode)
-
     name = args.checkpoint.split("/")[-1].split(".")[0] + ('add_modality_offset' if args.add_modality_offset else '')
     checkpoint_dir = '/'.join(args.checkpoint.split("/")[:-1])
     out_path = f"{checkpoint_dir}/{name}.json" if (args.out == '') else args.out
