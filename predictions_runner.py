@@ -246,7 +246,7 @@ def make_preds(data, model: ClipCaptionModel, out_path, tokenizer, dataset_mode,
             ablation_image_dist_stat['counter'] += 1
             ablation_image_dist_stat['L2'] += l2_dist_img_txt
 
-        if args.ablation_dist_review:  # this is for the review
+        if args.ablation_dist:  # this is for the review
             if count_ready_parphrased_embeddings(prefix_for_distance_ablation_metric) >= 900:
                 calc_distances_of_ready_embeddings(prefix_for_distance_ablation_metric)
 
@@ -433,7 +433,6 @@ def main():
     parser.add_argument('--add_modality_offset', dest='add_modality_offset', action='store_true', default=False)
     parser.add_argument('--ablation_dist', dest='ablation_dist', action='store_true', default=False)
     parser.add_argument('--ablation_image_dist', dest='ablation_image_dist', action='store_true', default=False)
-    parser.add_argument('--ablation_dist_review', dest='ablation_dist_review', action='store_true', default=False)
     parser.add_argument('--prefix_length', type=int, default=40)
     parser.add_argument('--num_layers', type=int, default=8)
     parser.add_argument('--prefix_length_clip', type=int, default=40)
