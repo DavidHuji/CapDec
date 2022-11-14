@@ -89,7 +89,7 @@ def calc_distances_of_ready_embeddings(embeddings_dict, out_file='embeddings_dis
     if out_file is not None:
         import pickle
         with open(out_file, 'wb') as f:
-            pickle.dump(({"distances_clip": distances_clip, "distances_l2_clip": distances_l2_clip}), f)
+            pickle.dump(({"distances_clip": distances_clip, "distances_l2_clip": distances_l2_clip, "max_distances_l1": max_distances_l1}), f)
         print(f"Saved distances to {out_file} and finished")
         exit(0)
     return distances, distances_l2, distances_clip, distances_l2_clip, data_size
