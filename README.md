@@ -11,6 +11,7 @@ You can also play with our [inference notebook]("https://colab.research.google.c
 
 ## FlickrStyle7k Examples
 Examples for styled captions of CapDec on FlickrStyle10K dataset:
+
 <img src="https://github.com/DavidHuji/CapDec/blob/main/figures/examples.png" width=50% height=50%>
 
 ## Training prerequisites
