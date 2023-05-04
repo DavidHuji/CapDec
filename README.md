@@ -6,8 +6,8 @@ As shown in the paper, CapDec achieves SOTA image-captioning in the setting of t
 This is the formal repository for CapDec, in which you can easily reproduce the papers results. 
 You can also play with our [inference notebook]("https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing") to see how the model works, and try it on your OWN images with different CapDec-based models.
 
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png)
- 
+<img src="https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png" width=70% height=70%>
+
 
 ## FlickrStyle7k Examples
 Examples for styled captions of CapDec on FlickrStyle10K dataset:
@@ -88,9 +88,9 @@ Although you can use any sort of text for that, you can download the data we use
 You can see an example of the correct format for training at others/parssed_sheikspir_alllines_111k.json
 
 Here are a few examples of the results of training on the Harry Potter books, Shakespeare plays, and news articles:
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent1.png)
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent2.png)
-![alt text](https://github.com/DavidHuji/CapDec/blob/main/figures/opent3.png)
+<img src="https://github.com/DavidHuji/CapDec/blob/main/figures/opent1.png" width=50% height=50%>
+<img src="https://github.com/DavidHuji/CapDec/blob/main/figures/opent2.png" width=50% height=50%>
+<img src="https://github.com/DavidHuji/CapDec/blob/main/figures/opent3.png" width=50% height=50%>
 
 # Fairness.
 In principle, CapDec could be useful for creating captions that are fairer by fixing biases in the data. For example, we can de-bias the textual data by changing gender terms. That trick is possible only in our setting of text-only training (i.e. image editing is much more complex than text editing). More generally, any sort of bias in the data could be manipulated in the data by simple text editing.
