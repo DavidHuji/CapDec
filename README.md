@@ -4,7 +4,7 @@ Inference Notebook (a few different models): <a href="https://colab.research.goo
 ## Official implementation of the paper 
 As shown in the paper, CapDec achieves SOTA image-captioning in the setting of training without even a single image.
 This is the formal repository for CapDec, in which you can easily reproduce the papers results. 
-You can also play with our [inference notebook]("https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing") to see how the model works, and try it on your OWN images with different CapDec-based models.
+You can also play with our [inference notebook]("https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing") <a href="https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a> to see how the model works, and try it on your OWN images with different CapDec-based models.
 
 <img src="https://github.com/DavidHuji/CapDec/blob/main/figures/fig1.png" width=70% height=70%>
 
