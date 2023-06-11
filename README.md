@@ -1,6 +1,6 @@
 Inference Notebook (a few different models): <a href="https://colab.research.google.com/drive/1Jgj0uaALtile2iyqlN1r72UYRe9SZw-H?usp=sharing"><img src="https://colab.research.google.com/assets/colab-badge.svg" height=20></a>
 
-["Link to YouTube Presentation"]("https://www.youtube.com/watch?v=UG7Q50J6m74")
+## [Link to YouTube Presentation](https://www.youtube.com/watch?v=UG7Q50J6m74)
 
 # ["CapDec: Text-Only Training for Image Captioning using Noise-Injected CLIP"](https://arxiv.org/abs/2211.00575), EMNLP 2022 (findings).
 ## Official implementation of the paper 
