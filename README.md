@@ -79,7 +79,7 @@ python predictions_runner.py  --checkpoint path_to_checkpoints.pt --dataset_mode
 
 # Pre Trained Models
 We upload the trained weights that we used for creating Fig.3 in the paper, so you can download it if you do not want to wait for training.
-[Here](https://drive.google.com/drive/folders/13VHl-eD87hoD4R_EBFKOG5z6P7geULid?usp=sharing) are the trained weight of 9 different noise levels. 
+[Here](https://drive.google.com/drive/folders/17axuxZ90uRD3-ohhXBhXvQJf1R6kolVw?usp=sharing) are the trained weights of 9 different noise levels. 
 
 
 # Open Text Training - Training on any corpus as Harry Potter Books, Shakespeare Plays, or The New York Times (was NOT presented at the paper).
