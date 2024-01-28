@@ -121,5 +121,6 @@ For any issue please feel free to contact me at: nukraidavid@mail.tau.ac.il.
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=capdec/capdec,DavidHuji/CapDec&type=Date)](https://star-history.com/#capdec/capdec&DavidHuji/CapDec&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=DavidHuji/CapDec&type=Date)](https://star-history.com/#DavidHuji/CapDec&Date)
+
 
